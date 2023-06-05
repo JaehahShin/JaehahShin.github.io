@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jahah's Webpage</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #000;
+        }
+        
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            border-bottom: 1px solid #fff;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul li {
+            margin: 0 10px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .hero {
+            background-color: #000;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid #fff;
+            border-bottom: 1px solid #fff;
+            flex-direction: column;
+        }
+        
+        .hero h1 {
+            font-size: 36px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 0;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #fff;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .content-item {
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .content-item h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .content-item p {
+            color: #666;
+        }
+        
+        .about-me {
+            padding: 40px 20px;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        
+        .about-me h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .about-me p {
+            margin-bottom: 20px;
+        }
+        
+        .contact-section {
+            padding: 40px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+        
+        .contact-section h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .contact-section p {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="#content">Content</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="hero">
+        <h1>Jaehah Shin</h1>
+        <p>2nd Year Engineering Science Student @ University of Toronto</p>
+        <p>Feel free to explore my website and get in touch!</p>
+    </div>
+    
+    <section id="about" class="about-me">
+        <h2>About Me</h2>
+        <p> Click to see more about me!</p>
+        <div class="link-container">
+            <a href="about.html">About Me</a>
+        </div>
+    </section>
+    
+    <section id="contact" class="contact-section">
+        <h2>Contact</h2>
+        <p>Get in touch with me for any inquiries or collaborations.</p>
+        <div class="link-container">
+            <a href="contact.html">Contact</a>
+        </div>
+    </section>
+    
+    <section id="content" class="content">
+        <div class="content-item">
+            <h2>Summer Research</h2>
+            <a href="Summer Research.pdf" target="_blank">Click To View Summer Research</a>
+            <p>This content will be updated regularly. Check back for more updates.</p>
+        </div>
+        <div class="content-item">
+            <h2>My Resume</h2>
+            <a href="Jaehah Shin Resume.pdf" target="_blank">Click To View my Resume</a>
+            <p>This content will be updated regularly. Check back for more updates.</p>
+        </div>
+        <div class="content-item">
+            <h2>Q-News</h2>
+            <a href="q_news-2.pdf" target="_blank">Click To View Q-News</a>
+            <p>This is quantum-related news that I wrote based on the research paper for UTQC.</p>
+        </div>
+        <div class="content-item">
+            <h2>PHY 180 Lab Report</h2>
+            <a href="PHY 180 Final Lab.pdf" target="_blank">Click To View Lab Report</a>
+            <p>I wrote this pendulum lab report in the first year of Engineering Science for PHY 180.</p>
+        </div>
+        <div class="content-item">
+            <h2>Engineering Portfolio</h2>
+            <a href="Jaehah_Shin Engineering Portfolio and handbook.pdf" target="_blank">Click To View Portfolio</a>
+            <p>This content will be updated regularly. Check back for more updates.</p>
+        </div>
+    </section>
+</body>
+</html>
+
+
+
