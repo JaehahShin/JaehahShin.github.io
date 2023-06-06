@@ -60,6 +60,25 @@
             transform: scale(1.2);
         }
     </style>
+    <script>
+        // I would like to disable right click on my webpage
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        // Also, I would like to disable the copy and paste function from my website
+        document.addEventListener('copy', function(event) {
+            event.preventDefault();
+        });
+        document.addEventListener('paste', function(event) {
+            event.preventDefault();
+        });
+        document.addEventListener('DOMContentLoaded', function(){
+            var pdfLink = document.getElementById('pdf-link');
+
+            pdfLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                alert('PDF download is disabled.');
+            });
+        });
+    </script>
 </head>
 <body>
     <section class="contact">
