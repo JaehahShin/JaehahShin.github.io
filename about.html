@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Me</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: #ffcc00;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        p.description {
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        li {
+            margin-top: 10px;
+        }
+        
+        a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: #fff;
+        }
+    </style>
+    <script>
+        // I would like to disable right click on my webpage
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        // Also, I would like to disable the copy and paste function from my website
+        document.addEventListener('copy', function(event) {
+            event.preventDefault();
+        });
+        document.addEventListener('paste', function(event) {
+            event.preventDefault();
+        });
+        document.addEventListener('DOMContentLoaded', function(){
+            var pdfLink = document.getElementById('pdf-link');
+
+            pdfLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                alert('PDF download is disabled.');
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>About Me</h2>
+    <p> Hello! I am Jaehah Shin!</p>
+    <a href="my_interest.html"><p><strong>Personal Interest</strong></p></a>
+    <p><strong>University:</strong> University of Toronto</p>
+    <p><strong>Campus:</strong> St. George</p>
+    <p><strong>Program:</strong> Engineering Science</p>
+    <p><strong>Year:</strong> 2nd Year</p>
+    <p class="description"> Click below to learn more about my major.</p>
+    <p><a href="https://engsci.utoronto.ca/program/what-is-engsci/" target="_blank">What is EngSci?</a></p>
+</body>
+</html>
