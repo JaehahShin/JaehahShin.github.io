@@ -1,93 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-        }
-        
-        .contact {
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .contact h2 {
-            font-size: 36px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            color: #ffcc00;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-        }
-        
-        .contact ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .contact li {
-            margin-top: 10px;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .contact a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            margin-left: 10px;
-            transition: color 0.3s ease;
-        }
-        
-        .contact a:hover {
-            color: #ffcc00;
-        }
-        
-        .contact img {
-            width: 35px;
-            height: 35px;
-            margin-left: 5px;
-            transition: transform 0.3s ease;
-        }
-        
-        .contact a:hover img {
-            transform: scale(1.2);
-        }
-    </style>
-    <script>
-        // I would like to disable right click on my webpage
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        // Also, I would like to disable the copy and paste function from my website
-        document.addEventListener('copy', function(event) {
-            event.preventDefault();
-        });
-        document.addEventListener('paste', function(event) {
-            event.preventDefault();
-        });
-        document.addEventListener('DOMContentLoaded', function(){
-            var pdfLink = document.getElementById('pdf-link');
-
-            pdfLink.addEventListener('click', function(event) {
-                event.preventDefault();
-                alert('PDF download is disabled.');
-            });
-        });
-    </script>
 </head>
 <body>
-    <section class="contact">
-        <h2>Contact</h2>
-        <ul>
-            <li><strong>Email:</strong> <a href="mailto:jaehah.shin@mail.utoronto.ca" target="_blank">jaehah.shin@mail.utoronto.ca</a></li>
-            <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jaehah-shin-473309248/" target="_blank"><img src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg" alt="LinkedIn"/></a></li>
-            <li><strong>Github:</strong> <a href="https://github.com/JahahShin" target="_blank"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub"/></a></li>
-        </ul>
-    </section>
+    <h2>Contact</h2>
+    <p>If you want to reach out to me, you can contact me via email or check out my profiles on LinkedIn and GitHub.</p>
+    <ul>
+        <li><strong>Email:</strong> <a href="mailto:jaehah.shin@mail.utoronto.ca">jaehah.shin@mail.utoronto.ca</a></li>
+        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jaehah-shin-473309248/" target="_blank">LinkedIn Profile</a></li>
+        <li><strong>Github:</strong> <a href="https://github.com/JahahShin" target="_blank">GitHub Profile</a></li>
+    </ul>
 </body>
 </html>
