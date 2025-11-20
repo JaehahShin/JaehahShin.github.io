@@ -1,68 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHFWCNC90P"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CHFWCNC90P');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
+    <title>About Me | Jaehah Shin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
+
+        :root {
+            /* Everforest Theme */
+            --bg-color: #2b3339;       
+            --text-color: #d3c6aa;     
+            --comment-color: #859289;  
+            
+            /* Accents */
+            --user-color: #a7c080;     /* Sage Green */
+            --host-color: #7fbbb3;     /* Teal */
+            --path-color: #d699b6;     /* Mauve */
+            --cmd-color: #dbbc7f;      /* Yellow */
+            --error-color: #e67e80;    /* Red */
+            
+            --link-color: #a7c080;
+            --link-hover: #e67e80;
+            --block-bg: #323c41;
+            
+            --font-stack: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+            --font-header: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            margin: 0;
+            padding: 50px 20px;
+            line-height: 1.6;
+            font-size: 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px; /* Slightly wider for Neofetch art */
+            margin: 0 auto;
+            padding-bottom: 120px;
+        }
+
+        /* Header */
+        .main-header {
+            font-family: var(--font-header);
+            font-size: 46px;
+            font-weight: 700;
+            color: #e69875;
+            margin: 0 0 5px 0;
+            letter-spacing: -1px;
+        }
+        .sub-header {
+            font-family: var(--font-header);
+            color: var(--comment-color);
+            font-size: 18px;
+            margin: 0 0 50px 0;
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--comment-color);
+            transition: all 0.2s ease-in-out;
+        }
+        a:hover {
+            color: var(--bg-color);
+            background-color: var(--link-hover);
+            border-bottom: 1px solid var(--link-hover);
+            border-radius: 2px;
+        }
+        strong { color: var(--cmd-color); font-weight: bold; }
+
+        /* Prompt Logic */
+        .prompt-line {
+            margin-top: 40px; 
+            margin-bottom: 8px; 
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .p-user { color: var(--user-color); font-weight: bold; }
+        .p-host { color: var(--host-color); font-weight: bold; }
+        .p-path { color: var(--path-color); margin-left: 5px; }
+        .p-symbol { color: var(--comment-color); margin: 0 10px; }
+        .cmd { color: var(--cmd-color); font-weight: bold; }
+
+        .output {
+            color: var(--text-color);
+            margin-left: 0;
+            white-space: normal;
+            padding-left: 2px;
+        }
+
+        /* ASCII / Neofetch Block */
+        .neofetch-block {
+            background: var(--block-bg);
+            padding: 20px;
+            border-radius: 6px;
+            font-size: 13px; /* Smaller font for ASCII */
+            font-family: var(--font-stack);
+            overflow-x: auto; /* Scrolls if screen is too small */
+            white-space: pre; /* Keeps ASCII spacing */
+            color: #d3c6aa;
+            border-left: 4px solid var(--host-color);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .logo-art { color: var(--user-color); font-weight: bold; }
+        .info-lbl { color: var(--cmd-color); font-weight: bold; }
+
+        #terminal-input {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            font-size: 16px;
+            outline: none;
+            flex-grow: 1;
+            min-width: 50px;
+        }
+        
+        footer {
+            margin-top: 60px; 
+            border-top: 1px dashed var(--comment-color); 
+            padding-top: 20px; 
+            font-size: 13px; 
+            color: var(--comment-color);
+            font-family: var(--font-header);
+        }
+
+        @media (max-width: 600px) {
+            .main-header { font-size: 36px; }
+            .prompt-line { margin-top: 30px; }
+            body { padding: 20px 15px; }
+            .neofetch-block { font-size: 10px; } /* Tiny font for mobile */
+        }
+    </style>
 </head>
 <body>
-    <h2>About Me</h2>
-    <p>South Korean, Christian, Embedded System Enjoyer, Love to watch & play Baseball, Wearable Enjoyer, love robotics</p>
-    <p> I’m a big fan of the Samsung Lions in the KBO (Korean Baseball Organization) <br>
-    Also, I love thinkpad! I am currently using <a href ="https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_P15v_Gen_3_Intel/ThinkPad_P15v_Gen_3_Intel_Spec.pdf" target="_blank"> ThinkPad P15v Gen 3 Intel (15”) </a> which is great so far. <br>
-    I am running two different OS on my laptop. One is Windows 11, and the other is Ubuntu 22.04. (I recently changed from 20.04 and upgraded ram to 32gb!- 2024.12.12)</p> 
-    <pre> 
 
-            .-/+oossssoo+/-.               jha@jha-ThinkPad-P15v-Gen-3 
-        `:+ssssssssssssssssss+:`           --------------------------- 
-      -+ssssssssssssssssssyyssss+-         OS: Ubuntu 22.04.5 LTS x86_64 
-    .ossssssssssssssssssdMMMNysssso.       Host: 21D8S0SU00 ThinkPad P15v Gen 3 
-   /ssssssssssshdmmNNmmyNMMMMhssssss/      Kernel: 6.8.0-49-generic 
-  +ssssssssshmydMMMMMMMNddddyssssssss+     Uptime: 8 days, 16 hours, 44 mins 
- /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/    Packages: 3088 (dpkg), 24 (snap) 
-.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Shell: bash 5.1.16 
-+sssshhhyNMMNyssssssssssssyNMMMysssssss+   Resolution: 3840x2160 
-ossyNMMMNyMMhsssssssssssssshmmmhssssssso   DE: GNOME 
-ossyNMMMNyMMhsssssssssssssshmmmhssssssso   WM: Mutter 
-+sssshhhyNMMNyssssssssssssyNMMMysssssss+   WM Theme: Adwaita 
-.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Theme: Yaru-blue-dark [GTK2/3] 
- /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/    Icons: Yaru-blue [GTK2/3] 
-  +sssssssssdmydMMMMMMMMddddyssssssss+     Terminal: gnome-terminal 
-   /ssssssssssshdmNNNNmyNMMMMhssssss/      CPU: 12th Gen Intel i7-12800H (20) @ 
-    .ossssssssssssssssssdMMMNysssso.       GPU: NVIDIA RTX A2000 Mobile 
-      -+sssssssssssssssssyyyssss+-         GPU: Intel Alder Lake-P 
-        `:+ssssssssssssssssss+:`           Memory: 6989MiB / 31758MiB 
-            .-/+oossssoo+/-.
-                                                                   
-                                                                   
-                                                                 
-    </pre>
-    <pre>
-      lllllllllllllll   lllllllllllllll  shinj@JAHAH
-      lllllllllllllll   lllllllllllllll  -----------
-      lllllllllllllll   lllllllllllllll  OS: Windows 11 Pro [64-bit]
-      lllllllllllllll   lllllllllllllll  Host: LENOVO 21D8S0SU00
-      lllllllllllllll   lllllllllllllll  Kernel: 10.0.22631.0
-      lllllllllllllll   lllllllllllllll  Motherboard: LENOVO 21D8S0SU00
-      lllllllllllllll   lllllllllllllll  Uptime: N/A
-                                         Packages: -1 (choco), 1 (scoop)
-      lllllllllllllll   lllllllllllllll  Shell: PowerShell v5.1.22621.3880
-      lllllllllllllll   lllllllllllllll  Resolution: 1536x864
-      lllllllllllllll   lllllllllllllll  Terminal: Windows Console
-      lllllllllllllll   lllllllllllllll  CPU: 12th Gen Intel(R) Core(TM) i7-12800H @ 2.803GHz
-      lllllllllllllll   lllllllllllllll  GPU: Intel(R) UHD Graphics
-      lllllllllllllll   lllllllllllllll  GPU: NVIDIA RTX A2000 Laptop GPU
-      lllllllllllllll   lllllllllllllll  Memory: 11.44 GiB / 15.67 GiB (72%)
-                                         Disk (C:): 159 GiB / 474 GiB (33%)
-    </pre>                                                           
-                                                               
-    <h4>More information on my major:</h4>
-    In Engineering Science, all students take the same courses in the 1st and 2nd years. Then, in the third year, we choose our major and focus on that major. 
-    <p><a href="https://engsci.utoronto.ca/program/what-is-engsci/" target="_blank">What is EngSci?</a> <br>
-    <p><a href="https://engsci.utoronto.ca/program/majors/robotics-engineering/" target="_blank">Robotics Engineering</a><br>
-<p><a href="index.html" >Back to Main Page</a></p>
-<footer>
-            <p>&copy; 2025 jaehah shin's website</p>
-        </footer>
+<div class="container">
+
+    <h1 class="main-header">About Me</h1>
+    <div class="sub-header">Profile Configuration & System Specs</div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/profile</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat bio.txt</span>
+    </div>
+    <div class="output">
+        South Korean, Christian, Embedded System Enjoyer, Robotics Enthusiast.<br>
+        I love to watch & play Baseball. I’m a big fan of the <strong>Samsung Lions</strong> in the KBO (Korean Baseball Organization).
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/profile</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat hardware_specs.md</span>
+    </div>
+    <div class="output">
+        I love ThinkPad! I am currently using a <a href ="https://psref.lenovo.com/syspool/Sys/PDF/ThinkPad/ThinkPad_P15v_Gen_3_Intel/ThinkPad_P15v_Gen_3_Intel_Spec.pdf" target="_blank">ThinkPad P15v Gen 3 Intel (15”)</a> which is great so far.<br>
+        I am running dual OS on my laptop: <strong>Windows 11</strong> and <strong>Ubuntu 22.04</strong>.<br>
+        <span style="color: var(--comment-color);">(Note: I recently upgraded from 20.04 and upgraded RAM to 32GB! - 2024.12.12)</span>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
+        <span class="cmd">neofetch --os ubuntu</span>
+    </div>
+    <div class="neofetch-block">
+<span class="logo-art">            .-/+oossssoo+/-.</span>               jha@jha-ThinkPad-P15v-Gen-3 
+<span class="logo-art">        `:+ssssssssssssssssss+:`</span>           --------------------------- 
+<span class="logo-art">      -+ssssssssssssssssssyyssss+-</span>         <span class="info-lbl">OS:</span> Ubuntu 22.04.5 LTS x86_64 
+<span class="logo-art">    .ossssssssssssssssssdMMMNysssso.</span>       <span class="info-lbl">Host:</span> 21D8S0SU00 ThinkPad P15v Gen 3 
+<span class="logo-art">   /ssssssssssshdmmNNmmyNMMMMhssssss/</span>      <span class="info-lbl">Kernel:</span> 6.8.0-49-generic 
+<span class="logo-art">  +ssssssssshmydMMMMMMMNddddyssssssss+</span>     <span class="info-lbl">Uptime:</span> 8 days, 16 hours, 44 mins 
+<span class="logo-art"> /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/</span>    <span class="info-lbl">Packages:</span> 3088 (dpkg), 24 (snap) 
+<span class="logo-art">.ssssssssdMMMNhsssssssssshNMMMdssssssss.</span>   <span class="info-lbl">Shell:</span> bash 5.1.16 
+<span class="logo-art">+sssshhhyNMMNyssssssssssssyNMMMysssssss+</span>   <span class="info-lbl">Resolution:</span> 3840x2160 
+<span class="logo-art">ossyNMMMNyMMhsssssssssssssshmmmhssssssso</span>   <span class="info-lbl">DE:</span> GNOME 
+<span class="logo-art">ossyNMMMNyMMhsssssssssssssshmmmhssssssso</span>   <span class="info-lbl">WM:</span> Mutter 
+<span class="logo-art">+sssshhhyNMMNyssssssssssssyNMMMysssssss+</span>   <span class="info-lbl">WM Theme:</span> Adwaita 
+<span class="logo-art">.ssssssssdMMMNhsssssssssshNMMMdssssssss.</span>   <span class="info-lbl">Theme:</span> Yaru-blue-dark [GTK2/3] 
+<span class="logo-art"> /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/</span>    <span class="info-lbl">Icons:</span> Yaru-blue [GTK2/3] 
+<span class="logo-art">  +sssssssssdmydMMMMMMMMddddyssssssss+</span>     <span class="info-lbl">Terminal:</span> gnome-terminal 
+<span class="logo-art">   /ssssssssssshdmNNNNmyNMMMMhssssss/</span>      <span class="info-lbl">CPU:</span> 12th Gen Intel i7-12800H (20) 
+<span class="logo-art">    .ossssssssssssssssssdMMMNysssso.</span>       <span class="info-lbl">GPU:</span> NVIDIA RTX A2000 Mobile 
+<span class="logo-art">      -+sssssssssssssssssyyyssss+-</span>         <span class="info-lbl">GPU:</span> Intel Alder Lake-P 
+<span class="logo-art">        `:+ssssssssssssssssss+:`</span>           <span class="info-lbl">Memory:</span> 6989MiB / 31758MiB 
+<span class="logo-art">            .-/+oossssoo+/-.</span>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
+        <span class="cmd">neofetch --os windows</span>
+    </div>
+    <div class="neofetch-block">
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    shinj@JAHAH
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    -----------
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">OS:</span> Windows 11 Pro [64-bit]
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">Host:</span> LENOVO 21D8S0SU00
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">Kernel:</span> 10.0.22631.0
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">Motherboard:</span> LENOVO 21D8S0SU00
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">Uptime:</span> N/A
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">Packages:</span> -1 (choco), 1 (scoop)
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">Shell:</span> PowerShell v5.1.22621
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">Resolution:</span> 1536x864
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">Terminal:</span> Windows Console
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">CPU:</span> 12th Gen Intel i7-12800H
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">GPU:</span> Intel(R) UHD Graphics
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">GPU:</span> NVIDIA RTX A2000 Laptop GPU
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">Memory:</span> 11.44 GiB / 15.67 GiB
+<span class="logo-art">      lllllllllllllll   lllllllllllllll</span>    <span class="info-lbl">Disk (C:):</span> 159 GiB / 474 GiB
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/education</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat major_details.md</span>
+    </div>
+    <div class="output">
+        <h4>Engineering Science (EngSci)</h4>
+        In Engineering Science, all students take the same courses in the 1st and 2nd years. Then, in the third year, we choose our major and focus on that major.<br>
+        <ul>
+            <li><a href="https://engsci.utoronto.ca/program/what-is-engsci/" target="_blank">What is EngSci?</a></li>
+            <li><a href="https://engsci.utoronto.ca/program/majors/robotics-engineering/" target="_blank">Robotics Engineering Major</a></li>
+        </ul>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
+        <span class="cmd">cd ..</span>
+    </div>
+    <div class="output">
+        <a href="index.html">>> Return to Main System (Home)</a>
+    </div>
+
+    <div id="dynamic-terminal"></div>
+    
+    <div class="prompt-line">
+        <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path" id="current-path-display">~/profile</span><span class="p-symbol">➜</span>
+        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type help...">
+    </div>
+
+    <footer>
+        &copy; 2025 jaehah shin's system
+    </footer>
+
+</div>
+
+<script>
+    // Interactive Logic
+    const input = document.getElementById('terminal-input');
+    const terminalDiv = document.getElementById('dynamic-terminal');
+    const pathDisplay = document.getElementById('current-path-display');
+    let currentPath = "~/profile";
+
+    function sanitize(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    input.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            const rawInput = input.value;
+            const safeInput = sanitize(rawInput);
+            const cmd = safeInput.trim().toLowerCase().split(" ")[0];
+            
+            const promptHTML = `<div class="prompt-line">
+                <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">${currentPath}</span><span class="p-symbol">➜</span>
+                <span class="cmd">${safeInput}</span>
+            </div>`;
+            
+            terminalDiv.insertAdjacentHTML('beforeend', promptHTML);
+
+            let outputText = "";
+            
+            if (cmd === 'ls') {
+                outputText = "bio.txt  hardware_specs.md  major_details.md  neofetch_log.txt";
+            } else if (cmd === 'cd') {
+                const arg = safeInput.trim().split(" ")[1];
+                if (arg === '..' || arg === '../..') {
+                    window.location.href = "index.html";
+                    outputText = "Navigating...";
+                } else {
+                    outputText = "cd: permission denied (limited shell)";
+                }
+            } else if (cmd === 'neofetch') {
+                outputText = "Please use 'neofetch --os ubuntu' or 'windows' (see above)";
+            } else if (cmd === 'help') {
+                outputText = "Available commands: ls, cd .., clear";
+            } else if (cmd === 'clear') {
+                terminalDiv.innerHTML = "";
+            } else if (cmd !== "") {
+                outputText = `command not found: ${cmd}`;
+            }
+
+            if (cmd !== 'clear' && outputText) {
+                terminalDiv.insertAdjacentHTML('beforeend', `<div class="output">${outputText}</div>`);
+            }
+            
+            input.value = "";
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    });
+</script>
+
 </body>
 </html>
