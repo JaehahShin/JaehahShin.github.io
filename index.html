@@ -16,21 +16,21 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
 
         :root {
-            /* Everforest Theme - Soft, Low Contrast, Nature-inspired */
-            --bg-color: #2b3339;       /* Soft Charcoal Green */
-            --text-color: #d3c6aa;     /* Warm Beige (Much softer than white) */
-            --comment-color: #859289;  /* Muted Moss Grey */
+            /* Everforest Theme */
+            --bg-color: #2b3339;
+            --text-color: #d3c6aa;
+            --comment-color: #859289;
             
-            /* Soft Accents */
+            /* Accents */
             --user-color: #a7c080;     /* Sage Green */
-            --host-color: #7fbbb3;     /* Soft Teal */
-            --path-color: #d699b6;     /* Muted Mauve */
-            --cmd-color: #dbbc7f;      /* Warm Yellow */
+            --host-color: #7fbbb3;     /* Teal */
+            --path-color: #d699b6;     /* Mauve */
+            --cmd-color: #dbbc7f;      /* Yellow */
             
-            --link-color: #a7c080;     /* Sage Green for links */
-            --link-hover: #e67e80;     /* Soft Salmon for hover */
+            --link-color: #a7c080;
+            --link-hover: #e67e80;
             
-            --block-bg: #323c41;       /* Slightly lighter panel background */
+            --block-bg: #323c41;
             
             --font-stack: 'Consolas', 'Monaco', 'Andale Mono', monospace;
             --font-header: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -53,12 +53,12 @@
             padding-bottom: 100px;
         }
 
-        /* Header Styling */
+        /* Header */
         .main-header {
             font-family: var(--font-header);
             font-size: 46px;
             font-weight: 700;
-            color: #e69875; /* Soft Terracotta Orange */
+            color: #e69875;
             margin: 0 0 5px 0;
             letter-spacing: -1px;
         }
@@ -70,7 +70,6 @@
             font-weight: 600;
         }
 
-        /* Typography & Links */
         a {
             color: var(--link-color);
             text-decoration: none;
@@ -85,7 +84,7 @@
         }
         strong { color: var(--cmd-color); font-weight: bold; }
 
-        /* The Prompt Line */
+        /* Prompt Logic */
         .prompt-line {
             margin-top: 40px; 
             margin-bottom: 8px; 
@@ -94,13 +93,11 @@
             align-items: center;
         }
         .p-user { color: var(--user-color); font-weight: bold; }
-        .p-at { color: var(--comment-color); margin: 0 2px; }
         .p-host { color: var(--host-color); font-weight: bold; }
         .p-path { color: var(--path-color); margin-left: 5px; }
         .p-symbol { color: var(--comment-color); margin: 0 10px; }
         .cmd { color: var(--cmd-color); font-weight: bold; }
 
-        /* The Output Block */
         .output {
             color: var(--text-color);
             margin-left: 0;
@@ -108,7 +105,6 @@
             padding-left: 2px;
         }
 
-        /* Specific Layouts */
         .file-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -116,7 +112,6 @@
         }
         .file-item::before { content: "-> "; color: var(--comment-color); font-size: 0.8em;}
 
-        /* Code/Logic Block */
         .code-block {
             background: var(--block-bg);
             padding: 20px;
@@ -128,7 +123,6 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* Input Area */
         #terminal-input {
             background: transparent;
             border: none;
@@ -140,7 +134,6 @@
             min-width: 50px;
         }
         
-        /* Footer */
         footer {
             margin-top: 60px; 
             border-top: 1px dashed var(--comment-color); 
@@ -150,7 +143,6 @@
             font-family: var(--font-header);
         }
 
-        /* Mobile */
         @media (max-width: 600px) {
             .main-header { font-size: 36px; }
             .prompt-line { margin-top: 30px; }
@@ -173,19 +165,6 @@
         I'm <strong>Jaehah Shin</strong> (신재하 / 辛在河).<br>
         I have finished 3rd Year in <a href="https://engsci.utoronto.ca/program/what-is-engsci/" target="_blank">Engineering Science</a> (Robotics Major) at UofT.<br>
         Currently on my <a href="https://discover.engineering.utoronto.ca/experiential-learning/professional-experience-year-pey/" target="_blank">Professional Experience Year (PEY)</a>.
-        <br><br>
-        <span style="color: var(--comment-color);">// Life Goals:</span><br>
-        1. Publish a book that contains all my thoughts.<br>
-        2. Write a movie script based on my experiences.
-    </div>
-
-    <div class="prompt-line">
-        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
-        <span class="cmd">cat fun_fact.txt</span>
-    </div>
-    <div class="output">
-        Fun fact: the screenwriter (각본가) of <em>Little Forest</em> asked to use my name, <strong>재하</strong> (jaeha or jaehah), in the movie because he knew me from church. 
-        <a href="https://en.wikipedia.org/wiki/Little_Forest_(film)" target="_blank">Wikipedia Link</a>.
     </div>
 
     <div class="prompt-line">
@@ -201,41 +180,6 @@
             <div class="file-item"><a href="baseball.html">Baseball_Stats_2025.py</a></div>
             <div class="file-item"><a href="jaehah_shin-resume.pdf" target="_blank">Resume.pdf</a>*</div>
             <div class="file-item"><a href="Jaehah_Shin_CV.pdf" target="_blank">CV.pdf</a>*</div>
-        </div>
-    </div>
-
-    <div class="prompt-line">
-        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/work/current</span><span class="p-symbol">➜</span>
-        <span class="cmd">cat status.md</span>
-    </div>
-    <div class="output">
-        <strong>[FOCUS]</strong> Embedded Systems, RTOS, and Sensors.<br>
-        <strong>[LAB]</strong> Working at <a href="https://franklinresearch.ca" target="_blank">FRL Lab</a> (University of Toronto).
-    </div>
-
-    <div class="prompt-line">
-        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
-        <span class="cmd">cat education_history.txt</span>
-    </div>
-    <div class="output">
-        <div>Kindergarten: <a href="https://www.yookyoung.org/site/main/main.jsp" target="_blank">육영재단 어린이회관</a></div>
-        <div>Kindergarten: <a href="https://yjs.sen.es.kr" target="_blank">서울양진초등학교 병설 유치원</a></div>
-        <div>Elementary School: <a href="https://ymc.sen.es.kr" target="_blank">서울용마초등학교</a></div>
-        <div>Middle School: <a href="https://gwangnam.sen.ms.kr" target="_blank">서울광남중학교</a></div>
-        <div>Middle School: <a href="https://www.cornerstoneschool.ca" target="_blank">Cornerstone Christian School</a></div>
-        <div>High School: <a href="https://yale.abbyschools.ca" target="_blank">Yale Secondary School</a></div>
-    </div>
-
-    <div class="prompt-line">
-        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/work/previous</span><span class="p-symbol">➜</span>
-        <span class="cmd">ls -1</span>
-    </div>
-    <div class="output">
-        <div class="file-grid">
-            <div class="file-item">Co-founder: <a href="https://uoft-wearable.github.io/" target="_blank">UofT Wearable</a></div>
-            <div class="file-item">Project: Wearable ECG Sensor</div>
-            <div class="file-item">Doc: <a href="https://docs.google.com/spreadsheets/d/1vWvYRwWPGiC7rGlBTJhrCUMRYlu4yh-qTEteQ--eZvo/edit?usp=sharing">MCU Database List</a></div>
-            <div class="file-item">Doc: <a href="QC.html">Self-Learning Quantum</a></div>
         </div>
     </div>
 
@@ -263,8 +207,8 @@
     <div id="dynamic-terminal"></div>
     
     <div class="prompt-line">
-        <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
-        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type help for commands...">
+        <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path" id="current-path-display">~</span><span class="p-symbol">➜</span>
+        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type help...">
     </div>
 
     <footer>
@@ -274,85 +218,216 @@
 </div>
 
 <script>
+    // --- 1. Virtual File System Structure ---
+    const fileSystem = {
+        "~": {
+            type: "dir",
+            children: {
+                "about.html": { type: "file", content: "Link to About Me page" },
+                "resume.pdf": { type: "file", content: "Binary file" },
+                "cv.pdf": { type: "file", content: "Binary file" },
+                "fun_fact.txt": { type: "file", content: "The screenwriter of Little Forest used my name!" },
+                "contact.html": { type: "file", content: "Contact form link" },
+                "links": {
+                    type: "dir",
+                    children: {
+                        "courses.csv": { type: "file" },
+                        "thought.txt": { type: "file" },
+                        "baseball.py": { type: "file" }
+                    }
+                },
+                "work": {
+                    type: "dir",
+                    children: {
+                        "current": {
+                            type: "dir",
+                            children: {
+                                "status.md": { type: "file", content: "Focus: Embedded Systems & Sensors @ FRL Lab" }
+                            }
+                        },
+                        "previous": {
+                            type: "dir",
+                            children: {
+                                "uoft_wearable": { type: "dir", children: {} },
+                                "ecg_sensor": { type: "file" },
+                                "mcu_db.csv": { type: "file" },
+                                "quantum_learning": { type: "file" }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    // --- 2. State Management ---
+    let currentPathArr = ["~"]; // We start at Home
     const input = document.getElementById('terminal-input');
     const terminalDiv = document.getElementById('dynamic-terminal');
-    let currentPath = "~";
+    const pathDisplay = document.getElementById('current-path-display');
 
+    // --- 3. Helper Functions ---
+    
+    // Sanitize Input (Prevent Injection)
+    function sanitize(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    // Get current directory object based on currentPathArr
+    function getCurrentDirObj() {
+        let current = fileSystem["~"];
+        for (let i = 1; i < currentPathArr.length; i++) {
+            const folderName = currentPathArr[i];
+            if (current.children && current.children[folderName]) {
+                current = current.children[folderName];
+            } else {
+                return null; // Error path not found
+            }
+        }
+        return current;
+    }
+
+    // Update the visual path prompt
+    function updatePathDisplay() {
+        let pathStr = currentPathArr.join("/");
+        if (pathStr.startsWith("~/")) {
+            pathStr = "~/" + pathStr.substring(2); // Ensure standard format
+        }
+        pathDisplay.innerText = pathStr;
+    }
+
+    // --- 4. Command Logic ---
     input.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
-            const rawCommand = input.value;
-            const command = rawCommand.trim();
-            const args = command.split(' ');
+            const rawInput = input.value;
+            const safeInput = sanitize(rawInput); // Secure the input
+            const trimmed = safeInput.trim();
+            const args = trimmed.split(/\s+/); // Split by spaces
             const cmd = args[0].toLowerCase();
             
+            // Render User Command to History
             const promptHTML = `<div class="prompt-line">
-                <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">${currentPath}</span><span class="p-symbol">➜</span>
-                <span class="cmd">${rawCommand}</span>
+                <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">${pathDisplay.innerText}</span><span class="p-symbol">➜</span>
+                <span class="cmd">${safeInput}</span>
             </div>`;
             
             terminalDiv.insertAdjacentHTML('beforeend', promptHTML);
 
             let outputText = "";
-            
+            const currentDirObj = getCurrentDirObj();
+
+            // --- COMMAND SWITCH ---
             switch(cmd) {
                 case 'help':
-                    outputText = "Available commands: ls, cat, pwd, whoami, date, cd, clear, echo, touch, mkdir, sudo, rm, exit";
+                    outputText = "Available commands: ls, cd, cat, pwd, whoami, clear, date, echo, exit";
                     break;
+
                 case 'ls':
                 case 'll':
-                    outputText = "about.html  resume.pdf  cv.pdf  contact.html  projects/  secrets.txt";
+                    if (currentDirObj && currentDirObj.children) {
+                        // List keys in current directory
+                        const items = Object.keys(currentDirObj.children);
+                        if (items.length === 0) {
+                            outputText = "(empty directory)";
+                        } else {
+                            // Format output: Directories get a slash
+                            const formatted = items.map(item => {
+                                const isDir = currentDirObj.children[item].type === 'dir';
+                                return isDir ? `<span style="color:#89b4fa">${item}/</span>` : item;
+                            });
+                            outputText = formatted.join("  ");
+                        }
+                    } else {
+                        outputText = "Error: Cannot list files here.";
+                    }
                     break;
+
+                case 'cd':
+                    const target = args[1];
+                    if (!target || target === "~") {
+                        currentPathArr = ["~"];
+                    } else if (target === "..") {
+                        if (currentPathArr.length > 1) {
+                            currentPathArr.pop();
+                        }
+                    } else {
+                        // Handle complex paths (e.g. work/current)
+                        const parts = target.split("/");
+                        let tempPath = [...currentPathArr];
+                        let valid = true;
+                        let tempObj = getCurrentDirObj();
+
+                        for (let part of parts) {
+                            if (part === "." || part === "") continue;
+                            if (part === "..") {
+                                if (tempPath.length > 1) tempPath.pop();
+                                // Update tempObj reference
+                                // (This simplistic logic rebuilds obj from root for safety)
+                                let rebuildObj = fileSystem["~"];
+                                for(let i=1; i<tempPath.length; i++) rebuildObj = rebuildObj.children[tempPath[i]];
+                                tempObj = rebuildObj;
+                            } else {
+                                if (tempObj.children && tempObj.children[part] && tempObj.children[part].type === 'dir') {
+                                    tempPath.push(part);
+                                    tempObj = tempObj.children[part];
+                                } else {
+                                    valid = false;
+                                    outputText = `cd: no such file or directory: ${target}`;
+                                    break;
+                                }
+                            }
+                        }
+                        if (valid) currentPathArr = tempPath;
+                    }
+                    updatePathDisplay();
+                    break;
+
                 case 'cat':
-                    if (args[1] === "secrets.txt") outputText = "Permission denied. Ask Jaehah first.";
-                    else if (args[1]) outputText = `cat: ${args[1]}: No such file or directory`;
-                    else outputText = "usage: cat [file]";
+                    if (!args[1]) {
+                        outputText = "usage: cat [filename]";
+                    } else {
+                        const filename = args[1];
+                        if (currentDirObj.children && currentDirObj.children[filename]) {
+                            const file = currentDirObj.children[filename];
+                            if (file.type === 'dir') {
+                                outputText = `cat: ${filename}: Is a directory`;
+                            } else {
+                                // If we have content defined, show it, else generic
+                                outputText = file.content ? file.content : "[Binary or System File]";
+                            }
+                        } else {
+                            outputText = `cat: ${filename}: No such file or directory`;
+                        }
+                    }
                     break;
+
                 case 'pwd':
-                    outputText = `/home/guest${currentPath === "~" ? "" : currentPath.replace("~", "")}`;
+                    outputText = "/home/guest/" + currentPathArr.slice(1).join("/");
                     break;
+                
                 case 'whoami':
-                    outputText = "guest (visiting jaehah's portfolio)";
+                    outputText = "guest";
                     break;
-                case 'date':
-                    outputText = new Date().toString();
+
+                case 'clear':
+                    terminalDiv.innerHTML = "";
+                    outputText = ""; // Don't print anything
                     break;
+
                 case 'echo':
                     outputText = args.slice(1).join(" ");
                     break;
-                case 'cd':
-                    if (!args[1] || args[1] === "~") {
-                        currentPath = "~";
-                    } else if (args[1] === "..") {
-                        currentPath = "~"; 
-                    } else {
-                        currentPath = `~/${args[1].replace(/\/$/, "")}`;
-                    }
-                    outputText = ""; 
-                    break;
-                case 'clear':
-                    terminalDiv.innerHTML = "";
-                    outputText = "";
-                    break;
-                case 'touch':
-                case 'mkdir':
-                    if(args[1]) outputText = `Created '${args[1]}' (virtual only)`;
-                    else outputText = "usage: " + cmd + " [name]";
-                    break;
-                case 'sudo':
-                    outputText = "guest is not in the sudoers file. This incident will be reported.";
-                    break;
-                case 'rm':
-                    outputText = "Permission denied.";
-                    break;
-                case 'exit':
-                    outputText = "Bye!";
-                    break;
+                
                 case '':
-                    break;
+                    break; // Do nothing on empty enter
+
                 default:
-                    outputText = `command not found: ${cmd}`;
+                    outputText = `command not found: ${safeInput}`;
             }
 
+            // Append Output
             if (cmd !== 'clear' && outputText) {
                 terminalDiv.insertAdjacentHTML('beforeend', `<div class="output">${outputText}</div>`);
             }
