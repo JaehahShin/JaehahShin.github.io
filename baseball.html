@@ -1,609 +1,634 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Baseball Performance Dashboard</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<style>
-  :root {
-    --radius: 8px;
-    --shadow: 0 8px 24px rgba(0,0,0,0.08);
-    font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
-  }
-  body { margin:0; background:#f5f7fa; color:#1f2937; }
-  .container { max-width:1200px; margin:0 auto; padding:1rem; }
-  .card { background:#fff; border-radius: var(--radius); padding:1rem 1.25rem; box-shadow: var(--shadow); margin-bottom:1rem; }
-  .flex { display:flex; gap:1rem; flex-wrap: wrap; }
-  .stat { flex:1; min-width:100px; text-align:center; padding:.75rem; border-radius:6px; background:#f0f9ff; }
-  .tabs { display:flex; border-bottom:2px solid #e2e8f0; margin-bottom:1rem; }
-  .tab { padding:10px 16px; cursor:pointer; font-weight:600; border-bottom:3px solid transparent; }
-  .tab.active { color:#2563eb; border-color:#2563eb; }
-  .charts { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-  canvas { background:#fff; border-radius:6px; }
-  .badge { display:inline-block; padding:4px 8px; border-radius:999px; font-size:10px; font-weight:600; }
-  .quality-Excellent { background:#d1fae5; color:#065f46; }
-  .quality-Good { background:#dbeafe; color:#1e40af; }
-  .quality-Average { background:#fef3c7; color:#92400e; }
-  .quality-Poor { background:#fee2e2; color:#7f1d1d; }
-  table { width:100%; border-collapse:collapse; font-size:12px; }
-  th, td { padding:6px 8px; border-bottom:1px solid #e2e8f0; text-align:center; }
-  th { background:#f1f5f9; position:sticky; top:0; }
-  .btn { background:#2563eb; color:#fff; padding:8px 14px; border:none; border-radius:6px; cursor:pointer; font-size:12px; }
-  .small { font-size:12px; color:#6b7280; }
-  .legend-inline { display:flex; gap:8px; flex-wrap: wrap; margin-top:4px; }
-  .legend-item { display:flex; align-items:center; gap:4px; font-size:11px; }
-  .circle { width:12px; height:12px; border-radius:50%; display:inline-block; margin-right:4px; }
-</style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHFWCNC90P"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CHFWCNC90P');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseball Stats 2025 | Jaehah Shin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
+
+        :root {
+            /* Everforest Theme */
+            --bg-color: #2b3339;       
+            --text-color: #d3c6aa;     
+            --comment-color: #859289;  
+            
+            /* Accents */
+            --user-color: #a7c080;     /* Sage Green */
+            --host-color: #7fbbb3;     /* Teal */
+            --path-color: #d699b6;     /* Mauve */
+            --cmd-color: #dbbc7f;      /* Yellow */
+            --error-color: #e67e80;    /* Red */
+            
+            --link-color: #a7c080;
+            --link-hover: #e67e80;
+            --block-bg: #323c41;       /* Lighter background for cards */
+            
+            --font-stack: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+            --font-header: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            margin: 0;
+            padding: 50px 20px;
+            line-height: 1.6;
+            font-size: 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px; /* Wider for dashboard */
+            margin: 0 auto;
+            padding-bottom: 120px;
+        }
+
+        /* Header */
+        .main-header {
+            font-family: var(--font-header);
+            font-size: 46px;
+            font-weight: 700;
+            color: #e69875;
+            margin: 0 0 5px 0;
+            letter-spacing: -1px;
+        }
+        .sub-header {
+            font-family: var(--font-header);
+            color: var(--comment-color);
+            font-size: 18px;
+            margin: 0 0 50px 0;
+            font-weight: 600;
+        }
+
+        a { color: var(--link-color); text-decoration: none; border-bottom: 1px dashed var(--comment-color); transition: all 0.2s; }
+        a:hover { color: var(--bg-color); background-color: var(--link-hover); border-bottom: 1px solid var(--link-hover); border-radius: 2px; }
+        strong { color: var(--cmd-color); font-weight: bold; }
+
+        /* Prompt Styles */
+        .prompt-line { margin-top: 40px; margin-bottom: 15px; display: flex; flex-wrap: wrap; align-items: center; }
+        .p-user { color: var(--user-color); font-weight: bold; }
+        .p-host { color: var(--host-color); font-weight: bold; }
+        .p-path { color: var(--path-color); margin-left: 5px; }
+        .p-symbol { color: var(--comment-color); margin: 0 10px; }
+        .cmd { color: var(--cmd-color); font-weight: bold; }
+
+        .output { color: var(--text-color); margin-left: 0; white-space: normal; padding-left: 2px; }
+
+        /* --- DASHBOARD STYLES (Adapted) --- */
+        .dashboard-card {
+            background: var(--block-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #4b565c;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .flex-stats { display:flex; gap:1rem; flex-wrap: wrap; margin-top: 1rem;}
+        .stat-box { 
+            flex:1; min-width:100px; text-align:center; padding:.75rem; 
+            border-radius:6px; background: var(--bg-color); border: 1px solid #4b565c;
+        }
+        .stat-val { font-size:1.25rem; font-weight:700; color: var(--cmd-color); }
+        .stat-lbl { font-size:12px; color: var(--comment-color); }
+
+        .tabs { display:flex; border-bottom: 2px solid #4b565c; margin-bottom:1rem; }
+        .tab { 
+            padding:10px 16px; cursor:pointer; font-weight:600; 
+            color: var(--comment-color); border-bottom: 3px solid transparent; 
+        }
+        .tab:hover { color: var(--text-color); }
+        .tab.active { color: var(--host-color); border-color: var(--host-color); }
+
+        .charts-grid { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; }
+        canvas { background: var(--bg-color); border-radius:6px; border: 1px solid #4b565c; width: 100%; }
+
+        /* Table Styles */
+        table { width:100%; border-collapse:collapse; font-size:14px; color: var(--text-color); }
+        th, td { padding:8px 10px; border-bottom:1px solid #4b565c; text-align:center; }
+        th { background: var(--bg-color); color: var(--host-color); position:sticky; top:0; }
+        
+        .badge { display:inline-block; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:bold; }
+        .q-Excellent { background: #a7c080; color: #2b3339; }
+        .q-Good { background: #7fbbb3; color: #2b3339; }
+        .q-Average { background: #dbbc7f; color: #2b3339; }
+        .q-Poor { background: #e67e80; color: #2b3339; }
+
+        .btn { 
+            background: var(--user-color); color: var(--bg-color); 
+            padding:6px 12px; border:none; border-radius:4px; cursor:pointer; font-weight:bold; 
+        }
+        .btn:hover { opacity: 0.9; }
+
+        #terminal-input {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            font-size: 16px;
+            outline: none;
+            flex-grow: 1;
+            min-width: 50px;
+        }
+        
+        footer {
+            margin-top: 60px; 
+            border-top: 1px dashed var(--comment-color); 
+            padding-top: 20px; 
+            font-size: 13px; 
+            color: var(--comment-color);
+            font-family: var(--font-header);
+        }
+
+        @media (max-width: 700px) {
+            .charts-grid { grid-template-columns: 1fr; }
+            .main-header { font-size: 36px; }
+            .prompt-line { margin-top: 30px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
-        <div>
-          <h1 style="margin:0;">⚾ Baseball Performance Dashboard in 2025 season (Will be updated consistently as more games are played)</h1>
-          <div class="small">Check my stats from this website: <a href="https://www.leaguelineup.com/player_baseball.asp?url=mlbl&playerid=15335918&teamid=7339264" target="_blank">Korea Canada Baseball Softball Association</a></div>
-          <div class="small">Season: May–July 2025 • 6 games</div>
+
+<div class="container">
+
+    <h1 class="main-header">Baseball Stats</h1>
+    <div class="sub-header">Performance Analysis (2025 Season)</div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/links</span><span class="p-symbol">➜</span>
+        <span class="cmd">python3 baseball_stats_2025.py</span>
+    </div>
+    
+    <div class="output">
+        
+        <div class="dashboard-card">
+            <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; border-bottom: 1px solid #4b565c; padding-bottom: 15px;">
+                <div>
+                    <h2 style="margin:0; color: var(--cmd-color);">⚾ 2025 Season Dashboard</h2>
+                    <div style="font-size:13px; color: var(--comment-color); margin-top:5px;">
+                        Data Source: <a href="https://www.leaguelineup.com/player_baseball.asp?url=mlbl&playerid=15335918&teamid=7339264" target="_blank">KCBSA League Lineup</a>
+                    </div>
+                    <div style="font-size:13px; color: var(--comment-color);">Season: May–July 2025 • 6 games played</div>
+                </div>
+                <div>
+                    <button class="btn" id="download-csv">Download .CSV</button>
+                </div>
+            </div>
+
+            <div class="flex-stats">
+                <div class="stat-box"><div class="stat-val" id="stat-avg">.000</div><div class="stat-lbl">AVG</div></div>
+                <div class="stat-box"><div class="stat-val" id="stat-obp">.000</div><div class="stat-lbl">OBP</div></div>
+                <div class="stat-box"><div class="stat-val" id="stat-hits">0</div><div class="stat-lbl">Hits</div></div>
+                <div class="stat-box"><div class="stat-val" id="stat-runs">0</div><div class="stat-lbl">Runs</div></div>
+                <div class="stat-box"><div class="stat-val" id="stat-rbi">0</div><div class="stat-lbl">RBI</div></div>
+                <div class="stat-box"><div class="stat-val" id="stat-sb">0</div><div class="stat-lbl">SB</div></div>
+                <div class="stat-box"><div class="stat-val" id="stat-walkrate">0%</div><div class="stat-lbl">BB%</div></div>
+                <div class="stat-box"><div class="stat-val" id="stat-krate">0%</div><div class="stat-lbl">K%</div></div>
+            </div>
+            
+            <div style="margin-top: 15px; font-size: 13px; color: var(--text-color); background: var(--bg-color); padding: 10px; border-radius: 6px; border: 1px dashed #4b565c;">
+                <strong style="color: var(--host-color)">Insight:</strong> <span id="trend-text">Calculating...</span> | 
+                Best Game: <span id="best-game" style="color: var(--user-color)">-</span> | 
+                Speed: <span id="speed-threat">-</span>
+            </div>
         </div>
-        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-          <button class="btn" id="download-csv">Download CSV</button>
-          <div class="small">Derived: ISO, walk/K%, production rate, rough BABIP proxy.</div>
+
+        <div class="dashboard-card">
+            <div class="tabs">
+                <div class="tab active" data-tab="performance">📊 Performance</div>
+                <div class="tab" data-tab="production">🏃‍♂️ Production</div>
+                <div class="tab" data-tab="discipline">🎯 Discipline</div>
+                <div class="tab" data-tab="gameLog">📋 Game Log</div>
+            </div>
+
+            <div id="tab-performance" class="tab-content">
+                <div class="charts-grid">
+                    <div><canvas id="rateTrend" height="250"></canvas></div>
+                    <div><canvas id="qualityPie" height="250"></canvas></div>
+                    <div><canvas id="oppOPS" height="250"></canvas></div>
+                    <div><canvas id="onBase" height="250"></canvas></div>
+                </div>
+            </div>
+
+            <div id="tab-production" class="tab-content" style="display:none;">
+                <div class="charts-grid">
+                    <div><canvas id="cumulative" height="250"></canvas></div>
+                    <div><canvas id="perGame" height="250"></canvas></div>
+                    <div><canvas id="efficiency" height="250"></canvas></div>
+                </div>
+            </div>
+
+            <div id="tab-discipline" class="tab-content" style="display:none;">
+                <div class="charts-grid">
+                    <div><canvas id="walkK" height="250"></canvas></div>
+                    <div><canvas id="onBaseComp" height="250"></canvas></div>
+                </div>
+            </div>
+
+            <div id="tab-gameLog" class="tab-content" style="display:none;">
+                <div style="overflow-x:auto;">
+                    <table id="gameLogTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th><th>Opp</th><th>AB</th><th>R</th><th>H</th><th>RBI</th><th>BB</th><th>K</th><th>SB</th><th>AVG</th><th>OPS</th><th>Qual</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="flex" style="margin-top:1rem;">
-        <div class="stat"><div style="font-size:1.25rem;font-weight:700;" id="stat-avg">.000</div><div style="font-size:10px;">AVG</div></div>
-        <div class="stat"><div style="font-size:1.25rem;font-weight:700;" id="stat-obp">.000</div><div style="font-size:10px;">OBP</div></div>
-        <div class="stat"><div style="font-size:1.25rem;font-weight:700;" id="stat-hits">0</div><div style="font-size:10px;">Hits</div></div>
-        <div class="stat"><div style="font-size:1.25rem;font-weight:700;" id="stat-runs">0</div><div style="font-size:10px;">Runs</div></div>
-        <div class="stat"><div style="font-size:1.25rem;font-weight:700;" id="stat-rbi">0</div><div style="font-size:10px;">RBI</div></div>
-        <div class="stat"><div style="font-size:1.25rem;font-weight:700;" id="stat-sb">0</div><div style="font-size:10px;">SB</div></div>
-        <div class="stat"><div style="font-size:1.25rem;font-weight:700;" id="stat-walkrate">0%</div><div style="font-size:10px;">BB%</div></div>
-        <div class="stat"><div style="font-size:1.25rem;font-weight:700;" id="stat-krate">0%</div><div style="font-size:10px;">K%</div></div>
-      </div>
+        
+        <div style="font-size:12px; color: var(--comment-color);">
+            > Process finished. Graphs rendered using Canvas API (Custom Everforest Palette).
+        </div>
     </div>
 
-    <div class="card">
-      <div class="flex" style="align-items:center; justify-content:space-between;">
-        <div class="legend-inline">
-          <div class="legend-item"><span class="circle" style="background:#2563eb;"></span>AVG</div>
-          <div class="legend-item"><span class="circle" style="background:#10b981;"></span>OBP</div>
-          <div class="legend-item"><span class="circle" style="background:#f59e0b;"></span>SLG</div>
-          <div class="legend-item"><span class="circle" style="background:#dc2626;"></span>OPS</div>
-          <div class="legend-item"><span class="circle" style="border:2px dashed #1d4ed8; background:#fff;"></span>AVG 3-game</div>
-        </div>
-        <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <div class="small">Trend: <span id="trend-text">—</span></div>
-          <div class="small">Best Game: <span id="best-game">—</span></div>
-          <div class="small">Speed: <span id="speed-threat">—</span></div>
-        </div>
-      </div>
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/links</span><span class="p-symbol">➜</span>
+        <span class="cmd">cd ..</span>
+    </div>
+    <div class="output">
+        <a href="index.html">>> Return to Main System (Home)</a>
     </div>
 
-    <div class="card">
-      <div class="tabs" aria-label="Sections">
-        <div class="tab active" data-tab="performance">📊 Performance</div>
-        <div class="tab" data-tab="production">🏃‍♂️ Run Production</div>
-        <div class="tab" data-tab="discipline">🎯 Discipline</div>
-        <div class="tab" data-tab="gameLog">📋 Game Log</div>
-      </div>
-
-      <!-- Performance -->
-      <div id="tab-performance" class="tab-content">
-        <div class="charts">
-          <div style="position:relative;">
-            <canvas id="rateTrend" width="500" height="260"></canvas>
-          </div>
-          <div style="position:relative;">
-            <canvas id="qualityPie" width="500" height="260"></canvas>
-          </div>
-          <div style="position:relative;">
-            <canvas id="oppOPS" width="500" height="260"></canvas>
-          </div>
-          <div style="position:relative;">
-            <canvas id="onBase" width="500" height="260"></canvas>
-          </div>
-        </div>
-      </div>
-
-      <!-- Production -->
-      <div id="tab-production" class="tab-content" style="display:none;">
-        <div class="charts">
-          <div style="position:relative;">
-            <canvas id="cumulative" width="500" height="260"></canvas>
-          </div>
-          <div style="position:relative;">
-            <canvas id="perGame" width="500" height="260"></canvas>
-          </div>
-          <div style="position:relative;">
-            <canvas id="efficiency" width="500" height="260"></canvas>
-          </div>
-        </div>
-      </div>
-
-      <!-- Discipline -->
-      <div id="tab-discipline" class="tab-content" style="display:none;">
-        <div class="charts">
-          <div style="position:relative;">
-            <canvas id="walkK" width="500" height="260"></canvas>
-          </div>
-          <div style="position:relative;">
-            <canvas id="onBaseComp" width="500" height="260"></canvas>
-          </div>
-        </div>
-      </div>
-
-      <!-- Game Log -->
-      <div id="tab-gameLog" class="tab-content" style="display:none;">
-        <div class="card">
-          <table id="gameLogTable">
-            <thead>
-              <tr>
-                <th>Date</th><th>Opponent</th><th>AB</th><th>R</th><th>H</th><th>RBI</th><th>BB</th><th>K</th><th>HBP</th><th>SB</th><th>AVG</th><th>OBP</th><th>OPS</th><th>Quality</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
+    <div id="dynamic-terminal"></div>
+    
+    <div class="prompt-line">
+        <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path" id="current-path-display">~/links</span><span class="p-symbol">➜</span>
+        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type help...">
     </div>
 
-    <div class="small" style="margin-top:8px;">
-      Note: BABIP shown is a rough proxy (missing HR/SF). OPS = OBP + SLG. Rolling averages smooth short-term volatility.
-    </div>
-  </div>
+    <footer>
+        &copy; 2025 jaehah shin's system
+    </footer>
 
-  <script>
-  // Data
-  const rawData = [
-    { Date: '2025-05-31', Opponent: 'Spirit', AB: 1, R: 2, H: 0, RBI: 0, BB: 0, K: 1, HBP: 2, SB: 3, OBP: 0.667, SLG: 0.0, OPS: 0.667, AVG: 0.0 },
-    { Date: '2025-06-07', Opponent: 'Titans', AB: 3, R: 4, H: 2, RBI: 1, BB: 1, K: 0, HBP: 0, SB: 2, OBP: 0.75, SLG: 0.667, OPS: 1.417, AVG: 0.667 },
-    { Date: '2025-06-14', Opponent: 'Vikings', AB: 3, R: 1, H: 2, RBI: 2, BB: 0, K: 0, HBP: 0, SB: 2, OBP: 0.667, SLG: 0.667, OPS: 1.333, AVG: 0.667 },
-    { Date: '2025-06-21', Opponent: 'Originals', AB: 2, R: 0, H: 0, RBI: 0, BB: 0, K: 0, HBP: 0, SB: 0, OBP: 0.0, SLG: 0.0, OPS: 0.0, AVG: 0.0 },
-    { Date: '2025-07-05', Opponent: 'Forever Young', AB: 4, R: 3, H: 3, RBI: 3, BB: 0, K: 1, HBP: 0, SB: 0, OBP: 0.75, SLG: 0.75, OPS: 1.5, AVG: 0.75 },
-    { Date: '2025-07-12', Opponent: 'Spirit', AB: 2, R: 1, H: 1, RBI: 0, BB: 1, K: 1, HBP: 0, SB: 1, OBP: 0.667, SLG: 0.5, OPS: 1.167, AVG: 0.5 }
-  ];
+</div>
 
-  // Helpers
-  function rolling(arr, key, window=3){
-    return arr.map((_, i)=>{
-      const slice = arr.slice(Math.max(0, i-window+1), i+1);
-      const sum = slice.reduce((s,g)=>s+(g[key]||0),0);
-      return sum / slice.length;
-    });
-  }
-
-  // Process
-  const processed = rawData.map((g,i,arr)=>{
-    const PA = g.AB + g.BB + g.HBP;
-    const WalkRate = PA>0? (g.BB/PA)*100 : 0;
-    const KRate = PA>0? (g.K/PA)*100 : 0;
-    const ISO = g.SLG - g.AVG;
-    const ProductionRate = PA>0? ((g.R + g.RBI)/PA) : 0;
-    const BABIP_proxy = g.AB - g.K > 0 ? (g.H/(g.AB - g.K)) : 0;
-    const GameQuality = g.OPS > 1.0 ? 'Excellent' : g.OPS > 0.8 ? 'Good' : g.OPS > 0.6 ? 'Average' : 'Poor';
-    return {
-      ...g,
-      shortDate: (()=>{ const d=new Date(g.Date); return `${d.getMonth()+1}/${d.getDate()}` })(),
-      PA, WalkRate, KRate, ISO, ProductionRate, BABIP_proxy, GameQuality,
-      CumulativeHits: 0, CumulativeRuns:0, CumulativeRBI:0
-    };
-  });
-
-// cumulative
-processed.forEach((g,idx)=>{
-  g.CumulativeHits = processed.slice(0,idx+1).reduce((s,x)=>s+x.H,0);
-  g.CumulativeRuns = processed.slice(0,idx+1).reduce((s,x)=>s+x.R,0);
-  g.CumulativeRBI = processed.slice(0,idx+1).reduce((s,x)=>s+x.RBI,0);
-});
-
-// rolling
-const AVG_Roll3 = rolling(processed,'AVG');
-const OBP_Roll3 = rolling(processed,'OBP');
-const SLG_Roll3 = rolling(processed,'SLG');
-const OPS_Roll3 = rolling(processed,'OPS');
-processed.forEach((g,i)=>{
-  g.AVG_Roll3 = AVG_Roll3[i];
-  g.OBP_Roll3 = OBP_Roll3[i];
-  g.SLG_Roll3 = SLG_Roll3[i];
-  g.OPS_Roll3 = OPS_Roll3[i];
-});
-
-// season aggregates
-const season = processed.reduce((acc,g)=>{
-  acc.games+=1; acc.AB+=g.AB; acc.H+=g.H; acc.R+=g.R; acc.RBI+=g.RBI; acc.BB+=g.BB; acc.K+=g.K; acc.HBP+=g.HBP; acc.SB+=g.SB; acc.PA+=g.PA;
-  return acc;
-},{games:0,AB:0,H:0,R:0,RBI:0,BB:0,K:0,HBP:0,SB:0,PA:0});
-season.AVG = season.AB>0? season.H/season.AB : 0;
-season.OBP = season.PA>0? (season.H+season.BB+season.HBP)/season.PA : 0;
-season.WalkRate = season.PA>0? (season.BB/season.PA)*100 : 0;
-season.KRate = season.PA>0? (season.K/season.PA)*100 : 0;
-season.SBPerGame = season.SB/season.games;
-
-// insights
-const earlyOPS = processed.slice(0,3).reduce((s,g)=>s+g.OPS,0)/3;
-const recentOPS = processed.slice(-3).reduce((s,g)=>s+g.OPS,0)/3;
-const trend = recentOPS >= earlyOPS ? 'improving' : 'declining';
-const trendValue = earlyOPS>0 ? (((recentOPS-earlyOPS)/earlyOPS)*100).toFixed(1) : '0.0';
-const bestGame = processed.reduce((b,g)=> g.OPS > b.OPS? g: b, processed[0]);
-
-// header stats fill
-document.getElementById('stat-avg').textContent = season.AVG.toFixed(3);
-document.getElementById('stat-obp').textContent = season.OBP.toFixed(3);
-document.getElementById('stat-hits').textContent = season.H;
-document.getElementById('stat-runs').textContent = season.R;
-document.getElementById('stat-rbi').textContent = season.RBI;
-document.getElementById('stat-sb').textContent = season.SB;
-document.getElementById('stat-walkrate').textContent = season.WalkRate.toFixed(1)+'%';
-document.getElementById('stat-krate').textContent = season.KRate.toFixed(1)+'%';
-document.getElementById('trend-text').textContent = `${trend} (${trendValue}%)`;
-document.getElementById('best-game').textContent = `vs ${bestGame.Opponent} (${bestGame.shortDate}) OPS ${bestGame.OPS.toFixed(3)}`;
-document.getElementById('speed-threat').textContent = `${season.SBPerGame.toFixed(2)} SB/Game`;
-
-// opponent aggregation
-const oppMap = {};
-processed.forEach(g=>{
-  if(!oppMap[g.Opponent]) oppMap[g.Opponent]={OPSsum:0,count:0};
-  oppMap[g.Opponent].OPSsum += g.OPS;
-  oppMap[g.Opponent].count += 1;
-});
-const oppData = Object.entries(oppMap).map(([Opponent,v])=>({Opponent, AvgOPS: v.count? v.OPSsum/v.count:0}));
-
-// quality breakdown
-const qualityCounts = processed.reduce((acc,g)=>{
-  acc[g.GameQuality]=(acc[g.GameQuality]||0)+1; return acc;
-},{});
-const qualityColors = { Excellent:'#22c55e', Good:'#3b82f6', Average:'#f59e0b', Poor:'#ef4444' };
-
-// drawing utilities
-function drawLineChart(canvas, series, labels, options={}) {
-  const ctx = canvas.getContext('2d');
-  const w = canvas.width;
-  const h = canvas.height;
-  ctx.clearRect(0,0,w,h);
-  // padding
-  const pad = 40;
-  // determine y range
-  let allValues = [];
-  series.forEach(s=> allValues = allValues.concat(s.data));
-  const yMin = Math.min(...allValues, 0);
-  const yMax = Math.max(...allValues);
-  const yRange = yMax - yMin || 1;
-
-  // background grid
-  ctx.strokeStyle = '#e2e8f0';
-  ctx.lineWidth = 1;
-  for(let i=0;i<=5;i++){
-    const y = pad + ((h - 2*pad) * (1 - i/5));
-    ctx.beginPath();
-    ctx.moveTo(pad, y);
-    ctx.lineTo(w - pad, y);
-    ctx.stroke();
-    // label
-    ctx.fillStyle='#475569';
-    ctx.font='10px system-ui';
-    const val = (yMin + (yRange)*(i/5)).toFixed(2);
-    ctx.fillText(val, 5, y+3);
-  }
-  // x labels
-  ctx.fillStyle='#475569';
-  ctx.font='10px system-ui';
-  labels.forEach((lbl,i)=>{
-    const x = pad + ((w - 2*pad)*(i/(labels.length-1||1)));
-    ctx.fillText(lbl, x-10, h - pad + 15);
-  });
-
-  // draw lines
-  series.forEach(s=>{
-    ctx.strokeStyle = s.color;
-    ctx.lineWidth = s.width || 2;
-    if(s.dash) ctx.setLineDash(s.dash);
-    else ctx.setLineDash([]);
-    ctx.beginPath();
-    s.data.forEach((v,i)=>{
-      const x = pad + ((w - 2*pad)*(i/(labels.length-1||1)));
-      const y = pad + ((h - 2*pad)*(1 - ((v - yMin)/yRange)));
-      if(i===0) ctx.moveTo(x,y);
-      else ctx.lineTo(x,y);
-      // point
-      ctx.fillStyle = s.color;
-      ctx.beginPath();
-      ctx.arc(x,y,3,0,2*Math.PI);
-      ctx.fill();
-    });
-    ctx.stroke();
-  });
-
-  // legend
-  let lx = pad;
-  series.forEach(s=>{
-    ctx.fillStyle = s.color;
-    ctx.fillRect(lx, 10, 12,12);
-    ctx.fillStyle='#1f2937';
-    ctx.font='11px system-ui';
-    ctx.fillText(s.label, lx+16, 20);
-    lx += ctx.measureText(s.label).width + 50;
-  });
-}
-
-function drawBarChart(canvas, datasets, labels, stacked=false) {
-  const ctx = canvas.getContext('2d');
-  const w = canvas.width;
-  const h = canvas.height;
-  ctx.clearRect(0,0,w,h);
-  const pad = 40;
-  // compute max
-  let maxVal = 0;
-  if(stacked){
-    labels.forEach((_, idx)=>{
-      let sum=0;
-      datasets.forEach(d=> sum += d.data[idx]);
-      if(sum>maxVal) maxVal=sum;
-    });
-  } else {
-    datasets.forEach(d=> d.data.forEach(v=>{ if(v>maxVal) maxVal=v;}));
-  }
-  maxVal = Math.max(maxVal,1);
-  // grid
-  ctx.strokeStyle='#e2e8f0';
-  ctx.lineWidth=1;
-  for(let i=0;i<=5;i++){
-    const y = pad + ((h-2*pad)*(1 - i/5));
-    ctx.beginPath();
-    ctx.moveTo(pad,y);
-    ctx.lineTo(w-pad,y);
-    ctx.stroke();
-    ctx.fillStyle='#475569';
-    ctx.font='10px system-ui';
-    ctx.fillText(((maxVal)*(i/5)).toFixed(2),5,y+3);
-  }
-  // bars
-  const barGroupWidth = (w - 2*pad) / labels.length;
-  labels.forEach((lbl, i)=>{
-    let offset = 0;
-    if(stacked){
-      datasets.forEach(d=>{
-        const val = d.data[i];
-        const barH = ((val)/maxVal)*(h - 2*pad);
-        const x = pad + i*barGroupWidth + barGroupWidth*0.1;
-        const y = pad + ((h - 2*pad) - ((offset+val)/maxVal)*(h - 2*pad));
-        const height = barH;
-        const width = barGroupWidth*0.8;
-        ctx.fillStyle = d.color;
-        ctx.fillRect(x, y, width, height);
-        offset += val;
-      });
-    } else {
-      const eachW = (barGroupWidth*0.8)/datasets.length;
-      datasets.forEach((d, j)=>{
-        const val = d.data[i];
-        const x = pad + i*barGroupWidth + barGroupWidth*0.1 + j*eachW;
-        const barH = (val/maxVal)*(h - 2*pad);
-        const y = pad + ((h - 2*pad) - barH);
-        ctx.fillStyle = d.color;
-        ctx.fillRect(x, y, eachW, barH);
-      });
-    }
-    // label
-    ctx.fillStyle='#475569';
-    ctx.font='10px system-ui';
-    const xLabel = pad + i*barGroupWidth + barGroupWidth/2;
-    ctx.fillText(lbl, xLabel - 10, h - pad + 15);
-  });
-  // legend
-  let lx=pad;
-  datasets.forEach(d=>{
-    ctx.fillStyle=d.color;
-    ctx.fillRect(lx,10,12,12);
-    ctx.fillStyle='#1f2937';
-    ctx.font='11px system-ui';
-    ctx.fillText(d.label, lx+16,20);
-    lx += ctx.measureText(d.label).width + 50;
-  });
-}
-
-function drawPie(canvas, labels, values, colors) {
-  const ctx=canvas.getContext('2d');
-  const w=canvas.width; const h=canvas.height;
-  ctx.clearRect(0,0,w,h);
-  const total = values.reduce((s,v)=>s+v,0);
-  let start= -Math.PI/2;
-  const radius = Math.min(w,h)/2 - 30;
-  const cx = w/2; const cy = h/2;
-  labels.forEach((lbl,i)=>{
-    const slice = values[i]/total;
-    const end = start + slice*2*Math.PI;
-    ctx.beginPath();
-    ctx.moveTo(cx,cy);
-    ctx.arc(cx,cy,radius,start,end);
-    ctx.closePath();
-    ctx.fillStyle = colors[lbl] || '#888';
-    ctx.fill();
-    // label line
-    const mid = (start+end)/2;
-    const labelX = cx + Math.cos(mid)*(radius+15);
-    const labelY = cy + Math.sin(mid)*(radius+15);
-    ctx.fillStyle='#1f2937';
-    ctx.font='11px system-ui';
-    ctx.textAlign = (Math.cos(mid)>=0)?'left':'right';
-    ctx.fillText(`${lbl} (${values[i]})`, labelX, labelY);
-    start = end;
-  });
-}
-
-// scatter
-function drawScatter(canvas, points, options={}) {
-  const ctx=canvas.getContext('2d');
-  const w=canvas.width; const h=canvas.height;
-  ctx.clearRect(0,0,w,h);
-  const pad=40;
-  // compute extents
-  let xVals = points.map(p=>p.x);
-  let yVals = points.map(p=>p.y);
-  const xMin=0; const xMax=Math.max(...xVals,1);
-  const yMin=0; const yMax=Math.max(...yVals,1);
-  // grid
-  ctx.strokeStyle='#e2e8f0'; ctx.lineWidth=1;
-  for(let i=0;i<=5;i++){
-    const y= pad + ((h-2*pad)*(1 - i/5));
-    ctx.beginPath();
-    ctx.moveTo(pad,y);
-    ctx.lineTo(w-pad,y);
-    ctx.stroke();
-    ctx.fillStyle='#475569';
-    ctx.font='10px system-ui';
-    ctx.fillText(((yMax)*(i/5)).toFixed(2),5,y+3);
-  }
-  // x labels
-  ctx.fillStyle='#475569'; ctx.font='10px system-ui';
-  ctx.fillText('PA', w/2, h - 10);
-  ctx.fillText('(R+RBI)/PA', 5, pad - 10);
-  // points
-  points.forEach(p=>{
-    const x = pad + ((w-2*pad)* (p.x - xMin)/(xMax - xMin));
-    const y = pad + ((h-2*pad)* (1 - (p.y - yMin)/(yMax - yMin)));
-    ctx.fillStyle='#6366f1';
-    ctx.beginPath();
-    ctx.arc(x,y,5,0,Math.PI*2);
-    ctx.fill();
-    ctx.fillStyle='#1f2937';
-    ctx.font='10px system-ui';
-    ctx.fillText(p.label, x+6, y-6);
-  });
-  // legend
-  ctx.fillStyle='#6366f1'; ctx.fillRect(pad,10,12,12);
-  ctx.fillStyle='#1f2937'; ctx.font='11px system-ui';
-  ctx.fillText('(R+RBI)/PA vs PA', pad+16,20);
-}
-
-// render all charts
-function renderAll() {
-  // Rate trend
-  const rateTrendCanvas = document.getElementById('rateTrend');
-  drawLineChart(rateTrendCanvas, [
-    { label:'AVG', data: processed.map(d=>d.AVG), color:'#2563eb' },
-    { label:'OBP', data: processed.map(d=>d.OBP), color:'#10b981' },
-    { label:'SLG', data: processed.map(d=>d.SLG), color:'#f59e0b' },
-    { label:'OPS', data: processed.map(d=>d.OPS), color:'#dc2626' },
-    { label:'AVG 3-game', data: processed.map(d=>d.AVG_Roll3), color:'#1d4ed8', dash:[5,5] },
-    { label:'OBP 3-game', data: processed.map(d=>d.OBP_Roll3), color:'#047857', dash:[5,5] }
-  ], processed.map(d=>d.shortDate));
-
-  // Quality pie
-  const qualityCanvas = document.getElementById('qualityPie');
-  const qualityLabels = Object.keys(qualityCounts);
-  const qualityValues = qualityLabels.map(l=>qualityCounts[l]);
-  drawPie(qualityCanvas, qualityLabels, qualityValues, qualityColors);
-
-  // OPS by opponent
-  const oppCanvas = document.getElementById('oppOPS');
-  drawBarChart(oppCanvas, [
-    { label:'Avg OPS', data: oppData.map(o=>o.AvgOPS), color:'#2563eb' }
-  ], oppData.map(o=>o.Opponent));
-
-  // On-base composition
-  const onBaseCanvas = document.getElementById('onBase');
-  drawBarChart(onBaseCanvas, [
-    { label:'Hits', data: processed.map(d=>d.H), color:'#2563eb' },
-    { label:'Walks', data: processed.map(d=>d.BB), color:'#10b981' },
-    { label:'HBP', data: processed.map(d=>d.HBP), color:'#f59e0b' }
-  ], processed.map(d=>d.shortDate), false);
-
-  // Cumulative production
-  const cumCanvas = document.getElementById('cumulative');
-  drawLineChart(cumCanvas, [
-    { label:'Cumulative Runs', data: processed.map(d=>d.CumulativeRuns), color:'#ef4444' },
-    { label:'Cumulative RBI', data: processed.map(d=>d.CumulativeRBI), color:'#10b981' },
-    { label:'Cumulative Hits', data: processed.map(d=>d.CumulativeHits), color:'#3b82f6' }
-  ], processed.map(d=>d.shortDate));
-
-  // Per-game production
-  const perCanvas = document.getElementById('perGame');
-  drawBarChart(perCanvas, [
-    { label:'Runs', data: processed.map(d=>d.R), color:'#dc2626' },
-    { label:'RBI', data: processed.map(d=>d.RBI), color:'#10b981' },
-    { label:'SB', data: processed.map(d=>d.SB), color:'#f59e0b' }
-  ], processed.map(d=>d.shortDate));
-
-  // Efficiency scatter
-  const effCanvas = document.getElementById('efficiency');
-  drawScatter(effCanvas, processed.map(d=>({ x:d.PA, y:d.ProductionRate, label:d.shortDate })));
-
-  // Walk/K rates
-  const walkKCanvas = document.getElementById('walkK');
-  drawLineChart(walkKCanvas, [
-    { label:'Walk Rate %', data: processed.map(d=>d.WalkRate), color:'#10b981' },
-    { label:'K Rate %', data: processed.map(d=>d.KRate), color:'#ef4444' }
-  ], processed.map(d=>d.shortDate));
-
-  // On-base composition (again)
-  const obComp = document.getElementById('onBaseComp');
-  drawBarChart(obComp, [
-    { label:'Hits', data: processed.map(d=>d.H), color:'#2563eb' },
-    { label:'Walks', data: processed.map(d=>d.BB), color:'#10b981' },
-    { label:'HBP', data: processed.map(d=>d.HBP), color:'#f59e0b' }
-  ], processed.map(d=>d.shortDate), true);
-}
-
-// populate game log
-const tbody = document.querySelector('#gameLogTable tbody');
-processed.forEach(g=>{
-  const tr=document.createElement('tr');
-  [['shortDate',g.shortDate],['Opponent',g.Opponent],['AB',g.AB],['R',g.R],['H',g.H],['RBI',g.RBI],['BB',g.BB],['K',g.K],['HBP',g.HBP],['SB',g.SB]].forEach(([k,v])=>{
-    const td=document.createElement('td'); td.textContent=v; tr.appendChild(td);
-  });
-  const avgTd=document.createElement('td'); avgTd.textContent=g.AVG.toFixed(3); tr.appendChild(avgTd);
-  const obpTd=document.createElement('td'); obpTd.textContent=g.OBP.toFixed(3); tr.appendChild(obpTd);
-  const opsTd=document.createElement('td'); opsTd.textContent=g.OPS.toFixed(3); tr.appendChild(opsTd);
-  const qualityTd=document.createElement('td');
-  const span=document.createElement('span');
-  span.textContent=g.GameQuality;
-  span.className=`badge quality-${g.GameQuality}`;
-  qualityTd.appendChild(span); tr.appendChild(qualityTd);
-  tbody.appendChild(tr);
-});
-
-// tab logic
-document.querySelectorAll('.tab').forEach(t=>{
-  t.addEventListener('click', ()=>{
-    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-    t.classList.add('active');
-    const name = t.getAttribute('data-tab');
-    document.querySelectorAll('.tab-content').forEach(c=>c.style.display='none');
-    document.getElementById('tab-' + name).style.display='block';
-  });
-});
-
-// CSV export
-document.getElementById('download-csv').addEventListener('click', ()=>{
-  const headers = ['Date','Opponent','AB','R','H','RBI','BB','K','HBP','SB','AVG','OBP','SLG','OPS','PA','WalkRate','KRate','ISO','ProductionRate','BABIP_proxy','GameQuality'];
-  const lines=[headers.join(',')];
-  processed.forEach(g=>{
-    const row=[
-      g.Date,
-      g.Opponent,
-      g.AB,g.R,g.H,g.RBI,g.BB,g.K,g.HBP,g.SB,
-      g.AVG.toFixed(3),
-      g.OBP.toFixed(3),
-      g.SLG.toFixed(3),
-      g.OPS.toFixed(3),
-      g.PA,
-      g.WalkRate.toFixed(2),
-      g.KRate.toFixed(2),
-      g.ISO.toFixed(3),
-      g.ProductionRate.toFixed(3),
-      g.BABIP_proxy.toFixed(3),
-      g.GameQuality
+<script>
+    // --- Data & Stats Engine ---
+    const rawData = [
+        { Date: '2025-05-31', Opponent: 'Spirit', AB: 1, R: 2, H: 0, RBI: 0, BB: 0, K: 1, HBP: 2, SB: 3, OBP: 0.667, SLG: 0.0, OPS: 0.667, AVG: 0.0 },
+        { Date: '2025-06-07', Opponent: 'Titans', AB: 3, R: 4, H: 2, RBI: 1, BB: 1, K: 0, HBP: 0, SB: 2, OBP: 0.75, SLG: 0.667, OPS: 1.417, AVG: 0.667 },
+        { Date: '2025-06-14', Opponent: 'Vikings', AB: 3, R: 1, H: 2, RBI: 2, BB: 0, K: 0, HBP: 0, SB: 2, OBP: 0.667, SLG: 0.667, OPS: 1.333, AVG: 0.667 },
+        { Date: '2025-06-21', Opponent: 'Originals', AB: 2, R: 0, H: 0, RBI: 0, BB: 0, K: 0, HBP: 0, SB: 0, OBP: 0.0, SLG: 0.0, OPS: 0.0, AVG: 0.0 },
+        { Date: '2025-07-05', Opponent: 'Forever Young', AB: 4, R: 3, H: 3, RBI: 3, BB: 0, K: 1, HBP: 0, SB: 0, OBP: 0.75, SLG: 0.75, OPS: 1.5, AVG: 0.75 },
+        { Date: '2025-07-12', Opponent: 'Spirit', AB: 2, R: 1, H: 1, RBI: 0, BB: 1, K: 1, HBP: 0, SB: 1, OBP: 0.667, SLG: 0.5, OPS: 1.167, AVG: 0.5 }
     ];
-    lines.push(row.join(','));
-  });
-  const blob=new Blob([lines.join('\n')],{type:'text/csv'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url; a.download='batting_analysis_offline.csv'; a.click();
-  URL.revokeObjectURL(url);
-});
 
-// initial render
-renderAll();
-  </script>
+    function rolling(arr, key, window=3){
+        return arr.map((_, i)=>{
+            const slice = arr.slice(Math.max(0, i-window+1), i+1);
+            const sum = slice.reduce((s,g)=>s+(g[key]||0),0);
+            return sum / slice.length;
+        });
+    }
+
+    const processed = rawData.map((g,i,arr)=>{
+        const PA = g.AB + g.BB + g.HBP;
+        const WalkRate = PA>0? (g.BB/PA)*100 : 0;
+        const KRate = PA>0? (g.K/PA)*100 : 0;
+        const ISO = g.SLG - g.AVG;
+        const ProductionRate = PA>0? ((g.R + g.RBI)/PA) : 0;
+        const GameQuality = g.OPS > 1.0 ? 'Excellent' : g.OPS > 0.8 ? 'Good' : g.OPS > 0.6 ? 'Average' : 'Poor';
+        return { ...g, shortDate: (()=>{ const d=new Date(g.Date); return `${d.getMonth()+1}/${d.getDate()}` })(), PA, WalkRate, KRate, ISO, ProductionRate, GameQuality };
+    });
+
+    // Aggregations
+    processed.forEach((g,idx)=>{
+        g.CumulativeHits = processed.slice(0,idx+1).reduce((s,x)=>s+x.H,0);
+        g.CumulativeRuns = processed.slice(0,idx+1).reduce((s,x)=>s+x.R,0);
+        g.CumulativeRBI = processed.slice(0,idx+1).reduce((s,x)=>s+x.RBI,0);
+    });
+    const AVG_Roll3 = rolling(processed,'AVG');
+    const OBP_Roll3 = rolling(processed,'OBP');
+    const SLG_Roll3 = rolling(processed,'SLG');
+    const OPS_Roll3 = rolling(processed,'OPS');
+    processed.forEach((g,i)=>{ g.AVG_Roll3=AVG_Roll3[i]; g.OBP_Roll3=OBP_Roll3[i]; g.SLG_Roll3=SLG_Roll3[i]; g.OPS_Roll3=OPS_Roll3[i]; });
+
+    const season = processed.reduce((acc,g)=>{
+        acc.games+=1; acc.AB+=g.AB; acc.H+=g.H; acc.R+=g.R; acc.RBI+=g.RBI; acc.BB+=g.BB; acc.K+=g.K; acc.HBP+=g.HBP; acc.SB+=g.SB; acc.PA+=g.PA;
+        return acc;
+    },{games:0,AB:0,H:0,R:0,RBI:0,BB:0,K:0,HBP:0,SB:0,PA:0});
+    
+    season.AVG = season.AB>0? season.H/season.AB : 0;
+    season.OBP = season.PA>0? (season.H+season.BB+season.HBP)/season.PA : 0;
+    season.WalkRate = season.PA>0? (season.BB/season.PA)*100 : 0;
+    season.KRate = season.PA>0? (season.K/season.PA)*100 : 0;
+    season.SBPerGame = season.SB/season.games;
+
+    // DOM Updates
+    document.getElementById('stat-avg').textContent = season.AVG.toFixed(3);
+    document.getElementById('stat-obp').textContent = season.OBP.toFixed(3);
+    document.getElementById('stat-hits').textContent = season.H;
+    document.getElementById('stat-runs').textContent = season.R;
+    document.getElementById('stat-rbi').textContent = season.RBI;
+    document.getElementById('stat-sb').textContent = season.SB;
+    document.getElementById('stat-walkrate').textContent = season.WalkRate.toFixed(1)+'%';
+    document.getElementById('stat-krate').textContent = season.KRate.toFixed(1)+'%';
+
+    const earlyOPS = processed.slice(0,3).reduce((s,g)=>s+g.OPS,0)/3;
+    const recentOPS = processed.slice(-3).reduce((s,g)=>s+g.OPS,0)/3;
+    const trend = recentOPS >= earlyOPS ? 'Rising ↗' : 'Declining ↘';
+    const bestGame = processed.reduce((b,g)=> g.OPS > b.OPS? g: b, processed[0]);
+    document.getElementById('trend-text').textContent = `${trend}`;
+    document.getElementById('best-game').textContent = `${bestGame.shortDate} vs ${bestGame.Opponent} (${bestGame.OPS.toFixed(3)} OPS)`;
+    document.getElementById('speed-threat').textContent = `${season.SBPerGame.toFixed(1)} SB/G`;
+
+    // Opponent Aggregation
+    const oppMap = {};
+    processed.forEach(g=>{ if(!oppMap[g.Opponent]) oppMap[g.Opponent]={OPSsum:0,count:0}; oppMap[g.Opponent].OPSsum += g.OPS; oppMap[g.Opponent].count += 1; });
+    const oppData = Object.entries(oppMap).map(([Opponent,v])=>({Opponent, AvgOPS: v.count? v.OPSsum/v.count:0}));
+
+    const qualityCounts = processed.reduce((acc,g)=>{ acc[g.GameQuality]=(acc[g.GameQuality]||0)+1; return acc; },{});
+
+    // --- Drawing Engine (Customized for Everforest Theme) ---
+    const COLOR = {
+        text: '#d3c6aa',
+        grid: '#4b565c',
+        teal: '#7fbbb3',
+        green: '#a7c080',
+        yellow: '#dbbc7f',
+        red: '#e67e80',
+        blue: '#7fbbb3', // Mapping blue to teal for theme consistency
+        bg: '#2b3339'
+    };
+
+    function drawLineChart(canvas, series, labels) {
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = canvas.offsetWidth;
+        const h = canvas.height = canvas.offsetHeight;
+        ctx.clearRect(0,0,w,h);
+        
+        const pad = 30;
+        let allVal = []; series.forEach(s=>allVal=allVal.concat(s.data));
+        const yMin = 0; const yMax = Math.max(...allVal, 1) * 1.1;
+        
+        // Grid
+        ctx.strokeStyle = COLOR.grid; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(pad, pad); ctx.lineTo(pad, h-pad); ctx.lineTo(w-pad, h-pad); ctx.stroke();
+
+        // Labels
+        ctx.fillStyle = COLOR.text; ctx.font = '10px monospace';
+        labels.forEach((lbl,i)=>{
+            const x = pad + ((w-2*pad)/(labels.length-1))*i;
+            ctx.fillText(lbl, x-10, h-10);
+        });
+
+        // Lines
+        series.forEach(s=>{
+            ctx.strokeStyle = s.color; ctx.lineWidth = 2;
+            if(s.dash) ctx.setLineDash(s.dash); else ctx.setLineDash([]);
+            ctx.beginPath();
+            s.data.forEach((v,i)=>{
+                const x = pad + ((w-2*pad)/(labels.length-1))*i;
+                const y = (h-pad) - (v/yMax)*(h-2*pad);
+                if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+                // Dot
+                // ctx.fillStyle=s.color; ctx.fillRect(x-2,y-2,4,4);
+            });
+            ctx.stroke();
+        });
+        
+        // Simple Legend (Top Right)
+        let ly = 10;
+        series.forEach(s=>{
+            ctx.fillStyle = s.color; ctx.fillRect(w-80, ly, 8, 8);
+            ctx.fillStyle = COLOR.text; ctx.fillText(s.label, w-65, ly+7);
+            ly += 15;
+        });
+    }
+
+    function drawBarChart(canvas, datasets, labels, stacked=false) {
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = canvas.offsetWidth;
+        const h = canvas.height = canvas.offsetHeight;
+        ctx.clearRect(0,0,w,h);
+        const pad = 30;
+        
+        let maxVal = 0;
+        if(stacked) labels.forEach((_,i)=>{ let sum=0; datasets.forEach(d=>sum+=d.data[i]); maxVal=Math.max(maxVal, sum); });
+        else datasets.forEach(d=> maxVal = Math.max(maxVal, ...d.data));
+        maxVal = maxVal || 1;
+
+        const colW = (w - 2*pad) / labels.length;
+        
+        labels.forEach((lbl, i)=>{
+            let yOff = 0;
+            const xBase = pad + i*colW + 5;
+            if(stacked) {
+                datasets.forEach(d=>{
+                    const hBar = (d.data[i]/maxVal)*(h-2*pad);
+                    const y = (h-pad) - (yOff/maxVal)*(h-2*pad) - hBar;
+                    ctx.fillStyle = d.color;
+                    ctx.fillRect(xBase, y, colW-10, hBar);
+                    yOff += d.data[i];
+                });
+            } else {
+                const subW = (colW-10)/datasets.length;
+                datasets.forEach((d,j)=>{
+                    const hBar = (d.data[i]/maxVal)*(h-2*pad);
+                    ctx.fillStyle = d.color;
+                    ctx.fillRect(xBase + j*subW, (h-pad)-hBar, subW, hBar);
+                });
+            }
+            ctx.fillStyle = COLOR.text; ctx.font = '10px monospace';
+            ctx.fillText(lbl, xBase, h-10);
+        });
+        
+        // Legend
+        let lx = pad;
+        datasets.forEach(d=>{
+            ctx.fillStyle=d.color; ctx.fillRect(lx, 5, 8, 8);
+            ctx.fillStyle=COLOR.text; ctx.fillText(d.label, lx+12, 12);
+            lx += 80;
+        });
+    }
+
+    function drawPie(canvas, labels, values, colors) {
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = canvas.offsetWidth;
+        const h = canvas.height = canvas.offsetHeight;
+        const cx = w/2; const cy = h/2;
+        const r = Math.min(cx,cy) - 20;
+        let total = values.reduce((a,b)=>a+b,0);
+        let start = -Math.PI/2;
+        
+        labels.forEach((lbl,i)=>{
+            if(values[i]===0) return;
+            const slice = (values[i]/total)*2*Math.PI;
+            ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,start+slice);
+            ctx.fillStyle = colors[lbl]; ctx.fill();
+            
+            // Label
+            const mid = start + slice/2;
+            const tx = cx + Math.cos(mid)*(r+10);
+            const ty = cy + Math.sin(mid)*(r+10);
+            ctx.fillStyle = COLOR.text; ctx.textAlign = tx>cx?'left':'right';
+            ctx.fillText(lbl, tx, ty);
+            
+            start += slice;
+        });
+    }
+
+    function drawScatter(canvas, points) {
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width = canvas.offsetWidth;
+        const h = canvas.height = canvas.offsetHeight;
+        const pad = 30;
+        
+        const xMax = Math.max(...points.map(p=>p.x), 1);
+        const yMax = Math.max(...points.map(p=>p.y), 1);
+
+        // Axes
+        ctx.strokeStyle = COLOR.grid; ctx.beginPath();
+        ctx.moveTo(pad,pad); ctx.lineTo(pad,h-pad); ctx.lineTo(w-pad,h-pad); ctx.stroke();
+
+        points.forEach(p=>{
+            const x = pad + (p.x/xMax)*(w-2*pad);
+            const y = (h-pad) - (p.y/yMax)*(h-2*pad);
+            ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2);
+            ctx.fillStyle = COLOR.red; ctx.fill();
+            ctx.fillStyle = COLOR.text; ctx.fillText(p.label, x+6, y);
+        });
+        ctx.fillStyle = COLOR.text; ctx.fillText("Efficiency (Prod/PA vs PA)", pad+10, 15);
+    }
+
+    // --- Render ---
+    function renderAll() {
+        // 1. Rate Trend
+        drawLineChart(document.getElementById('rateTrend'), [
+            {label:'AVG', data:processed.map(d=>d.AVG), color:COLOR.teal},
+            {label:'OPS', data:processed.map(d=>d.OPS), color:COLOR.red},
+            {label:'Trend', data:processed.map(d=>d.OPS_Roll3), color:COLOR.yellow, dash:[5,5]}
+        ], processed.map(d=>d.shortDate));
+
+        // 2. Quality Pie
+        const qLabels = Object.keys(qualityCounts);
+        const qVals = qLabels.map(k=>qualityCounts[k]);
+        const qCols = {'Excellent':COLOR.green, 'Good':COLOR.teal, 'Average':COLOR.yellow, 'Poor':COLOR.red};
+        drawPie(document.getElementById('qualityPie'), qLabels, qVals, qCols);
+
+        // 3. Opponent OPS
+        drawBarChart(document.getElementById('oppOPS'), [
+            {label:'Avg OPS', data:oppData.map(o=>o.AvgOPS), color:COLOR.teal}
+        ], oppData.map(o=>o.Opponent));
+
+        // 4. OnBase Stack
+        drawBarChart(document.getElementById('onBase'), [
+            {label:'H', data:processed.map(d=>d.H), color:COLOR.teal},
+            {label:'BB', data:processed.map(d=>d.BB), color:COLOR.green},
+            {label:'HBP', data:processed.map(d=>d.HBP), color:COLOR.yellow}
+        ], processed.map(d=>d.shortDate), true);
+        
+        // 5. Cumulative
+        drawLineChart(document.getElementById('cumulative'), [
+            {label:'Runs', data:processed.map(d=>d.CumulativeRuns), color:COLOR.red},
+            {label:'RBI', data:processed.map(d=>d.CumulativeRBI), color:COLOR.green},
+            {label:'Hits', data:processed.map(d=>d.CumulativeHits), color:COLOR.teal}
+        ], processed.map(d=>d.shortDate));
+
+        // 6. Per Game
+        drawBarChart(document.getElementById('perGame'), [
+            {label:'R', data:processed.map(d=>d.R), color:COLOR.red},
+            {label:'RBI', data:processed.map(d=>d.RBI), color:COLOR.green},
+            {label:'SB', data:processed.map(d=>d.SB), color:COLOR.yellow}
+        ], processed.map(d=>d.shortDate));
+        
+        // 7. Efficiency
+        drawScatter(document.getElementById('efficiency'), processed.map(d=>({x:d.PA, y:d.ProductionRate, label:d.shortDate})));
+
+        // 8. Discipline
+        drawLineChart(document.getElementById('walkK'), [
+            {label:'BB%', data:processed.map(d=>d.WalkRate), color:COLOR.green},
+            {label:'K%', data:processed.map(d=>d.KRate), color:COLOR.red}
+        ], processed.map(d=>d.shortDate));
+        
+        // 9. OnBase Comp (Duplicate for tab 3)
+        drawBarChart(document.getElementById('onBaseComp'), [
+            {label:'H', data:processed.map(d=>d.H), color:COLOR.teal},
+            {label:'BB', data:processed.map(d=>d.BB), color:COLOR.green}
+        ], processed.map(d=>d.shortDate), true);
+    }
+
+    // Populate Table
+    const tbody = document.querySelector('#gameLogTable tbody');
+    processed.forEach(g=>{
+        const tr=document.createElement('tr');
+        const qualBadge = `<span class="badge q-${g.GameQuality}">${g.GameQuality}</span>`;
+        tr.innerHTML = `<td>${g.shortDate}</td><td>${g.Opponent}</td><td>${g.AB}</td><td>${g.R}</td><td>${g.H}</td><td>${g.RBI}</td><td>${g.BB}</td><td>${g.K}</td><td>${g.SB}</td><td>${g.AVG.toFixed(3)}</td><td>${g.OPS.toFixed(3)}</td><td>${qualBadge}</td>`;
+        tbody.appendChild(tr);
+    });
+
+    // Tab Switcher
+    document.querySelectorAll('.tab').forEach(t=>{
+        t.addEventListener('click', ()=>{
+            document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+            t.classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(c=>c.style.display='none');
+            document.getElementById('tab-' + t.dataset.tab).style.display='block';
+            // Re-render charts on tab switch to fix width issues
+            setTimeout(renderAll, 10);
+        });
+    });
+
+    // CSV
+    document.getElementById('download-csv').addEventListener('click', ()=>{
+        const headers = ['Date','Opponent','AB','R','H','RBI','BB','K','SB','AVG','OPS'];
+        const rows = processed.map(g=> [g.Date,g.Opponent,g.AB,g.R,g.H,g.RBI,g.BB,g.K,g.SB,g.AVG.toFixed(3),g.OPS.toFixed(3)].join(','));
+        const csv = [headers.join(','), ...rows].join('\n');
+        const blob = new Blob([csv], {type:'text/csv'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href=url; a.download='stats_2025.csv'; a.click();
+    });
+
+    // Interactive Terminal Logic
+    const termInput = document.getElementById('terminal-input');
+    const termDiv = document.getElementById('dynamic-terminal');
+    const termPath = document.getElementById('current-path-display');
+    let currentPath = "~/links";
+
+    function sanitize(str) { const d=document.createElement('div'); d.textContent=str; return d.innerHTML; }
+
+    termInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            const raw = termInput.value;
+            const safe = sanitize(raw);
+            const cmd = safe.trim().split(" ")[0].toLowerCase();
+            
+            termDiv.insertAdjacentHTML('beforeend', `<div class="prompt-line"><span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">${currentPath}</span><span class="p-symbol">➜</span><span class="cmd">${safe}</span></div>`);
+
+            let out = "";
+            if(cmd==='ls') out = "baseball_stats_2025.py  about.html  resume.pdf";
+            else if(cmd==='cd') {
+                const arg = safe.split(" ")[1];
+                if(arg==='..') { window.location.href='index.html'; out="Navigating..."; }
+                else out="cd: permission denied";
+            }
+            else if(cmd==='help') out="Available: ls, cd .., clear";
+            else if(cmd==='clear') termDiv.innerHTML="";
+            else if(cmd) out=`command not found: ${cmd}`;
+
+            if(cmd!=='clear' && out) termDiv.insertAdjacentHTML('beforeend', `<div class="output">${out}</div>`);
+            termInput.value = "";
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    });
+
+    // Initial Render
+    window.onload = renderAll;
+    window.onresize = renderAll;
+</script>
+
 </body>
 </html>
