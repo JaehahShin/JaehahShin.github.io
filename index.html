@@ -17,19 +17,17 @@
 
         :root {
             /* Everforest Theme */
-            --bg-color: #2b3339;
-            --text-color: #d3c6aa;
-            --comment-color: #859289;
+            --bg-color: #2b3339;       
+            --text-color: #d3c6aa;     
+            --comment-color: #859289;  
             
             /* Accents */
             --user-color: #a7c080;     /* Sage Green */
             --host-color: #7fbbb3;     /* Teal */
             --path-color: #d699b6;     /* Mauve */
             --cmd-color: #dbbc7f;      /* Yellow */
-            
             --link-color: #a7c080;
             --link-hover: #e67e80;
-            
             --block-bg: #323c41;
             
             --font-stack: 'Consolas', 'Monaco', 'Andale Mono', monospace;
@@ -48,7 +46,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             padding-bottom: 100px;
         }
@@ -107,7 +105,7 @@
 
         .file-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 10px;
         }
         .file-item::before { content: "-> "; color: var(--comment-color); font-size: 0.8em;}
@@ -143,6 +141,9 @@
             font-family: var(--font-header);
         }
 
+        ul { margin: 5px 0; padding-left: 20px; list-style-type: square;}
+        li { margin-bottom: 5px; }
+
         @media (max-width: 600px) {
             .main-header { font-size: 36px; }
             .prompt-line { margin-top: 30px; }
@@ -162,9 +163,21 @@
         <span class="cmd">whoami</span>
     </div>
     <div class="output">
-        I'm <strong>Jaehah Shin</strong> (신재하 / 辛在河).<br>
-        I have finished 3rd Year in <a href="https://engsci.utoronto.ca/program/what-is-engsci/" target="_blank">Engineering Science</a> (Robotics Major) at UofT.<br>
-        Currently on my <a href="https://discover.engineering.utoronto.ca/experiential-learning/professional-experience-year-pey/" target="_blank">Professional Experience Year (PEY)</a>.
+        I'm <strong>Jaehah Shin</strong> <span lang="ko">(신재하)</span> <span lang="zh">(辛在河)</span>.<br>
+        I have finished 3rd Year in <a href="https://engsci.utoronto.ca/program/what-is-engsci/" target="_blank">Engineering Science</a> (Robotics Major) at <a href="https://www.utoronto.ca/" target="_blank">University of Toronto</a>.<br>
+        And now I am on my <a href="https://discover.engineering.utoronto.ca/experiential-learning/professional-experience-year-pey/" target="_blank">Professional Experience Year (PEY)</a>.
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat about_myself.txt</span>
+    </div>
+    <div class="output">
+        Of course, these can't describe myself entirely, but here are some of the things about me.<br><br>
+        <strong>Fun fact:</strong> the screenwriter (<em>각본가</em>) of <em>Little Forest</em> asked to use my name, <strong>재하</strong> (jaeha or jaehah based on how you translate into English), in the movie because he knew me from church. 
+        <a href="https://en.wikipedia.org/wiki/Little_Forest_(film)" target="_blank">Little Forest on Wikipedia</a>.
+        <br>
+        Take this as a grain of salt. (i love number theory and prime number :) )
     </div>
 
     <div class="prompt-line">
@@ -173,13 +186,71 @@
     </div>
     <div class="output">
         <div class="file-grid">
-            <div class="file-item"><a href="about.html">About_Me/</a></div>
-            <div class="file-item"><a href="courses.html">Courses_Taken.csv</a></div>
-            <div class="file-item"><a href="learning.html">Learning_Strategy.md</a></div>
-            <div class="file-item"><a href="thought.html">Thought_Dumps.txt</a></div>
-            <div class="file-item"><a href="baseball.html">Baseball_Stats_2025.py</a></div>
-            <div class="file-item"><a href="jaehah_shin-resume.pdf" target="_blank">Resume.pdf</a>*</div>
-            <div class="file-item"><a href="Jaehah_Shin_CV.pdf" target="_blank">CV.pdf</a>*</div>
+            <div class="file-item"><a href="about.html">About Me</a></div>
+            <div class="file-item"><a href="baseball.html">Baseball Stats in 2025 Season</a></div>
+            <div class="file-item"><a href="thought.html">Thought Dumps</a></div>
+            <div class="file-item"><a href="courses.html">Courses that I am taking in UofT</a></div>
+            <div class="file-item"><a href="learning.html">My Learning Strat</a></div>
+            <div class="file-item"><a href="contact.html">Contact</a></div>
+            <div class="file-item"><a href="jaehah_shin-resume.pdf" target="_blank">My Resume.pdf</a>*</div>
+            <div class="file-item"><a href="Jaehah_Shin_CV.pdf" target="_blank">My CV.pdf</a>*</div>
+        </div>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/life</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat life_goals.md</span>
+    </div>
+    <div class="output">
+        I would like to do certain things which are not related my major...<br>
+        <ul>
+            <li>I would like to publish a book that contains all my thoughts.</li>
+            <li>I would like to write a movie script based on my experiences and life. (I would like to record my life journey in somewhat way.)</li>
+        </ul>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat education_history.txt</span>
+    </div>
+    <div class="output">
+        <div>Kindergarten: <a href="https://www.yookyoung.org/site/main/main.jsp" target="_blank">육영재단 어린이회관</a></div>
+        <div>Kindergarten: <a href="https://yjs.sen.es.kr" target="_blank">서울양진초등학교 병설 유치원</a></div>
+        <div>Elementary School: <a href="https://ymc.sen.es.kr" target="_blank">서울용마초등학교</a></div>
+        <div>Middle School: <a href="https://gwangnam.sen.ms.kr" target="_blank">서울광남중학교</a></div>
+        <div>Middle School: <a href="https://www.cornerstoneschool.ca" target="_blank">Cornerstone Christian School</a></div>
+        <div>High School: <a href="https://yale.abbyschools.ca" target="_blank">Yale Secondary School</a></div>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/work</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat embedded_projects.md</span>
+    </div>
+    <div class="output">
+        <h4>Enjoying Embedded...</h4>
+        I am currently working on embedded system, sensors and RTOS at the lab of <a href="https://franklinresearch.ca" target="_blank">FRL</a> in UofT.<br>
+        Also, I co-founded a design team called <a href="https://uoft-wearable.github.io/" target="_blank">UofT Wearable</a> in UofT.<br>
+        Our first project is a Wearable ECG (electrocardiagram ~ the electrical signal of the heart) sensor.<br>
+        <br>
+        There are three sub-teams in UofT Wearable:
+        <ul>
+            <li>Embedded Electronics</li>
+            <li>Companion Software</li>
+            <li>Form and Function</li>
+        </ul>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/resources</span><span class="p-symbol">➜</span>
+        <span class="cmd">ls -1</span>
+    </div>
+    <div class="output">
+        <div class="file-grid">
+            <div class="file-item"><a href="https://docs.google.com/spreadsheets/d/1vWvYRwWPGiC7rGlBTJhrCUMRYlu4yh-qTEteQ--eZvo/edit?usp=sharing" target="_blank">MCU list (Microcontroller)</a></div>
+            <div class="file-item"><a href="https://docs.google.com/document/d/1WEPigkWAcjWcZi076PIMSI9aL8JM8M9peR2Uy0JLvfU/edit?usp=sharing" target="_blank">Background of MCU</a></div>
+            <div class="file-item"><a href="Summer Research.pdf" target="_blank">Summer Research (to be updated)</a></div>
+            <div class="file-item"><a href="QC.html" target="_blank">Self-Learning Quantum Computing</a></div>
+            <div class="file-item"><a href="q_news-2.pdf" target="_blank">Q-News (Quantum Computing News)</a></div>
         </div>
     </div>
 
@@ -188,12 +259,13 @@
         <span class="cmd">python3 logic_puzzle.py</span>
     </div>
     <div class="code-block">
+<h4>What is life?</h4>
 11 + 13 + 17 = 41
 19 + 23 = 42 = <span lang="ko">인생</span> = <span lang="zh">人生</span> = Li42
 41 + <span lang="zh">人生</span> = 83
 
-<span style="color: var(--comment-color);"># If you can guess my logic correctly, 
-# contact me, and I'll buy you a cup of coffee.</span>
+<span style="color: var(--comment-color);"># If you can guess my logic correctly, contact me, 
+# and I'll buy you a cup of coffee. (if you got that right)</span>
     </div>
 
     <div class="prompt-line">
@@ -218,42 +290,49 @@
 </div>
 
 <script>
-    // --- 1. Virtual File System Structure ---
+    // --- 1. Virtual File System (Restored to match displayed content) ---
     const fileSystem = {
         "~": {
             type: "dir",
             children: {
-                "about.html": { type: "file", content: "Link to About Me page" },
-                "resume.pdf": { type: "file", content: "Binary file" },
-                "cv.pdf": { type: "file", content: "Binary file" },
-                "fun_fact.txt": { type: "file", content: "The screenwriter of Little Forest used my name!" },
-                "contact.html": { type: "file", content: "Contact form link" },
+                "about.html": { type: "file" },
+                "baseball.html": { type: "file" },
+                "thought.html": { type: "file" },
+                "courses.html": { type: "file" },
+                "learning.html": { type: "file" },
+                "contact.html": { type: "file" },
+                "resume.pdf": { type: "file" },
+                "cv.pdf": { type: "file" },
+                "about_myself.txt": { type: "file", content: "Little Forest fun fact..." },
+                "life_goals.md": { type: "file", content: "Publish a book, Write a movie script..." },
+                "education_history.txt": { type: "file" },
                 "links": {
                     type: "dir",
                     children: {
-                        "courses.csv": { type: "file" },
-                        "thought.txt": { type: "file" },
-                        "baseball.py": { type: "file" }
+                        "resume.pdf": { type: "file" },
+                        "cv.pdf": { type: "file" }
                     }
                 },
                 "work": {
                     type: "dir",
                     children: {
-                        "current": {
-                            type: "dir",
-                            children: {
-                                "status.md": { type: "file", content: "Focus: Embedded Systems & Sensors @ FRL Lab" }
-                            }
-                        },
-                        "previous": {
-                            type: "dir",
-                            children: {
-                                "uoft_wearable": { type: "dir", children: {} },
-                                "ecg_sensor": { type: "file" },
-                                "mcu_db.csv": { type: "file" },
-                                "quantum_learning": { type: "file" }
-                            }
-                        }
+                        "embedded_projects.md": { type: "file", content: "FRL Lab, UofT Wearable, ECG Sensor, Sub-teams..." }
+                    }
+                },
+                "resources": {
+                    type: "dir",
+                    children: {
+                        "mcu_list.csv": { type: "file" },
+                        "background_mcu.doc": { type: "file" },
+                        "summer_research.pdf": { type: "file" },
+                        "qc.html": { type: "file" },
+                        "q_news.pdf": { type: "file" }
+                    }
+                },
+                "life": {
+                    type: "dir",
+                    children: {
+                        "logic_puzzle.py": { type: "file" }
                     }
                 }
             }
@@ -261,21 +340,20 @@
     };
 
     // --- 2. State Management ---
-    let currentPathArr = ["~"]; // We start at Home
+    let currentPathArr = ["~"];
     const input = document.getElementById('terminal-input');
     const terminalDiv = document.getElementById('dynamic-terminal');
     const pathDisplay = document.getElementById('current-path-display');
+    
+    const commandsList = ['ls', 'cd', 'cat', 'pwd', 'whoami', 'clear', 'date', 'echo', 'help', 'exit'];
 
     // --- 3. Helper Functions ---
-    
-    // Sanitize Input (Prevent Injection)
     function sanitize(str) {
         const div = document.createElement('div');
         div.textContent = str;
         return div.innerHTML;
     }
 
-    // Get current directory object based on currentPathArr
     function getCurrentDirObj() {
         let current = fileSystem["~"];
         for (let i = 1; i < currentPathArr.length; i++) {
@@ -283,31 +361,56 @@
             if (current.children && current.children[folderName]) {
                 current = current.children[folderName];
             } else {
-                return null; // Error path not found
+                return null; 
             }
         }
         return current;
     }
 
-    // Update the visual path prompt
     function updatePathDisplay() {
         let pathStr = currentPathArr.join("/");
         if (pathStr.startsWith("~/")) {
-            pathStr = "~/" + pathStr.substring(2); // Ensure standard format
+            pathStr = "~/" + pathStr.substring(2);
         }
         pathDisplay.innerText = pathStr;
     }
 
-    // --- 4. Command Logic ---
+    // --- 4. TAB Completion Logic ---
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault(); 
+            const rawVal = input.value;
+            const args = rawVal.split(" ");
+            const lastWord = args[args.length - 1];
+
+            if (args.length === 1) {
+                const matches = commandsList.filter(cmd => cmd.startsWith(lastWord));
+                if (matches.length === 1) {
+                    input.value = matches[0] + " ";
+                }
+            } else {
+                const currentDirObj = getCurrentDirObj();
+                if (currentDirObj && currentDirObj.children) {
+                    const files = Object.keys(currentDirObj.children);
+                    const matches = files.filter(f => f.startsWith(lastWord));
+                    if (matches.length === 1) {
+                        args[args.length - 1] = matches[0];
+                        input.value = args.join(" ");
+                    }
+                }
+            }
+        }
+    });
+
+    // --- 5. Command Execution Logic ---
     input.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             const rawInput = input.value;
-            const safeInput = sanitize(rawInput); // Secure the input
+            const safeInput = sanitize(rawInput);
             const trimmed = safeInput.trim();
-            const args = trimmed.split(/\s+/); // Split by spaces
+            const args = trimmed.split(/\s+/);
             const cmd = args[0].toLowerCase();
             
-            // Render User Command to History
             const promptHTML = `<div class="prompt-line">
                 <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">${pathDisplay.innerText}</span><span class="p-symbol">➜</span>
                 <span class="cmd">${safeInput}</span>
@@ -318,24 +421,21 @@
             let outputText = "";
             const currentDirObj = getCurrentDirObj();
 
-            // --- COMMAND SWITCH ---
             switch(cmd) {
                 case 'help':
-                    outputText = "Available commands: ls, cd, cat, pwd, whoami, clear, date, echo, exit";
+                    outputText = "Available commands: " + commandsList.join(", ");
                     break;
 
                 case 'ls':
                 case 'll':
                     if (currentDirObj && currentDirObj.children) {
-                        // List keys in current directory
                         const items = Object.keys(currentDirObj.children);
                         if (items.length === 0) {
                             outputText = "(empty directory)";
                         } else {
-                            // Format output: Directories get a slash
                             const formatted = items.map(item => {
                                 const isDir = currentDirObj.children[item].type === 'dir';
-                                return isDir ? `<span style="color:#89b4fa">${item}/</span>` : item;
+                                return isDir ? `<span style="color:#7fbbb3">${item}/</span>` : item;
                             });
                             outputText = formatted.join("  ");
                         }
@@ -349,11 +449,8 @@
                     if (!target || target === "~") {
                         currentPathArr = ["~"];
                     } else if (target === "..") {
-                        if (currentPathArr.length > 1) {
-                            currentPathArr.pop();
-                        }
+                        if (currentPathArr.length > 1) currentPathArr.pop();
                     } else {
-                        // Handle complex paths (e.g. work/current)
                         const parts = target.split("/");
                         let tempPath = [...currentPathArr];
                         let valid = true;
@@ -363,8 +460,6 @@
                             if (part === "." || part === "") continue;
                             if (part === "..") {
                                 if (tempPath.length > 1) tempPath.pop();
-                                // Update tempObj reference
-                                // (This simplistic logic rebuilds obj from root for safety)
                                 let rebuildObj = fileSystem["~"];
                                 for(let i=1; i<tempPath.length; i++) rebuildObj = rebuildObj.children[tempPath[i]];
                                 tempObj = rebuildObj;
@@ -391,12 +486,8 @@
                         const filename = args[1];
                         if (currentDirObj.children && currentDirObj.children[filename]) {
                             const file = currentDirObj.children[filename];
-                            if (file.type === 'dir') {
-                                outputText = `cat: ${filename}: Is a directory`;
-                            } else {
-                                // If we have content defined, show it, else generic
-                                outputText = file.content ? file.content : "[Binary or System File]";
-                            }
+                            if (file.type === 'dir') outputText = `cat: ${filename}: Is a directory`;
+                            else outputText = file.content ? file.content : "[Binary or System File - Content cannot be displayed in terminal]";
                         } else {
                             outputText = `cat: ${filename}: No such file or directory`;
                         }
@@ -413,7 +504,7 @@
 
                 case 'clear':
                     terminalDiv.innerHTML = "";
-                    outputText = ""; // Don't print anything
+                    outputText = "";
                     break;
 
                 case 'echo':
@@ -421,13 +512,12 @@
                     break;
                 
                 case '':
-                    break; // Do nothing on empty enter
+                    break;
 
                 default:
                     outputText = `command not found: ${safeInput}`;
             }
 
-            // Append Output
             if (cmd !== 'clear' && outputText) {
                 terminalDiv.insertAdjacentHTML('beforeend', `<div class="output">${outputText}</div>`);
             }
