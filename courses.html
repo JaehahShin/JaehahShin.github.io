@@ -1,113 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHFWCNC90P"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CHFWCNC90P');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses in UofT</title>
+    <title>Courses | Jaehah Shin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
+
+        :root {
+            /* Everforest Theme */
+            --bg-color: #2b3339;       
+            --text-color: #d3c6aa;     
+            --comment-color: #859289;  
+            
+            /* Accents */
+            --user-color: #a7c080;     /* Sage Green */
+            --host-color: #7fbbb3;     /* Teal */
+            --path-color: #d699b6;     /* Mauve */
+            --cmd-color: #dbbc7f;      /* Yellow */
+            
+            --link-color: #a7c080;
+            --link-hover: #e67e80;
+            --block-bg: #323c41;
+            
+            --font-stack: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+            --font-header: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            margin: 0;
+            padding: 50px 20px;
+            line-height: 1.6;
+            font-size: 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px; /* Wider for the table */
+            margin: 0 auto;
+            padding-bottom: 120px;
+        }
+
+        /* Header */
+        .main-header {
+            font-family: var(--font-header);
+            font-size: 46px;
+            font-weight: 700;
+            color: #e69875;
+            margin: 0 0 5px 0;
+            letter-spacing: -1px;
+        }
+        .sub-header {
+            font-family: var(--font-header);
+            color: var(--comment-color);
+            font-size: 18px;
+            margin: 0 0 50px 0;
+            font-weight: 600;
+        }
+
+        a { color: var(--link-color); text-decoration: none; border-bottom: 1px dashed var(--comment-color); transition: all 0.2s; }
+        a:hover { color: var(--bg-color); background-color: var(--link-hover); border-bottom: 1px solid var(--link-hover); border-radius: 2px; }
+        strong { color: var(--cmd-color); font-weight: bold; }
+
+        /* Prompt Logic */
+        .prompt-line {
+            margin-top: 40px; 
+            margin-bottom: 8px; 
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .p-user { color: var(--user-color); font-weight: bold; }
+        .p-host { color: var(--host-color); font-weight: bold; }
+        .p-path { color: var(--path-color); margin-left: 5px; }
+        .p-symbol { color: var(--comment-color); margin: 0 10px; }
+        .cmd { color: var(--cmd-color); font-weight: bold; }
+
+        .output {
+            color: var(--text-color);
+            margin-left: 0;
+            white-space: normal;
+            padding-left: 2px;
+        }
+
+        /* Table Styles */
+        .table-wrapper {
+            background: var(--block-bg);
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #4b565c;
+            overflow-x: auto; /* Scroll horizontally on mobile */
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-stack);
+            font-size: 14px;
+            white-space: nowrap; /* Keep columns neat */
+        }
+
+        th {
+            text-align: left;
+            color: var(--host-color);
+            border-bottom: 2px solid var(--comment-color);
+            padding: 10px;
+        }
+
+        td {
+            border-bottom: 1px solid #414b50;
+            padding: 10px;
+            color: var(--text-color);
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: #3a454a; }
+
+        /* Interactive Input */
+        #terminal-input {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            font-size: 16px;
+            outline: none;
+            flex-grow: 1;
+            min-width: 50px;
+        }
+        
+        footer {
+            margin-top: 60px; 
+            border-top: 1px dashed var(--comment-color); 
+            padding-top: 20px; 
+            font-size: 13px; 
+            color: var(--comment-color);
+            font-family: var(--font-header);
+        }
+
+        @media (max-width: 600px) {
+            .main-header { font-size: 36px; }
+            .prompt-line { margin-top: 30px; }
+            body { padding: 20px 15px; }
+            th, td { padding: 8px 5px; font-size: 12px;}
+        }
+    </style>
 </head>
+<body>
 
-<p>Following is the table of courses that I am taking. </p>
-<table border="1" cellpadding="5" cellspacing="0">
-    <caption><strong>Courses that I am taking</strong></caption>
-<tr>
-  <th>EngSci 1F</th>
-  <th>EngSCi 1W </th>
-<th>EngSci 2F</th>
-<th>EngSci 2W</th>
-<th>Robotics 3F</th>
-<th>Robotics 3W</th>
-<th>Robotics 4F</th>
-<th>Robotics 4W</th>
-</tr>
-<tr>
-<td><a href="https://engineering.calendar.utoronto.ca/course/civ102h1"target="_blank">CIV102</a> </td>
-<td><a href= "https://engineering.calendar.utoronto.ca/course/ece159h1"target="_blank">ECE159</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/aer210h1"target="_blank">AER210</a></td>
-<td><a href ="https://engineering.calendar.utoronto.ca/course/bme205h1"target="_blank">BME205</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/aer301h1"target="_blank">AER301</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/aer372h1"target="_blank">AER372</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/esc499y1"target="_blank">ESC499(Y)</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/esc499y1"target="_blank">ESC499(Y)</a></td>
-</tr>
-<tr>
-<td><a href="https://engineering.calendar.utoronto.ca/course/esc101h1"target="_blank">ESC101</a></td>
-<td><a href= "https://engineering.calendar.utoronto.ca/course/esc102h1"target="_blank"> ESC102</a></td>
-<td><a href= "https://engineering.calendar.utoronto.ca/course/che260h1"target="_blank">CHE260</a></td>
-<td><a href= "https://engineering.calendar.utoronto.ca/course/ece259h1"target="_blank">ECE259</a></td>
-<td><a href= "https://engineering.calendar.utoronto.ca/course/che374h1"target="_blank">CHE374</a></td>
-<td><a href="https://artsci.calendar.utoronto.ca/course/csc384h1"target="_blank">CSC384</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/ece470h1"target="_blank">ECE470</a></td>
-<td><a href= "https://engineering.calendar.utoronto.ca/course/rob521h1"target="_blank">ROB521</a></td>
-</tr>
-<tr>
-<td><a href="https://engineering.calendar.utoronto.ca/course/esc103h1"target="_blank">ESC103</a></td>
-<td><a href="https://engineering.calendar.utoronto.ca/course/esc190h1"target="_blank">ESC190</a></td>
-<td><a href= "https://engineering.calendar.utoronto.ca/course/ece253h1"target="_blank">ECE253</a></td>
-<td><a href= "https://engineering.calendar.utoronto.ca/course/ece286h1"target="_blank">ECE286</a></td>
-<td><a href= "https://artsci.calendar.utoronto.ca/course/csc263h1"target="_blank">CSC263</a></td>
-<td><a href= "https://engineering.calendar.utoronto.ca/course/rob313h1"target="_blank">ROB313</a></td>
-<td><a href="https://engineering.calendar.utoronto.ca/course/ece557h1"target="_blank">ECE557</a></td>
-<td><a href="https://engineering.calendar.utoronto.ca/course/tep449h1"target="_blank">TEP449</a></td>
-</tr>
-<tr>
-<td><a href="https://engineering.calendar.utoronto.ca/course/esc180h1"target="_blank">ESC180</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/esc195h1"target="_blank">ESC195</a></td>
-<td><a href ="https://engineering.calendar.utoronto.ca/course/esc203h1"target="_blank">ESC203</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/esc204h1"target="_blank">ESC204</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/mie366h1"target="_blank">MIE366</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/mie438h1"target="_blank">MIE438</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/rob501h1"target="_blank">ROB501</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/ece532h1"target="_blank">ECE532</a></td>
-</tr>
-<tr>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/esc194h1"target="_blank">ESC194</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/mat185h1"target="_blank">MAT185 </a></td>    
-<td><a href = "https://engineering.calendar.utoronto.ca/course/mat292h1"target="_blank">MAT292</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/phy294h1"target="_blank">PHY294</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/rob301h1"target="_blank">ROB301</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/esc301h1"target="_blank">ESC301</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/tep444h1"target="_blank">TEP444</a></td>
-<td><a href ="https://engineering.calendar.utoronto.ca/course/rob498h1"target="_blank">ROB498</a></td>
-</tr>
-<tr>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/phy180h1"target="_blank">PHY180</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/mse160h1"target="_blank">MSE160</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/phy293h1"target="_blank">PHY293</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/tep324h1"target="_blank">TEP324</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/rob310h1"target="_blank">ROB310</a></td>
-<td><a href = "https://artsci.calendar.utoronto.ca/course/csc373h1"target="_blank">CSC373</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/ece552h1"target="_blank">ECE552</a></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/ece516h1"target="_blank">ECE516</a></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><a href = "https://engineering.calendar.utoronto.ca/course/esc301h1"target="_blank">ESC301</a></td>
+<div class="container">
 
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <h1 class="main-header">Courses</h1>
+    <div class="sub-header">Academic Curriculum @ UofT</div>
 
-<td></td>
-    <td></td>
-</tr>
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/education/courses</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat notes.txt</span>
+    </div>
+    <div class="output">
+        <span style="color: var(--comment-color);"># SCHEDULE NOTES:</span><br>
+        This schedule shows the courses for my Engineering Science degree with a Robotics major.<br>
+        It lists both required and elective courses I have taken or plan to take from first through fourth year.<br><br>
+        <span style="color: var(--comment-color);"># DISCLAIMER:</span><br>
+        Fourth-year courses may change as my interests evolve. I might also complete some courses during my Professional Experience Year (PEY).<br>
+        <strong>Current Focus:</strong> Algorithms, Number Theory, Embedded Systems, Robotics, and Physics.
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/education/courses</span><span class="p-symbol">➜</span>
+        <span class="cmd">column -t course_list.csv</span>
+    </div>
     
-</table>
-<p><strong>Sidenote:</strong> This schedule shows the courses for my Engineering Science degree with a Robotics major. It lists both required and elective courses I have taken or plan to take from first through fourth year.<br>
-Fourth-year courses may change as my interests change, and I might also complete some courses during my Professional Experience Year (PEY).<br>
-Currently, I'm focusing on algorithms, number theory, embedded systems, robotics, and physics.</p>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>EngSci 1F</th>
+                    <th>EngSci 1W</th>
+                    <th>EngSci 2F</th>
+                    <th>EngSci 2W</th>
+                    <th>Robotics 3F</th>
+                    <th>Robotics 3W</th>
+                    <th>Robotics 4F</th>
+                    <th>Robotics 4W</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/civ102h1" target="_blank">CIV102</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/ece159h1" target="_blank">ECE159</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/aer210h1" target="_blank">AER210</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/bme205h1" target="_blank">BME205</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/aer301h1" target="_blank">AER301</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/aer372h1" target="_blank">AER372</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc499y1" target="_blank">ESC499(Y)</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc499y1" target="_blank">ESC499(Y)</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc101h1" target="_blank">ESC101</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc102h1" target="_blank">ESC102</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/che260h1" target="_blank">CHE260</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/ece259h1" target="_blank">ECE259</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/che374h1" target="_blank">CHE374</a></td>
+                    <td><a href="https://artsci.calendar.utoronto.ca/course/csc384h1" target="_blank">CSC384</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/ece470h1" target="_blank">ECE470</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/rob521h1" target="_blank">ROB521</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc103h1" target="_blank">ESC103</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc190h1" target="_blank">ESC190</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/ece253h1" target="_blank">ECE253</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/ece286h1" target="_blank">ECE286</a></td>
+                    <td><a href="https://artsci.calendar.utoronto.ca/course/csc263h1" target="_blank">CSC263</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/rob313h1" target="_blank">ROB313</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/ece557h1" target="_blank">ECE557</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/tep449h1" target="_blank">TEP449</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc180h1" target="_blank">ESC180</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc195h1" target="_blank">ESC195</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc203h1" target="_blank">ESC203</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc204h1" target="_blank">ESC204</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/mie366h1" target="_blank">MIE366</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/mie438h1" target="_blank">MIE438</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/rob501h1" target="_blank">ROB501</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/ece532h1" target="_blank">ECE532</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc194h1" target="_blank">ESC194</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/mat185h1" target="_blank">MAT185</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/mat292h1" target="_blank">MAT292</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/phy294h1" target="_blank">PHY294</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/rob301h1" target="_blank">ROB301</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc301h1" target="_blank">ESC301</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/tep444h1" target="_blank">TEP444</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/rob498h1" target="_blank">ROB498</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/phy180h1" target="_blank">PHY180</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/mse160h1" target="_blank">MSE160</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/phy293h1" target="_blank">PHY293</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/tep324h1" target="_blank">TEP324</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/rob310h1" target="_blank">ROB310</a></td>
+                    <td><a href="https://artsci.calendar.utoronto.ca/course/csc373h1" target="_blank">CSC373</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/ece552h1" target="_blank">ECE552</a></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/ece516h1" target="_blank">ECE516</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a href="https://engineering.calendar.utoronto.ca/course/esc301h1" target="_blank">ESC301</a></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-<p><a href="index.html" >Back to Main Page</a></p>
-<footer>
-            <p>&copy; 2025 jaehah shin's website</p>
-        </footer>
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/education/courses</span><span class="p-symbol">➜</span>
+        <span class="cmd">cd ../..</span>
+    </div>
+    <div class="output">
+        <a href="index.html">>> Return to Main System (Home)</a>
+    </div>
+
+    <div id="dynamic-terminal"></div>
+    
+    <div class="prompt-line">
+        <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path" id="current-path-display">~/education/courses</span><span class="p-symbol">➜</span>
+        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type help...">
+    </div>
+
+    <footer>
+        &copy; 2025 jaehah shin's system
+    </footer>
+
+</div>
+
+<script>
+    // Interactive Terminal Logic
+    const input = document.getElementById('terminal-input');
+    const terminalDiv = document.getElementById('dynamic-terminal');
+    const pathDisplay = document.getElementById('current-path-display');
+    let currentPath = "~/education/courses";
+
+    function sanitize(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    input.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            const rawInput = input.value;
+            const safeInput = sanitize(rawInput);
+            const cmd = safeInput.trim().toLowerCase().split(" ")[0];
+            
+            const promptHTML = `<div class="prompt-line">
+                <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">${currentPath}</span><span class="p-symbol">➜</span>
+                <span class="cmd">${safeInput}</span>
+            </div>`;
+            
+            terminalDiv.insertAdjacentHTML('beforeend', promptHTML);
+
+            let outputText = "";
+            
+            if (cmd === 'ls') {
+                outputText = "notes.txt  course_list.csv";
+            } else if (cmd === 'cd') {
+                const arg = safeInput.trim().split(" ")[1];
+                if (arg === '..' || arg === '../..' || arg === '~') {
+                    window.location.href = "index.html";
+                    outputText = "Navigating...";
+                } else {
+                    outputText = "cd: permission denied (limited shell)";
+                }
+            } else if (cmd === 'help') {
+                outputText = "Available commands: ls, cd .., clear";
+            } else if (cmd === 'clear') {
+                terminalDiv.innerHTML = "";
+            } else if (cmd !== "") {
+                outputText = `command not found: ${cmd}`;
+            }
+
+            if (cmd !== 'clear' && outputText) {
+                terminalDiv.insertAdjacentHTML('beforeend', `<div class="output">${outputText}</div>`);
+            }
+            
+            input.value = "";
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    });
+</script>
+
 </body>
 </html>
