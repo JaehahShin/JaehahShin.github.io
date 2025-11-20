@@ -30,7 +30,7 @@
             
             --link-color: #a7c080;
             --link-hover: #e67e80;
-            --block-bg: #323c41;       /* Lighter background for cards */
+            --block-bg: #323c41;       
             
             --font-stack: 'Consolas', 'Monaco', 'Andale Mono', monospace;
             --font-header: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -48,7 +48,7 @@
         }
 
         .container {
-            max-width: 1000px; /* Wider for dashboard */
+            max-width: 1000px;
             margin: 0 auto;
             padding-bottom: 120px;
         }
@@ -84,7 +84,7 @@
 
         .output { color: var(--text-color); margin-left: 0; white-space: normal; padding-left: 2px; }
 
-        /* --- DASHBOARD STYLES (Adapted) --- */
+        /* Dashboard Styles */
         .dashboard-card {
             background: var(--block-bg);
             border-radius: 8px;
@@ -113,7 +113,7 @@
         .charts-grid { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; }
         canvas { background: var(--bg-color); border-radius:6px; border: 1px solid #4b565c; width: 100%; }
 
-        /* Table Styles */
+        /* Table */
         table { width:100%; border-collapse:collapse; font-size:14px; color: var(--text-color); }
         th, td { padding:8px 10px; border-bottom:1px solid #4b565c; text-align:center; }
         th { background: var(--bg-color); color: var(--host-color); position:sticky; top:0; }
@@ -304,7 +304,6 @@
         return { ...g, shortDate: (()=>{ const d=new Date(g.Date); return `${d.getMonth()+1}/${d.getDate()}` })(), PA, WalkRate, KRate, ISO, ProductionRate, GameQuality };
     });
 
-    // Aggregations
     processed.forEach((g,idx)=>{
         g.CumulativeHits = processed.slice(0,idx+1).reduce((s,x)=>s+x.H,0);
         g.CumulativeRuns = processed.slice(0,idx+1).reduce((s,x)=>s+x.R,0);
@@ -345,62 +344,48 @@
     document.getElementById('best-game').textContent = `${bestGame.shortDate} vs ${bestGame.Opponent} (${bestGame.OPS.toFixed(3)} OPS)`;
     document.getElementById('speed-threat').textContent = `${season.SBPerGame.toFixed(1)} SB/G`;
 
-    // Opponent Aggregation
     const oppMap = {};
     processed.forEach(g=>{ if(!oppMap[g.Opponent]) oppMap[g.Opponent]={OPSsum:0,count:0}; oppMap[g.Opponent].OPSsum += g.OPS; oppMap[g.Opponent].count += 1; });
     const oppData = Object.entries(oppMap).map(([Opponent,v])=>({Opponent, AvgOPS: v.count? v.OPSsum/v.count:0}));
-
     const qualityCounts = processed.reduce((acc,g)=>{ acc[g.GameQuality]=(acc[g.GameQuality]||0)+1; return acc; },{});
 
-    // --- Drawing Engine (Customized for Everforest Theme) ---
     const COLOR = {
-        text: '#d3c6aa',
-        grid: '#4b565c',
-        teal: '#7fbbb3',
-        green: '#a7c080',
-        yellow: '#dbbc7f',
-        red: '#e67e80',
-        blue: '#7fbbb3', // Mapping blue to teal for theme consistency
-        bg: '#2b3339'
+        text: '#d3c6aa', grid: '#4b565c', teal: '#7fbbb3', green: '#a7c080', yellow: '#dbbc7f', red: '#e67e80', blue: '#7fbbb3', bg: '#2b3339'
     };
 
+    // --- Chart Functions with 0-width Guards ---
     function drawLineChart(canvas, series, labels) {
+        const w = canvas.offsetWidth; const h = canvas.offsetHeight;
+        if (w === 0 || h === 0) return; // Guard against hidden tabs
+        canvas.width = w; canvas.height = h;
         const ctx = canvas.getContext('2d');
-        const w = canvas.width = canvas.offsetWidth;
-        const h = canvas.height = canvas.offsetHeight;
         ctx.clearRect(0,0,w,h);
         
         const pad = 30;
         let allVal = []; series.forEach(s=>allVal=allVal.concat(s.data));
-        const yMin = 0; const yMax = Math.max(...allVal, 1) * 1.1;
+        const yMax = Math.max(...allVal, 1) * 1.1;
         
-        // Grid
         ctx.strokeStyle = COLOR.grid; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(pad, pad); ctx.lineTo(pad, h-pad); ctx.lineTo(w-pad, h-pad); ctx.stroke();
 
-        // Labels
         ctx.fillStyle = COLOR.text; ctx.font = '10px monospace';
         labels.forEach((lbl,i)=>{
-            const x = pad + ((w-2*pad)/(labels.length-1))*i;
+            const x = pad + ((w-2*pad)/(labels.length-1||1))*i;
             ctx.fillText(lbl, x-10, h-10);
         });
 
-        // Lines
         series.forEach(s=>{
             ctx.strokeStyle = s.color; ctx.lineWidth = 2;
             if(s.dash) ctx.setLineDash(s.dash); else ctx.setLineDash([]);
             ctx.beginPath();
             s.data.forEach((v,i)=>{
-                const x = pad + ((w-2*pad)/(labels.length-1))*i;
+                const x = pad + ((w-2*pad)/(labels.length-1||1))*i;
                 const y = (h-pad) - (v/yMax)*(h-2*pad);
                 if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-                // Dot
-                // ctx.fillStyle=s.color; ctx.fillRect(x-2,y-2,4,4);
             });
             ctx.stroke();
         });
         
-        // Simple Legend (Top Right)
         let ly = 10;
         series.forEach(s=>{
             ctx.fillStyle = s.color; ctx.fillRect(w-80, ly, 8, 8);
@@ -410,9 +395,10 @@
     }
 
     function drawBarChart(canvas, datasets, labels, stacked=false) {
+        const w = canvas.offsetWidth; const h = canvas.offsetHeight;
+        if (w === 0 || h === 0) return; 
+        canvas.width = w; canvas.height = h;
         const ctx = canvas.getContext('2d');
-        const w = canvas.width = canvas.offsetWidth;
-        const h = canvas.height = canvas.offsetHeight;
         ctx.clearRect(0,0,w,h);
         const pad = 30;
         
@@ -422,7 +408,6 @@
         maxVal = maxVal || 1;
 
         const colW = (w - 2*pad) / labels.length;
-        
         labels.forEach((lbl, i)=>{
             let yOff = 0;
             const xBase = pad + i*colW + 5;
@@ -446,7 +431,6 @@
             ctx.fillText(lbl, xBase, h-10);
         });
         
-        // Legend
         let lx = pad;
         datasets.forEach(d=>{
             ctx.fillStyle=d.color; ctx.fillRect(lx, 5, 8, 8);
@@ -456,9 +440,11 @@
     }
 
     function drawPie(canvas, labels, values, colors) {
+        const w = canvas.offsetWidth; const h = canvas.offsetHeight;
+        if (w === 0 || h === 0) return;
+        canvas.width = w; canvas.height = h;
         const ctx = canvas.getContext('2d');
-        const w = canvas.width = canvas.offsetWidth;
-        const h = canvas.height = canvas.offsetHeight;
+        
         const cx = w/2; const cy = h/2;
         const r = Math.min(cx,cy) - 20;
         let total = values.reduce((a,b)=>a+b,0);
@@ -470,27 +456,25 @@
             ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,start+slice);
             ctx.fillStyle = colors[lbl]; ctx.fill();
             
-            // Label
             const mid = start + slice/2;
             const tx = cx + Math.cos(mid)*(r+10);
             const ty = cy + Math.sin(mid)*(r+10);
             ctx.fillStyle = COLOR.text; ctx.textAlign = tx>cx?'left':'right';
             ctx.fillText(lbl, tx, ty);
-            
             start += slice;
         });
     }
 
     function drawScatter(canvas, points) {
+        const w = canvas.offsetWidth; const h = canvas.offsetHeight;
+        if (w === 0 || h === 0) return;
+        canvas.width = w; canvas.height = h;
         const ctx = canvas.getContext('2d');
-        const w = canvas.width = canvas.offsetWidth;
-        const h = canvas.height = canvas.offsetHeight;
         const pad = 30;
         
         const xMax = Math.max(...points.map(p=>p.x), 1);
         const yMax = Math.max(...points.map(p=>p.y), 1);
 
-        // Axes
         ctx.strokeStyle = COLOR.grid; ctx.beginPath();
         ctx.moveTo(pad,pad); ctx.lineTo(pad,h-pad); ctx.lineTo(w-pad,h-pad); ctx.stroke();
 
@@ -504,64 +488,58 @@
         ctx.fillStyle = COLOR.text; ctx.fillText("Efficiency (Prod/PA vs PA)", pad+10, 15);
     }
 
-    // --- Render ---
+    // --- Main Render Loop ---
     function renderAll() {
-        // 1. Rate Trend
+        // Performance Tab
         drawLineChart(document.getElementById('rateTrend'), [
             {label:'AVG', data:processed.map(d=>d.AVG), color:COLOR.teal},
             {label:'OPS', data:processed.map(d=>d.OPS), color:COLOR.red},
             {label:'Trend', data:processed.map(d=>d.OPS_Roll3), color:COLOR.yellow, dash:[5,5]}
         ], processed.map(d=>d.shortDate));
 
-        // 2. Quality Pie
         const qLabels = Object.keys(qualityCounts);
         const qVals = qLabels.map(k=>qualityCounts[k]);
         const qCols = {'Excellent':COLOR.green, 'Good':COLOR.teal, 'Average':COLOR.yellow, 'Poor':COLOR.red};
         drawPie(document.getElementById('qualityPie'), qLabels, qVals, qCols);
 
-        // 3. Opponent OPS
         drawBarChart(document.getElementById('oppOPS'), [
             {label:'Avg OPS', data:oppData.map(o=>o.AvgOPS), color:COLOR.teal}
         ], oppData.map(o=>o.Opponent));
 
-        // 4. OnBase Stack
         drawBarChart(document.getElementById('onBase'), [
             {label:'H', data:processed.map(d=>d.H), color:COLOR.teal},
             {label:'BB', data:processed.map(d=>d.BB), color:COLOR.green},
             {label:'HBP', data:processed.map(d=>d.HBP), color:COLOR.yellow}
         ], processed.map(d=>d.shortDate), true);
         
-        // 5. Cumulative
+        // Production Tab
         drawLineChart(document.getElementById('cumulative'), [
             {label:'Runs', data:processed.map(d=>d.CumulativeRuns), color:COLOR.red},
             {label:'RBI', data:processed.map(d=>d.CumulativeRBI), color:COLOR.green},
             {label:'Hits', data:processed.map(d=>d.CumulativeHits), color:COLOR.teal}
         ], processed.map(d=>d.shortDate));
 
-        // 6. Per Game
         drawBarChart(document.getElementById('perGame'), [
             {label:'R', data:processed.map(d=>d.R), color:COLOR.red},
             {label:'RBI', data:processed.map(d=>d.RBI), color:COLOR.green},
             {label:'SB', data:processed.map(d=>d.SB), color:COLOR.yellow}
         ], processed.map(d=>d.shortDate));
         
-        // 7. Efficiency
         drawScatter(document.getElementById('efficiency'), processed.map(d=>({x:d.PA, y:d.ProductionRate, label:d.shortDate})));
 
-        // 8. Discipline
+        // Discipline Tab
         drawLineChart(document.getElementById('walkK'), [
             {label:'BB%', data:processed.map(d=>d.WalkRate), color:COLOR.green},
             {label:'K%', data:processed.map(d=>d.KRate), color:COLOR.red}
         ], processed.map(d=>d.shortDate));
         
-        // 9. OnBase Comp (Duplicate for tab 3)
         drawBarChart(document.getElementById('onBaseComp'), [
             {label:'H', data:processed.map(d=>d.H), color:COLOR.teal},
             {label:'BB', data:processed.map(d=>d.BB), color:COLOR.green}
         ], processed.map(d=>d.shortDate), true);
     }
 
-    // Populate Table
+    // Table
     const tbody = document.querySelector('#gameLogTable tbody');
     processed.forEach(g=>{
         const tr=document.createElement('tr');
@@ -570,15 +548,18 @@
         tbody.appendChild(tr);
     });
 
-    // Tab Switcher
+    // Tab Logic (Fixed)
     document.querySelectorAll('.tab').forEach(t=>{
         t.addEventListener('click', ()=>{
             document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
             t.classList.add('active');
             document.querySelectorAll('.tab-content').forEach(c=>c.style.display='none');
-            document.getElementById('tab-' + t.dataset.tab).style.display='block';
-            // Re-render charts on tab switch to fix width issues
-            setTimeout(renderAll, 10);
+            const content = document.getElementById('tab-' + t.dataset.tab);
+            content.style.display='block';
+            // Use requestAnimationFrame to ensure DOM is visible before calculating width
+            requestAnimationFrame(() => {
+                renderAll();
+            });
         });
     });
 
@@ -586,49 +567,39 @@
     document.getElementById('download-csv').addEventListener('click', ()=>{
         const headers = ['Date','Opponent','AB','R','H','RBI','BB','K','SB','AVG','OPS'];
         const rows = processed.map(g=> [g.Date,g.Opponent,g.AB,g.R,g.H,g.RBI,g.BB,g.K,g.SB,g.AVG.toFixed(3),g.OPS.toFixed(3)].join(','));
-        const csv = [headers.join(','), ...rows].join('\n');
-        const blob = new Blob([csv], {type:'text/csv'});
+        const blob = new Blob([[headers.join(','), ...rows].join('\n')], {type:'text/csv'});
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a'); a.href=url; a.download='stats_2025.csv'; a.click();
     });
 
-    // Interactive Terminal Logic
+    // Terminal
     const termInput = document.getElementById('terminal-input');
     const termDiv = document.getElementById('dynamic-terminal');
-    const termPath = document.getElementById('current-path-display');
-    let currentPath = "~/links";
-
+    let termPath = "~/links";
     function sanitize(str) { const d=document.createElement('div'); d.textContent=str; return d.innerHTML; }
-
     termInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
-            const raw = termInput.value;
-            const safe = sanitize(raw);
+            const safe = sanitize(termInput.value);
             const cmd = safe.trim().split(" ")[0].toLowerCase();
-            
-            termDiv.insertAdjacentHTML('beforeend', `<div class="prompt-line"><span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">${currentPath}</span><span class="p-symbol">➜</span><span class="cmd">${safe}</span></div>`);
-
+            termDiv.insertAdjacentHTML('beforeend', `<div class="prompt-line"><span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">${termPath}</span><span class="p-symbol">➜</span><span class="cmd">${safe}</span></div>`);
             let out = "";
             if(cmd==='ls') out = "baseball_stats_2025.py  about.html  resume.pdf";
             else if(cmd==='cd') {
-                const arg = safe.split(" ")[1];
-                if(arg==='..') { window.location.href='index.html'; out="Navigating..."; }
+                if(safe.includes('..')) { window.location.href='index.html'; out="Navigating..."; }
                 else out="cd: permission denied";
             }
             else if(cmd==='help') out="Available: ls, cd .., clear";
             else if(cmd==='clear') termDiv.innerHTML="";
             else if(cmd) out=`command not found: ${cmd}`;
-
             if(cmd!=='clear' && out) termDiv.insertAdjacentHTML('beforeend', `<div class="output">${out}</div>`);
             termInput.value = "";
             window.scrollTo(0, document.body.scrollHeight);
         }
     });
 
-    // Initial Render
+    // Init
     window.onload = renderAll;
     window.onresize = renderAll;
 </script>
-
 </body>
 </html>
