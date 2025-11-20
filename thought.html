@@ -1,1 +1,867 @@
-a
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHFWCNC90P"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CHFWCNC90P');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thought Dumps | Jaehah Shin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
+
+        :root {
+            /* Everforest Theme */
+            --bg-color: #2b3339;       
+            --text-color: #d3c6aa;     
+            --comment-color: #859289;  
+            
+            /* Accents */
+            --user-color: #a7c080;     /* Sage Green */
+            --host-color: #7fbbb3;     /* Teal */
+            --path-color: #d699b6;     /* Mauve */
+            --cmd-color: #dbbc7f;      /* Yellow */
+            --timestamp-color: #e67e80; /* Red */
+            
+            --link-color: #a7c080;
+            --link-hover: #e67e80;
+            --block-bg: #323c41;
+            
+            --font-stack: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+            --font-header: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            margin: 0;
+            padding: 50px 20px;
+            line-height: 1.6;
+            font-size: 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding-bottom: 120px;
+        }
+
+        /* Header */
+        .main-header {
+            font-family: var(--font-header);
+            font-size: 46px;
+            font-weight: 700;
+            color: #e69875;
+            margin: 0 0 5px 0;
+            letter-spacing: -1px;
+        }
+        .sub-header {
+            font-family: var(--font-header);
+            color: var(--comment-color);
+            font-size: 18px;
+            margin: 0 0 50px 0;
+            font-weight: 600;
+        }
+
+        a { color: var(--link-color); text-decoration: none; border-bottom: 1px dashed var(--comment-color); transition: all 0.2s; }
+        a:hover { color: var(--bg-color); background-color: var(--link-hover); border-bottom: 1px solid var(--link-hover); border-radius: 2px; }
+        strong { color: var(--cmd-color); font-weight: bold; }
+
+        /* Prompt Logic */
+        .prompt-line {
+            margin-top: 40px; 
+            margin-bottom: 15px; 
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .p-user { color: var(--user-color); font-weight: bold; }
+        .p-host { color: var(--host-color); font-weight: bold; }
+        .p-path { color: var(--path-color); margin-left: 5px; }
+        .p-symbol { color: var(--comment-color); margin: 0 10px; }
+        .cmd { color: var(--cmd-color); font-weight: bold; }
+
+        .output {
+            color: var(--text-color);
+            margin-left: 0;
+            white-space: normal;
+            padding-left: 2px;
+        }
+
+        /* Log Entry Styling */
+        .log-container {
+            border-left: 2px solid #4b565c;
+            padding-left: 20px;
+            margin-top: 20px;
+        }
+
+        .log-entry {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        /* The "Timestamp" dot */
+        .log-entry::before {
+            content: "";
+            position: absolute;
+            left: -27px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--block-bg);
+            border: 2px solid var(--timestamp-color);
+        }
+
+        .log-date {
+            font-family: var(--font-stack);
+            color: var(--timestamp-color);
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: inline-block;
+            background: var(--block-bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            border: 1px solid #4b565c;
+        }
+
+        .log-content {
+            color: var(--text-color);
+            white-space: pre-wrap; /* CRITICAL: Preserves line breaks */
+        }
+
+        /* Interactive Input */
+        #terminal-input {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            font-size: 16px;
+            outline: none;
+            flex-grow: 1;
+            min-width: 50px;
+        }
+        
+        footer {
+            margin-top: 60px; 
+            border-top: 1px dashed var(--comment-color); 
+            padding-top: 20px; 
+            font-size: 13px; 
+            color: var(--comment-color);
+            font-family: var(--font-header);
+        }
+
+        @media (max-width: 600px) {
+            .main-header { font-size: 36px; }
+            .prompt-line { margin-top: 30px; }
+            body { padding: 20px 15px; }
+            .log-container { padding-left: 15px; border-left: 1px solid #4b565c; }
+            .log-entry::before { left: -21px; width: 10px; height: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1 class="main-header">Thought Dumps</h1>
+    <div class="sub-header">My Journey & Reflections</div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/links</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat intro.txt</span>
+    </div>
+    <div class="output">
+        This is part of the writings that I have been writing about what I learned and thought about throughout my life journey. You may notice that my perspective has shifted over time—and I believe that these shifts are themselves an essential part of my life’s journey.
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/links</span><span class="p-symbol">➜</span>
+        <span class="cmd">less thought_dumps.log</span>
+    </div>
+    
+    <div class="log-container">
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Oct.29]</div>
+            <div class="log-content">물리적 세계에서 시간은 단방향으로 흐르는 불가역의 존재이지만, 기억이라는 유동적인 영역 안에서는 가역성을 획득한다.
+물리적 세계에서의 인과관계와 사건들은 불가변의 존재이지만, 기억이라는 유동적인 영역 안에서는 가변성을 획득한다.
+기억은 그 불가역의 시간을 넘나들고, 그 불가변의 사건과 의미를 다시 쓰는 개인의 고유한 차원이다.
+In the physical world, time is an irreversible entity that flows in a single direction, but within the fluid domain of memory, it acquires reversibility.
+In the physical world, causality and events are immutable entities, but within the fluid domain of memory, they acquire mutability.
+Memory is the individual's unique dimension, traversing that irreversible time to rewrite those immutable events and their meanings.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Sep.25]</div>
+            <div class="log-content">삶을 살다 보면, 때로는 타인의 태도에 따라 내 마음가짐이 상대적으로 변화하는 경우가 있다.
+그럴수록 흔들리지 않고, 행동과 진실함으로 항상 사랑해야한다는 본질을 잊지 않으려한다.
+타인의 행동, 말, 태도에 상대적으로 변화하는 마음가짐이 아닌, 성경에서 가르쳐주는 “서로 사랑하라”는 절대적인 마음가짐을 붙들고, 우리를 위해 목숨을 내어 주심으로 진정한 사랑이 무엇인지 알려주신 예수님을 항상 기억하며 살 수 있기를 기도한다.
+2025년 8월 8일에 쓴 글에서 나는 이렇게 적었다.
+“사람과의 관계에서는, 관계의 성격에 따라 각기 다른 원칙을 갖는 것은 중요하다. 하지만 그 원칙을 대하는 내 태도가 상대적이 되어서는 안 된다. “나는 이렇게 해줬는데, 왜 저 사람은 저렇게밖에 못하지?”와 같은 생각에 빠지면 감정적으로 반응하게 되고, 이성적인 판단을 잃게 된다. 각 관계별로 세운 원칙은 일관되게 지켜야 한다. 물론 상황에 따른 융통성은 필요하지만, 그것 또한 감정이나 순간적인 기분에 휘둘려 적용 범위가 달라져서는 안 된다. 결국, 관계에서 중요한 것은 ‘관계별로 다른 원칙’과 ‘태도의 일관성’을 함께 유지하는 것이다.” 
+지금도 생각은 같다. 원칙이 관계별로 다를 수는 있어도, 그 바탕과 중심은 언제나 사랑이어야 한다.
+As I go through life, there are times when my mindset shifts in response to others’ attitudes. In those moments, I try not to forget the core: to love consistently—with actions and sincerity—without being shaken.
+Rather than a mindset that changes reactively to others’ behavior, words, and attitudes, I pray to hold fast to the absolute posture Scripture teaches: “love one another.” And I pray to live always remembering Jesus, who showed us what true love is by laying down His life for us.
+In something I wrote on August 8, 2025, I put it this way:
+“In relationships with others, it is important to have different principles depending on the nature of the relationship. However, my attitude toward those principles should never become relative. Falling into thoughts like, “I’ve done this much for them, so why can’t they do at least that for me?” leads to emotional reactions and a loss of rational judgment. The principles set for each type of relationship must be upheld consistently. Of course, flexibility according to the situation is necessary, but that flexibility should not be swayed by emotions or momentary feelings. Ultimately, what matters in relationships is maintaining both different principles for different relationships and consistency in attitude.”
+I still think the same. Principles may differ across relationships, but love must always be at the root and at the center.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Sep.06]</div>
+            <div class="log-content">상대방과의 다른 관점으로 같은 사물을 바라보는 것은 살아온 삶의 다름에서 파생된 필연적인 사실이다.
+그렇기에 다른 이의 행실, 화법, 사고방식, 그리고 삶을 대하는 태도를 함부로 재단하고 조언하는 것은 오만한 일이며 웬만하면 지양해야 한다.
+하지만 그렇게 살기는 쉽지 않다. 보통의 사람들은 자신이 흠 잡을 곳 없는 빼어난 논리를 가지고 세상을 바라보며, 자신이 보는 세상이 전부라고 생각하는 경우가 많기 때문이다.
+그러나 실상은 다르다. 진정한 논리성은 내 관점이 틀릴 수도 있음을 인정하고, 그로 인한 불편함과 불일치를 견디는 용기에서 비롯된다.
+나는 나의 논리가 완벽하지 않다는 것을 인정하려고 항상 노력한다. 그렇기에 하나님과 성경에 나의 살아가는 기준을 두기 위해 노력한다.
+Seeing the same thing from different perspectives is an inevitable result of the different lives we have lived.
+Therefore, rashly judging and offering advice about another person’s conduct, manner of speech, way of thinking, and attitude toward life is an act of arrogance and something we should generally refrain from.
+But living that way is not easy. Ordinary people often believe they view the world with impeccable logic and that the world they see is all there is.
+But reality is otherwise. Genuine rationality begins with the courage to admit our perspective could be wrong and to endure the dissonance that follows.
+I strive to acknowledge that my reasoning is not perfect. For that reason, I seek to ground the standards by which I live in God and in the Bible.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Sep.06]</div>
+            <div class="log-content">배우는 사람의 자세:
+배우는 사람의 자세를 보면, 그 사람이 어떠한 삶을 살아왔는지, 어떠한 성격을 가지고 있는지 알 수 있다. 또한 주변에 사람이 있을 때와 없을 때 배우는 자세가 달라지는 사람도 있다. 이 또한 그 사람의 성격을 극명하게 드러내는 정보가 내포되어 있다.
+The Attitude of a Learner:
+By looking at a person’s attitude toward learning, you can tell what kind of life they have lived and what kind of character they have. There are also people whose learning posture changes depending on whether others are around. This, too, contains information that starkly reveals that person’s character.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Sep.06]</div>
+            <div class="log-content">자기자랑을 하거나 자신을 꾸며내는 사람들은 호감을 얻기 어렵다. 특히 그렇게 하며 다른 사람을 깎아내리거나 무시하는 태도는 더더욱 그렇다. 인정은 다른 사람에게서 오는 것이지, 다른 사람에게 강요하는 것이 아니기 때문이다.
+People who boast about themselves or embellish themselves find it hard to win favor. This is all the more true when they do so by belittling or dismissing others. Recognition comes from others; it is not something you can force on them.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Sep.02]</div>
+            <div class="log-content">사람은 변한다. 그렇기에 영원한 친구도, 영원한 적도 없다는 말이 어쩌면 염세적으로 들릴지라도 틀린 말은 아니다.
+사람은 환경에 적응한다. 그렇기에 아무리 가까웠던 사이라도 일정한 시간 동안 교류가 없다면, 내가 알던 그 친구는 더 이상 예전의 그가 아니게 될 수 있다.
+사람은 이익에 움직인다. 그렇기에 계산 없이 발 벗고 도와줄 수 있는 친구는 진정 값지다.
+People change. So the saying that there are no eternal friends or eternal enemies may sound cynical, but it isn’t wrong.
+People adapt to their surroundings. So even if two people were once very close, a long stretch without contact can mean the friend I knew is no longer who they were.
+People are moved by self-interest. So a friend who steps in without calculation is truly precious.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Sep.02]</div>
+            <div class="log-content">사람의 눈으로 본 단편적인 순간은 나의 계획대로 흘러가지 않고, 이익은 없고 손해만 있는 듯해 속상하고 서운할 때가 있다. 그러나 나를 위해 더 큰 계획을 준비하시는 하나님을 믿고 의지하면 나아가다 보면, 그러한 무자비하게 느껴지는 단편적인 순간들조차 결국 은혜였음을 알게 된다.
+From a human point of view, brief, fragmentary moments don’t go according to plan; they seem to bring no gain and only loss, and that can make us upset or hurt. But if I trust in God, who is preparing a greater plan for me, and keep moving forward, I come to see that even those seemingly merciless fragments were, in the end, grace.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Sep.02]</div>
+            <div class="log-content">사람이 살아가며 어떻게 성장하는지, 어떤 사고와 관점의 렌즈를 갖추게 되는지를 지켜보는 일은 참 값지다. 그렇기에 나는 다양한 사람과 분야를 두고 토론하고, 그들의 삶의 이야기를 들을 때 행복하다. 때로는 내가 생각지도 못했던 질문과 토론은 나의 생각을 조금 더 넓히고 짜임새 있게 만들어주는 것에 도움이 된다. 대화의 현재에 응축된 태도가 어떻게 형성되었는지 보이는 그 짜임새는, 같은 정보를 두고도 전혀 다른 결론에 이르는 하나의 현상에 대한 답이 되어주기도 한다.
+It is truly valuable to watch how a person grows and what kinds of lenses of thought and perspective they acquire. That’s why I’m happy when I debate across different people and fields and listen to the stories of their lives. At times, questions and discussions I never would have imagined help broaden and give more structure to my own thinking. Seeing the texture of how the attitudes condensed in a present conversation were formed can even explain how people can look at the same information and arrive at completely different conclusions.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Sep.02]</div>
+            <div class="log-content">나는 피곤할 때, 특히 잠이 부족할 때는 깊이 있는 대화를 지양한다. 글쓰기를 말하기보다 선호하는 것도 같은 맥락이다. 글은 호홉을 가다듬고 생각을 거르는 시간을 허락해주기 때문이다.
+When I’m tired—especially when I’m short on sleep—I avoid deep conversations. I also prefer writing to speaking for the same reason. Writing gives me time to steady my breathing and sift my thoughts.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Aug.31]</div>
+            <div class="log-content">Funny thing I found out in 2024 during a lecture about prime number
+2^2 - 1 = 3, 2^3 - 1 = 7, 2^7 - 1 = 127, 2^127 - 1 = 1.7014118e+38
+2^2 - 1 + 2^3 - 1 + 2^7 - 1 = 137
+Above is all prime numbers.
+Then... would 2^(2^127 - 1) - 1 be prime number as well?
+Unfortunately...
+<em>Update:</em> These relationships were already recorded by Eugène Catalan (1876/1891), now called the <strong>Catalan–Mersenne numbers</strong> — see <a href="https://mathworld.wolfram.com/Catalan-MersenneNumber.html" target="_blank">MathWorld</a> and <a href="https://oeis.org/A007013" target="_blank">OEIS A007013</a>.
+The primality of 2^(2^127 − 1) − 1 remains unknown (see <a href="https://en.wikipedia.org/wiki/Double_Mersenne_number" target="_blank">Double Mersenne numbers</a>).
+<em>Update:</em> The coincidence “3 + 7 + 127 = 137” has been observed before — for example in a 2022 discussion on <a href="https://scanalyst.fourmilab.ch/t/diracs-way-to-quantum-gravity-via-numerology/2524" target="_blank">Scanalyst</a>.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Aug.08]</div>
+            <div class="log-content">사람과의 관계에서는, 관계의 성격에 따라 각기 다른 원칙을 갖는 것은 중요하다. 하지만 그 원칙을 대하는 내 태도가 상대적이 되어서는 안 된다. “나는 이렇게 해줬는데, 왜 저 사람은 저렇게밖에 못하지?”와 같은 생각에 빠지면 감정적으로 반응하게 되고, 이성적인 판단을 잃게 된다. 각 관계별로 세운 원칙은 일관되게 지켜야 한다. 물론 상황에 따른 융통성은 필요하지만, 그것 또한 감정이나 순간적인 기분에 휘둘려 적용 범위가 달라져서는 안 된다. 결국, 관계에서 중요한 것은 ‘관계별로 다른 원칙’과 ‘태도의 일관성’을 함께 유지하는 것이다.
+In relationships with others, it is important to have different principles depending on the nature of the relationship. However, my attitude toward those principles should never become relative. Falling into thoughts like, “I’ve done this much for them, so why can’t they do at least that for me?” leads to emotional reactions and a loss of rational judgment. The principles set for each type of relationship must be upheld consistently. Of course, flexibility according to the situation is necessary, but that flexibility should not be swayed by emotions or momentary feelings. Ultimately, what matters in relationships is maintaining both different principles for different relationships and consistency in attitude.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Aug.1]</div>
+            <div class="log-content">People often say they learn from failure. What matters, though, is the quality of that learning—how much effort they invested, how deeply they engaged, and how much they cared about the process. As always, the process matters just as much as the result.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Aug.1]</div>
+            <div class="log-content">필자가 여러번 언급했듯이, 인터넷의 발명과 기술의 발전으로 인해 정보의 접근성은 모든 사람들에게 낮아지게 되었다. 문제점은 정보의 생산 주체가 무한히 확장되면서, 정보의 질은 균일하지 않으며 진위를 검증하는 일은 점점 더 어려워졌다. 누구나 정보를 제공할 수 있는 시대, 곧 누구나 잘못된 정보도 유통시킬 수 있는 시대가 된 것이다. 또한, 알고리즘의 발달로 인하여, 사람들은 자신이 원하는 편향된 정보들만 접할 수 있는 확률이 높아진 시대가 왔다. 본질로 돌아가서 세상의 변화와 상관없이 참되고 신뢰할 수 있는 기준으로서, 불변의 진리를 띄고 있는 성경과 하나님의 말씀으로 돌아가는 것이 절실해진 요즘이다.
+As I have mentioned many times, with the invention of the internet and the advancement of technology, access to information has become available to everyone. The problem is that as the producers of information have expanded infinitely, the quality of information is not uniform, and verifying its authenticity has become increasingly difficult. It has become an era in which anyone can provide information, in other words, an era in which anyone can also circulate false information. Also, due to the development of algorithms, people have come to live in a time when they are more likely to encounter only the biased information they want. Returning to the essence, these days it has become urgent to return to the Bible and God’s Word, which hold immutable truth, as a true and reliable standard regardless of the changes in the world.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.July.20]</div>
+            <div class="log-content">깊이 있는 지식의 연결성
+방대한 분야를 두루 살핀 지식은 겉으로 보기엔 서로 이질적이지만 독창적인 아이디어를 얻는 단초가 된다. 하지만 그런 연결은 주로 표면적일 뿐이다. 진정으로 하나의 전문 영역에서 쌓아온 통찰을 다른 분야와 융합하기 위해서는, 그 대상 분야에 대한 깊은 이해와 전문성을 요구한다. 그렇기에, 다양한 분야를 폭넓게 탐구하는 만큼, 특정 분야에 대해서 집중적으로 파고들어 실력을 쌓는, 두 축이 만나야 비로소 진정한 창의력과 실질적 전문성을 동시에 갖춘 전문가로 나아갈 수 있다.
+Connectivity of Deep Knowledge
+Knowledge that spans a wide array of fields may at first glance seem disparate, yet it can spark unique ideas. However, such connections often remain superficial. To truly fuse the insights you’ve built in one domain with another field, you need a deep understanding and genuine expertise in that target area. Thus, just as it’s important to explore many disciplines broadly, you must also drill down intensively into a specific field. Only when these two axes meet can you become an expert who embodies both true creativity and substantive mastery.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.June.29]</div>
+            <div class="log-content">Human memories aren’t perfect recordings but reconstructions. When we recall an event, we piece together fragments of what actually happened—filtered through our personality, mood, beliefs, logic, and intuition. Because each person brings a different perspective and set of biases, two witnesses to the same moment can come away with very different memories. Moreover, every time you revisit a memory—whether minutes, days, or years later—you’re not simply replaying a fixed recording. Instead, you reconstruct the memory anew (and then reconsolidate that version back into your long-term store), so subtle (or even major) changes can accumulate over repeated recalls.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.June.16]</div>
+            <div class="log-content">현대사회에서의 확증편향
+확증편향은 사람들이 각자가 가지고 있는 신념이나 관점을 뒷받침해 주는 정보만을 취사선택하여 받아들이고, 심지어는 공식력이 있지 않은 정보들일지라도 믿고, 그에 반대 되어지는 정보들은 무시하는 심리적 경향이다. 이러한 확증편향은 개인의 논리적 사고를 방해하고, 사회적으로는 양극화와 분열을 야기하는 위험하고 심각한 인지적 오류 중 하나다.
+
+확증편향에 빠지게 되는 과정
+처음에는 자신의 주변 환경과 자기가 살아온 세상의 배경을 바탕으로 세상을 바라보게 된다. 사회적 활동을 시작하기 전에는 부모, 형제처럼 가까운 가족의 영향을 받고, 이후에는 학교나 주변의 친구들에 의해서 영향을 받고, 본인의 관점을 확립하기 시작한다.
+이 때 중요한 것은, 주변의 사람들이 말하는 것을 그대로 믿는 것이 아닌, 다양한 관점에 관한 충분한 자료 조사와 그 정보들을 소화할 시간을 거친 후, 본인의 생각을 확립해가는 것이다.
+그러나 현대 사회는 기술의 발전으로 인한 정보를 얻을 수 있는 길이 많아졌다. 그 중에 너무나도 많은 정보들은 검증되지 않은 허위 정보나, 의도적으로 조작된 내용들도 많다. 전문가의 눈으로 보지 않으면 인지 하지 못할 정도로 정교하고 섬세하게 만들어져서 일반 대중들을 선동하기는 더욱 쉬워졌다. 사실 원리는 간단하다. 그들이 보고 싶은 것만 보게 해주고, 듣고 싶은 것만 듣게 해주면 된다.
+인터넷, 각종 SNS 플랫폼에서 쓰이는 알고리즘이 가장 좋은 예이다. 기술의 발전으로 인하여, 사람들은 자기가 관심 있는 분야에 관하여 더욱 더 많은 정보가 노출 될 수 밖에 없는 상황에 놓여졌다. 그러한 무작위하게 사람들에게 노출이 되어지는 정보들은 대부분 아무곳에서도 검증을 받지 못하고, 때로는 특정한 사상과 목적을 지닌 단체들에 의해서 제작되어진 것들이다. 이들은 중립적인 입장을 표할 이유도 없다.
+이전에는 사람들이 정보들을 신문이나, 뉴스를 통해서 접했었다. 심지어는 언론과 공신력 있는 단체들도 중릭접인 보도를 표방하지만, 결국에는 그들도 그 들만의 사상과 추구하는 방향성이 있는 단체들이기에, 사용자가 특정 언론만을 지속적으로 소비하게 되는 경우 점진적으로 그 들의 색깔에 녹아들 수 있는 경향이 강해졌다.
+그렇기에 최근에는 대중들을 선동하고, 어떤 단체가 그 들의 관점, 사상, 추구하는 것들을 대중들에게 주입시키기 이전에 비교하면 너무나도 쉬워졌다. 경제, 정치, 사회적 문제, 종교등.. 이제는 조그만한 입력값 (인력, 돈) 으로 너무나도 큰 사회적 출력값을 얻을 수 있는 시대가 되었다.
+필자의 개인적인 가장 큰 걱정은, ai의 발전으로 인하여, 너무나도 많은 사람들이 거짓된 정보를 얻기에 더더욱 쉬워졌다는 것이다. 가짜 뉴스, 거짓 정보, 실제인지 거짓인지 한 분야의 전문가들도 구분하기 어려운 시대가 올것이다.
+필자가 2025년 1월 26일 쓴 것처럼, “가끔씩은 나의 생각들이 너무 편협해질까 두렵기도 하다. 내가 공신력 있다고 추려서 얻는 정보들도 편협한 정보일수 있기에 두렵다. 기술이 발전하고, 정보를 얻을 수 있는 길이 많아짐에 불가항력적으로 따라오게 되는 단점이다. 때문에, 정보를 잘 구별할 수 있는 힘이 더욱 더 중요해진 시대이다.” 항상 자기 자신의 사상과 생각을 스스로 점검하고, 자신이 접하고 있는 정보들이 어떤 배경에서 오는 정보들인지 비판적 사고가 중요하다.
+
+Confirmation Bias in Modern Society
+Confirmation bias is the psychological tendency to selectively accept only information that supports one’s existing beliefs or viewpoints—even if that information lacks any real authority—and to ignore information that contradicts them. This bias hampers individual logical reasoning and, on a societal level, fuels polarization and division, making it one of the most dangerous and serious cognitive errors.
+
+How We Fall into Confirmation Bias
+At first, we view the world based on our immediate environment and life background. Before engaging in broader social activity, we are influenced by close family members such as parents and siblings, then by school and friends, and gradually begin to establish our own perspectives.
+What’s important at this point is not to believe whatever those around you say at face value, but to conduct thorough research on various viewpoints, take time to digest that information, and then form your own conclusions.
+However, in modern society the advancement of technology has created many channels for obtaining information. Among them, there is an overwhelming amount of unverified false information or intentionally manipulated content. Such content is crafted so intricately and subtly that even experts can’t readily detect it, making it all the easier to sway the general public. The principle is simple: show people only what they want to see, and let them hear only what they want to hear.
+The algorithms used by the Internet and various social media platforms are the best example. Because of technological advances, people are inevitably exposed to ever more content in their areas of interest. Much of this randomly delivered information is never fact-checked and is sometimes produced by groups with specific ideologies and agendas. These groups have no reason to remain neutral.
+In the past, people accessed information through newspapers or news broadcasts. Even media outlets and reputed organizations that claim impartial reporting carry their own ideologies and objectives. When a user repeatedly consumes content from a single source, there’s a strong tendency to gradually absorb that source’s “color.”
+Therefore, compared to before, it has become far easier to incite the public and to inject an organization’s viewpoints, ideologies, and agendas into the masses. Whether economic, political, social issues, or religion… we now live in an era where a small input (manpower, money) can yield an enormous social output.
+My personal greatest concern is that, with the advancement of AI, it has become even easier for countless people to access false information. We’re heading into an age of fake news and false data, where even experts in the field may struggle to distinguish truth from fabrication.
+As I wrote on January 26, 2025:
+“Sometimes I fear that my own thinking may become too narrow. Even the sources I consider authoritative could be biased, which frightens me. As technology progresses and information channels multiply, these downsides follow inevitably. That’s why the ability to discern reliable information has never been more crucial.”
+It is always vital to self-audit one’s beliefs and thoughts, and to apply critical thinking to question the background and motives behind every piece of information we encounter.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.June.06]</div>
+            <div class="log-content">인간관계에서 실망의 크기는 곧 기대의 크기와 비례한다. 큰 실망을 느낀다는 것은 그만큼 상대방이 내 삶에서 큰 비중을 차지하고 있었다는 뜻이다. 반복적으로 실망을 주는 관계는, 대개 내가 상대에게 쏟는 관심이나 애정이 상대가 나에게 쏟는 것보다 더 크기 때문에 생겨난다. 물론 서로가 상대방의 삶 속에서 차지하는 비중이 완벽히 같을 확률은 0에 가깝다. 그렇기에 실망은 자연스러운 현상이자 본질적으로 무의미하다. 나 역시 누군가에게 실망을 안겨줄 수 있는 위치에 있음을 잊어서는 안 된다. 사람은 각자 처한 위치와 입장이 다르다는 사실을 언제나 기억하며 살아야 한다.
+The magnitude of disappointment in relationships is directly proportional to the size of one’s expectations. Feeling deeply disappointed means that person occupied a significant place in your life. Relationships that repeatedly disappoint us usually arise because the care or affection we invest in the other person exceeds what they invest in us. Of course, the chance that two people share exactly the same importance in each other’s lives is almost zero. Therefore, disappointment is a natural phenomenon and, in essence, meaningless. We must not forget that we, too, are in a position to disappoint someone else. We should always remember that everyone’s situation and standpoint differ from one another.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.June.02]</div>
+            <div class="log-content">Before responding in an argument:
+First, listen to their full story and try to understand their perspective.
+Ask about their thought process and the logic behind their views.
+Only then can you truly understand where they're coming from.
+Don't let your emotions take control.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.June.02]</div>
+            <div class="log-content">In any situation, providing proper context is essential for effective communication.
+That's why it's important for people to learn how to share enough context "clearly and efficiently" without giving too much or too little.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.May.28]</div>
+            <div class="log-content">보편화된 개념을 특정 분야에 적용하는 역량
+특정 분야의 개념을 보편화하는 역량
+너무나도 당연한 말이지만, 이 두 가지 역량을 갖추면 어떤 환경에서도 빠르게 적응하고 성과를 낼 수 있다.
+The ability to apply generalized concepts to specific domains
+The ability to abstract domain-specific concepts into general principles
+It may sound obvious, but with these two skills you can quickly adapt to any environment and deliver results.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.May.20]</div>
+            <div class="log-content">위계 질서는 하나의 공동체를 성공적이고 안정적으로 유지하기 위한 필요충분조건이다. 그리고 그 위계 질서는 공동체가 띄고 있는 사회적 문화라는 특색에 따라 다양하게 발현된다.
+교회에서는 어떠할까? 교회라는 공동체 안에서는 위계 질서가 어떤 형태로 발현되어야 할까? 답은 진부할만큼 간단하다. 성경에 나온 하나님의 말씀에 따른 위계 질서로 나타나야한다. 더도 말고 덜도 말고.
+이처럼 이상적인 위계는 성경에 너무나도 명확하게 제시되어 있지만, 현실은 조금 다르다. 교회라는 공동체를 이루는 것은 결국 사람이기에, 그리고 사람은 너무나도 쉽게 오류를 범하기 쉬운 존재이기에, 질서를 지키지 못하고 실수할 때가 많다.
+이제 나는 스스로를 돌아보며, 교회 안에서 어떤 역할과 태도를 지녔는지 점검해야겠다. 말씀대로 살아가도록 기도하며 나아가야 할 때다.
+Hierarchical order is the necessary and sufficient condition for maintaining a community successfully and stably. And that hierarchy is manifested in various ways according to the particular social culture each community possesses.
+What about in the church? What form should hierarchical order take within the church community? The answer is as simple as it is trivial: it must be shaped according to the hierarchy laid out in God’s Word in the Bible—nothing more, nothing less.
+While this ideal hierarchy is presented so clearly in Scripture, reality often looks different. After all, the church is ultimately made up of people, and people are prone to error—so there are many occasions when order breaks down and mistakes are made.
+Now it is time for me to turn inward, examine the roles and attitudes I have within the church, and take stock of myself. It is time to pray and press on, striving to live according to God’s Word.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.May.7]</div>
+            <div class="log-content">"People change continuously. A friend I once knew might not be the same friend a few years later—or even a few hours, minutes, or fleeting moments later. This is because people live in dynamic environments, constantly adapting to new things and undergoing change." - myself in Jan.18.2025.
+While this may appear true at first glance, human behavior often adheres to discernible patterns. With sufficient exposure, these patterns can be observed, learned, and even modeled—using tools like Bayesian inference (iykyk HAHA). What feels like infinite unpredictability is often just a complex web of weighted probabilities, quietly playing out within familiar contexts.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.May.7]</div>
+            <div class="log-content">When someone says, 'I will love you forever,' the sense of 'forever' they intend and the one received may differ. Each person experiences time — and its limits — in their own way.
+Still, the meaning behind the word remains consistent: a commitment sustained for as long as one can offer it.
+In the end, 'forever' isn’t about infinite time, but about the depth of devotion within the time we’re given.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.May.1]</div>
+            <div class="log-content">삶과 불확실성은 필연적인 관계이다.
+인간이 자기 삶에 일어나는 모든 일과 만나게 되는 모든 매개체들을 예측하고, 자신의 통제 아래 안에 두는 것은 확률학적으로 불가능하기 때문이다.
+그렇기에 나는 기억한다. 삶의 불확실성 앞에서 나 자신에게 모질게 대하지 않기를.
+그렇기에 나는 기대한다. 삶의 불확실성 앞에서 넘치는 기대와 기쁨, 그리고 감사함으로 살아갈 수 있기를.
+그렇기에 나는 기도한다. 삶의 불확실성 앞에서 하나님을 믿으며 나아갈 수 있기를.
+Life and uncertainty are inevitably intertwined.
+As it is statistically impossible for a person to predict and keep under their control every event that occurs in their life and every factor they encounter.
+I therefore remember not to be harsh on myself in the face of life’s uncertainties.
+I therefore hope to live amid life’s uncertainty with overflowing expectation, joy, and gratitude.
+I therefore pray that I may move forward in faith in God despite life’s uncertainties.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.May.1]</div>
+            <div class="log-content">기록의 소중함.
+시간이 흐르며 기억은 물에 돌 깎아지듯 조금씩 마모된다.
+너무나도 소중했던, 그러기에 평생 간직하고 싶었던 순간조차, 물 밀려오듯 밀려오는 현실 앞에서는, 머릿속 한구석에 다른 기억들과 구별되지 않는 희미한 흔적으로 스러진다.
+그렇기에 항상, 기록의 소중함을 느낀다.
+그 순간의 나만이 생생하게 표현해 낼 수 있는 그 순간의 나의 감정, 생각들은 미래의 또 다른 모습인 나에게 과거의 나를 다시 소개하고, 희미해진 추억을 되살려주는 소중한 매개체가 된다.
+The Value of Keeping Records.
+As time flows, our memories wear away little by little, like stone slowly eroded by water. Even the moments that were so precious—those I longed to treasure forever—before the tide of reality rushing in, fade into faint traces in some corner of my mind, indistinguishable from all my other recollections. That is why I’m always reminded of how precious it is to record our experiences. The emotions and thoughts of my past self—vividly captured only at that moment—become a precious bridge, reintroducing my former self to the person I will become and reviving the dimmed memories of days gone by.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Feb.21]</div>
+            <div class="log-content">Although the quantity of forever may mean different for everyone, the quality of it is the same</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Feb.19]</div>
+            <div class="log-content">as forever means different for everyone</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.26]</div>
+            <div class="log-content">상대방이 하는 말들은 그 말이 가지고 있는 뜻 그 자체보다도 훨씬 많은 데이터를 내포하고 있는 경우가 많다.
+The words spoken by others often contain much more data than the literal meaning of the words themselves.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.26]</div>
+            <div class="log-content">내가 접하는 모든 것들이 데이터이다. 어떠한 데이터를 저장할지는 근본적으로는 나에게 달려있다.
+Everything I encounter is data. Ultimately, it is up to me to decide which data to store and retain.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.26]</div>
+            <div class="log-content">집중하다면 사람의 얼굴의 세부 근육, 행동, 목소리 톤만으로도 상대방의 저의를 알 수 있다.
+If people focus, they can realize that they are capable of perceiving a person's true intentions simply by observing the subtle movements of their facial muscles, their actions, and the tone of their voice.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.26]</div>
+            <div class="log-content">내가 현재 가지고 있는 사상들과 생각들은 어떠한 형태로, 어떠한 형식으로 어느 부분에서 영향을 받아서 현재에 이르게 되었는지 궁금하기도 하다. 또한, 내 사상들과 생각들이 시간이 지남에 따라 어떻게 변해갈지도 기대가 된다.
+I also wonder about the origins and influences that have shaped my current ideas and beliefs. How were they formed, and what shaped them into their present state? Furthermore, I look forward to seeing how my thoughts and beliefs will evolve over time.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.26]</div>
+            <div class="log-content">가끔씩은 나의 생각들이 너무 편협해질까 두렵기도 하다. 내가 공신력 있다고 추려서 얻는 정보들도 편협한 정보일수 있기에 두렵다. 기술이 발전하고, 정보를 얻을 수 있는 길이 많아짐에 불가항력적으로 따라오게 되는 단점이다. 때문에, 정보를 잘 구별할 수 있는 힘이 더욱 더 중요해진 시대이다.
+Sometimes, I fear that my thoughts might become too narrow. I worry that even the information I select as reliable might be biased. This is an inevitable downside of technological advancements and the increasing accessibility of information. Consequently, the ability to discern and evaluate information has become even more critical in this era.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.26]</div>
+            <div class="log-content">보통 인간들은 삶의 불확실성 앞에서 무릎을 꿇게 된다. 하지만 그 무력함과 나를 짓누르는 무게감을 이겨내고, 불확실성에 직면하게 되면, 인간은 한 층 더 발전하게 된다.
+Generally, humans often succumb to the uncertainties of life. However, by overcoming that helplessness and the weight pressing down on them, and by facing uncertainty head-on, humans can develop and grow even further.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.22]</div>
+            <div class="log-content">인간은 하나님을 통하여 자기 자신을 탐구하지 않는다면, 자기 자신에 대해서 오해하며 살아가게 될 것이다. 자기 자신에게까지 자신을 속이는 삶은 이 얼마나 비참하고 통탄스러운 삶인가.
+If humans do not explore themselves through God, they will end up misunderstanding who they truly are. How miserable and lamentable is a life where one deceives even oneself?</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.22]</div>
+            <div class="log-content">자기 자신을 완벽하게 안다는 것은 시간을 무한으로 늘려도 불가능할 것이다. 인간은 동적으로 변하고, 자기자신의 조그만한 변화를 눈치채는 것은 더욱 힘들기 때문이다. 항상 보던 익숙한 것들의 변화를 잘 눈치채지 못하는 것과 비슷한 맥락이다. 그럼에도 인간은 항상 자기 자신에 대해서 알아가기 위해서 더욱 더 정진해야한다. 정진해가는 과정에서, 인간은 더욱 더 성장할 것이고, 인생에서 다가오는 예외적인 상황들에 대해서도 더욱 더 유연하게 대처할 수 있을 것이다.
+It is impossible to completely understand oneself, even if time were extended infinitely. Humans are dynamic beings, and it is even more challenging to notice subtle changes within oneself. This is akin to how we often fail to perceive changes in things we are deeply familiar with. Nonetheless, humans must constantly strive to learn more about themselves. Through this process of striving, individuals can grow further and become more adaptable in handling exceptional situations that arise in life.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.22]</div>
+            <div class="log-content">"감정이 주는 무게를 온전히 다 받아 내라. 이것저것 따지지 말고 감정을 수용하라. 그러면 그 감정이 무엇인지, 어떻게 반응해야 하는지, 찬찬히 결정할 수 있을 것이다. 감정을 통해 우리에게 말씀하시는 하나님을 신뢰하라. 이것이 제자도의 첫 걸음이다." - 정서적으로 건강한 영성, 피터 스카지로 //
+본인이 감당할 수 없는 정도로 복잡하고 밀도 높은 감정이 밀려들어올 때는 일단 모든 걸 멈추고 기도로 나아가자. 하나님께 지혜를 여쭈어보자. 나를 옥죄는 것만 같은 밀도 높은 감정이라도, 회피하지 말고 하나님을 신뢰하며 나아가자. 이러한 감정 상태일 때는 성급한 결정을 피하고 차분히 자기 자신에게 하나씩 질문하자. 그러면 그 감정의 이유들을 알 수 있게 될 것이고, 이를 통해 자신에 대해서 더 깊이 이해하게 되며, 하나님이 나에게 무엇을 말씀하시는지도 알 수 있게 될것이다. 만약 그러한 감정 상태에서 성급한 결정을 내렸고, 그 결정이 우매한 결정이었다 하여도, 그것 또한 배울점이 있다.
+"Allow yourself to experience the full weight of your feelings. Allow them without censoring them. Then you can refelct and thouhgtuflly decide what to do with them. Trust God to come to you through them. This is the first step in the hard work of discipleship."
+- Emotionally Healthy Spirituality, Peter Scazzero // When faced with overwhelming, complex, and intense emotions that feel impossible to bear, pause everything and turn to prayer. Seek wisdom from God. Even if the emotions feel suffocating, do not avoid them; instead, trust in God and move forward. In such emotional states, refrain from making hasty decisions and calmly ask yourself questions one by one. By doing so, you will come to understand the reasons behind those emotions, gain a deeper understanding of yourself, and discern what God is trying to tell you. Even if, in such a state, you end up making a hasty and foolish decision, there is still something to learn from it.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.22]</div>
+            <div class="log-content">모든 순간에 감사하자.
+Let us give thanks in every moment.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.22]</div>
+            <div class="log-content">돌아보니 하나님이였다. 내 인생에 어느 순간, 찰나를 살펴 보더라도, 하나님의 손길이 닿지 않은 곳이 없었다.
+Looking back, it was God. In every moment of my life, even in the briefest of instances, there was no place untouched by His hand.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.22]</div>
+            <div class="log-content">인간은 나약하다.
+Humans are weak.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.20]</div>
+            <div class="log-content">어느 상황에서든지, 상대방에게 대답을 하기 전에는 잠깐 쉬고 생각을 하고 하는 것이 좋다.
+<ul>
+<li>나의 말 실수를 줄일 수 있다.</li>
+<li>상대방은 존중받는 느낌을 받는다.</li>
+</ul>
+No matter the situation, it is always good to pause, think, and then respond to the other person.
+<ul>
+<li>It can help reduce my mistakes in speaking..</li>
+<li>The other person will feel respected.</li>
+</ul></div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.20]</div>
+            <div class="log-content">아버지의 가르침 1:
+사람을 두려워하지 말고 하나님만을 경외하라.
+My Father’s Teaching 1:
+Do not fear people; revere only God.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.20]</div>
+            <div class="log-content">아버지의 가르침 2: 
+3가지 기준을 세우고 살아라.
+<ul>
+<li>성경에 위배되는가</li>
+<li>남에게 피해를 주는가</li>
+<li>나에게 피해를 주는가</li>
+</ul>
+하나라도 걸리는게 있다면 그 행동은 안 하는 것이 맞다.
+My Father’s Teaching 2:
+Live by these three principles:
+<ul>
+<li>Does it go against the Bible?</li>
+<li>Does it harm others?</li>
+<li>Does it harm me?</li>
+</ul>
+If even one of these applies, it is best not to take that action.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.20]</div>
+            <div class="log-content">100번의 의미없는 말 보다, 한 번의 의미있는 말이 더욱 강력하다.
+One meaningful word is far more powerful than a hundred meaningless ones.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.20]</div>
+            <div class="log-content">나는 사람들을 관찰하는 것을 좋아한다. 관찰한 후에, 상대방의 장점은 나의 장점으로 접목시키기 위해서 습관화를 시작하고, 상대방의 단점은 반면교사로 삼아 지양한다.
+I enjoy observing people. After observing them, I start working on forming habits to incorporate their strengths into my own. On the other hand, I use their weaknesses as a lesson to avoid making the same mistakes.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.20]</div>
+            <div class="log-content">삶의 불확실성 앞에서 스스로에게 모질게 굴지 않기를.
+지나간 선택에서는 후회가 아닌 배움의 기회로 만들기를.
+항상 기도와 묵상으로 나아갈 수 있기를.
+May you not be harsh on yourself in the face of life's uncertainties.
+May past choices become opportunities for learning, not regrets.
+And may you always move forward with prayer as your guide.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.20]</div>
+            <div class="log-content">누군가가 나에게 곤란한 질문을 했을 때, 거짓말로 대처하기보다는 대답하기 어렵다고 솔직히 말하거나 나중에 답변하겠다고 미루는 것이 훗날을 위해 더 현명하다.
+When someone asks me a difficult question, it is wiser in the long run to respond honestly by saying it's hard to answer or to defer the response for later, rather than resorting to a lie.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.20]</div>
+            <div class="log-content">내 입장에서의 배려는 상대방에게 결국 상처나 신뢰의 균열로 이어질 수도 있다. 그렇다면 그것을 과연 진정한 배려라고 할 수 있을까? 어쩌면 그것은 '배려(背戾)'에 불과한 것은 아닐까?
+My idea of kindness might leave scars or cracks in trust for someone else.
+So, can it truly be called kindness? Or is it just blind thoughtlessness?</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.20]</div>
+            <div class="log-content">한 번 깨진 신뢰는 다시 붙이기는 정말 어렵지만, 불가능하지는 않다.
+Once trust is broken, it is incredibly difficult to rebuild, but not impossible.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.20]</div>
+            <div class="log-content">복합적인 감정이 순간적으로 드는 이유는, 단순히 복합적인 이유들이 섞여 있기 때문이다. 실타래를 풀듯 하나씩 차근차근 본인에게 질문을 던지다 보면, 엉켜 있던 이유들을 선명하게 구별할 수 있게 된다. 이러한 과정은 때로 자신을 더 깊이 이해하는 계기가 되기도 한다.
+The reason we often feel a mix of emotions in a single moment is simply that multiple reasons are intertwined. Like untangling a ball of thread, if we patiently ask ourselves questions one by one, we can start to distinguish the tangled causes more clearly. This process can sometimes become an opportunity to understand ourselves on a deeper level.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.19]</div>
+            <div class="log-content">내가 한 결정에는 다른 누군가의 생각이 들어갔더라도, 결국은 내가 한 것이기에 책임 또한 나에게 있다. 그렇기에 결정을 내릴때는 더욱더 신중해져야 하고, 나 자신만의 확고한 논리체계가 있어야한다.
+Even if someone else's thoughts are involved in my decision, it is ultimately my decision, and therefore, the responsibility lies with me. That is why, when making decisions, I must be even more cautious and have a firm logical framework of my own.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.18]</div>
+            <div class="log-content">사람들은 연속적으로 변한다. 내가 알고 있던 친구가 몇 년 후, 심지어 몇 시간, 몇 분, 찰나의 순간 후에 내가 알던 친구가 아닐 수도 있다. 사람은 모두 동적인 환경 속에서 살아가며, 새로운 것들을 받아들이고 변화를 겪기 때문이다.
+그렇기에 애초부터 어떠한 사람을 잘 알고 있다고 단정을 짓는 것은 오만한 것이다. 이미 각자는 겹겹히 쌓여온 순간들을 지나오며 자신을 형성하였고, 행동들 역시 그러한 순간들에 기반한다. 때로는 무의식 속에서 드러나는 순간적인 행동값이 관계에서 갈등을 일으키기도 한다.
+그러한 순간적이지만 반복적인 행동값이 신뢰의 균열을 만든다면, 당황하는 것은 순리라고 생각한다. 그런 경우에는 보통 인간은 두 가지 선택을 한다. 삶의 여유가 있다면 서로 이해해주고 다시 회복하려고 노력하지만, 여유가 없을 때는 그냥 자연스럽게 멀어지는 것을 택하기도 한다. 상대방을 미워해서가 아닌, 나의 현재 상태에 따라 도출된 결과값이기에, 또한, 복잡하고 엉성한 인간관계 속에서 쌓아온 값진 추억들은 나라는 존재를 형성해주었기에, 멀어짐을 선택했을 때는 가슴이 아리고 자가당착에 빠지기도 한다. 하지만, 사람들은 결국 본능적으로 자신의 안위를 우선시하게 된다.
+결국 관계란 끊임없이 변화하며 서로에게 영향을 주고받는 동적인 것이다. 이러한 변화와 갈등, 그리고 때로는 이기적인 선택은 인간이 본능적으로 맞닥뜨릴 수밖에 없는 삶의 딜레마일지도 모른다.
+People change continuously. A friend I once knew might not be the same friend a few years later—or even a few hours, minutes, or fleeting moments later. This is because people live in dynamic environments, constantly adapting to new things and undergoing change.
+Therefore, claiming to truly know someone is an act of arrogance. Each person is shaped by countless accumulated moments, and their actions are grounded in those moments. Sometimes, unconscious and momentary patterns of behavior can create conflict in relationships.
+If such momentary yet repetitive behaviors create cracks in trust, feeling confused or upset is only natural. In such situations, people typically have two choices. If they have the capacity, they try to understand and restore the relationship. However, when they lack that capacity, they may naturally choose to drift apart. This is not because they hate the other person but because it is a conclusion derived from their current state. Furthermore, the cherished memories built within the complex and imperfect web of human relationships shape who we are. Thus, choosing to part ways can leave one feeling heartbroken and self-contradiction. Yet, ultimately, people instinctively prioritize their own well-being.
+In the end, relationships are not static but dynamic, constantly changing and shaped by mutual interactions. These changes, conflicts, and at times selfish decisions may be the unavoidable dilemmas that humans must face as part of life.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.18]</div>
+            <div class="log-content">내가 재고 따지는 것 없이, 계산하지 않고, 대할 수 있는 친구가 한 명이라도 있으면 성공한 인생이다. 그러한 친구를 얻기 까지는 많은 시간과, 신뢰, 힘이 필요하지만, 그 가치는 신뢰, 시간, 힘 모든 것을 초월한다.
+If you have even one friend whom you can interact with without hesitation, without calculating, and without overthinking, you’ve already lived a successful life. Gaining such a friend requires a great deal of time, trust, and effort, but its value surpasses all the time, trust, and effort it takes.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.18]</div>
+            <div class="log-content">지나친 상상은 때로는 예기치 않은 화를 불러오기도 한다. 하지만 지나친 생각이라는 것은 없다. 생각은 많이 할 수록 와인과 같이 숙성되고, 더 나은 생각으로 발전시킬 기회의 길을 열어준다.
+Excessive imagination can sometimes bring about unexpected troubles. However, there is no such thing as excessive thinking. The more you think, the more your thoughts mature, like aging wine, opening the way for them to develop into better ideas.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.18]</div>
+            <div class="log-content">자신이 살면서 했던 생각들을 써내려가는 것은 가치 있는 일이다. 팡세에서 나왔듯, 기록을 하는 도중에도 생각들은 증발하는 경우가 있다. 372: "내 생각을 적어나갈 때 이따금 내게서 빠져 나갈 때가 있다. 그러나 이런 일은 내가 줄곧 잊어버리곤 하는 내 결함을 되새기게 한다. 이것은 내가 잊어버린 생각만큼이나 교훈적이다, 나는 내 허무를 알기만을 원하니까." 하지만 가끔씩 기록을 못 하고 증발한 기억들이, 어떠한 방아쇠 작용으로 인해서 더 좋은 생각들로 돌아올 때가 있다.
+Writing down my thoughts is a valuable task. As noted in Pensées 372, sometimes even while recording my thoughts, they evaporate from my mind. "In writing down my thought, it sometimes escapes me; but this makes me remember my weakness, that I constantly forget. This is as instructive to me as my forgotten thought; for I strive only to know my nothingness." However, sometimes, memories that I fail to record and that vanish return as better thoughts triggered by some kind of catalyst.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.18]</div>
+            <div class="log-content">때때로 책이 재미없는 시기가 있다. 하지만, 책의 문장 문장 하나가, 뇌를 자극하는 느낌이 들 때는, 책을 읽는 것을 멈출 수 없을 정도로 중독된다.
+There are times when books feel uninteresting. However, when even a single sentence from a book stimulates your mind and brain, it becomes so addictive that you can’t stop reading.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2025.Jan.17]</div>
+            <div class="log-content">인생에서 매 시간, 매 초, 그 짧은 찰나의 순간마다 내릴 수 있는 행동이 아무런 제약도 받지 않는다고 가정한다면(직관, 습관, 논리적 결정이 모두 배제된 상태에서), 한 개인이 내릴 수 있는 행동의 선택지는 무한에 수렴한다고 볼 수 있다. 비록 개인이 내리는 결정들이 독립적이지 않다 하더라도, 그러한 선택의 경우의 수는 우리가 직관적으로 셀 수 없을 정도로 크고 방대하다.
+이따금씩, 내가 순간순간 내리는 행동들이 역동적으로 다른 결과값을 가질 수 있었다는 사실이 아쉽기도 하다. 동시에, 내가 사용하는 휴리스틱 모델이 어느 정도의 최적성과 완전성을 가지고 있는지도 궁금하다.
+나의 직관, 습관, 논리적 결정, 휴리스틱 모델이 어떤 것이든 하나님의 인도 하심을 잘 따라갈 수 있기를 기도한다.
+If we assume that every action one can take in each moment—every hour, every second, every fleeting instant—is free from any constraints (intuition, habit, or logical decision-making), then the range of possible actions for an individual approaches infinity. Even if the decisions a person makes are not independent, the sheer number of possibilities is so vast and immense that it defies our intuitive capacity to measure it. At times, I feel a sense of regret knowing that the actions I take moment by moment could have dynamically led to entirely different outcomes. Simultaneously, I wonder about the degree of optimality and completeness of the heuristic model I employ. Whatever my intuition, habits, logical decisions, or heuristic models may be, I pray that I may follow God's guidance faithfully.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Dec.31]</div>
+            <div class="log-content">2024년을 마무리하며, 누군가에게는 만족스러웠지만 누군가에게는 아쉬움이 남는 한 해였을 것입니다.
+모호함, 불확실성, 예측할 수 없는 변수들에서 오는 불안감에 자신에게 무례하고 모질게 대했던 순간들은 모두에게 예외가 없었을 테지만,
+다가오는 2025년에는 항상 행복할 수는 없더라도, 모호함과 불확실성을 즐기며, 각자가 최선을 다하고, 그 최선에 스스로 만족할 수 있는 여유를 가지는 한 해가 되기를 진심으로 바랍니다.
+모두 새해 복 많이 받으세요.
+As we wrap up 2024, it may have been a fulfilling year for some, while for others, it might have left a sense of regret.
+Moments of ambiguity, uncertainty, and unexpected challenges likely led all of us to be unkind or harsh toward ourselves at times.
+In the upcoming year, 2025, even if constant happiness is unattainable, I sincerely hope it will be a year where we embrace ambiguity, uncertainty, and unpredictability with courage. May we all do our best and find the space to be at peace with our efforts.
+Wishing everyone a Happy New Year!</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Dec.29]</div>
+            <div class="log-content">수로 환산 될 수 없는 변수들과 0에 수렴할것만 같던 확률들이 얽히고설키어서 그 누구도 예상하지 못하는, 그 누구도 원치않는 무자비한 결과값이 도출될수도 있다는 것은 삶의 잔인한 부분인거 같다.
+삼가 고인의 명복을 빕니다.
+The intertwining of incalculable variables and probabilities that seemed destined to converge to zero can sometimes lead to an unrelenting outcome—one that no one could predict and no one desires. This harsh reality is one of life's cruelest aspects.
+May the departed rest in peace.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Dec.28]</div>
+            <div class="log-content">The more you learn, the more opportunities you have to learn even more. This is an analogy for why there is a gap between those with and without knowledge. The same analogy applies to money.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Dec.25]</div>
+            <div class="log-content">사람 개개인의 보이지 않는 능력들과, 습관들과, 직관들과, 사고방식을 수치화하는 것은 때로는 서로를 비교하기에는 정말 편리한 도구가 되지만, 대다수의 경우에는 수치화된 개개인의 데이터들은 그 사람의 정말 작은 부분밖에 나타내지 못한다. 더 이르러서는, 그 개인의 성장 가능성을 숫자 하나에 막아버리는, 그리고 일정한 틀에 가둬버리는 대참사가 일어나기도 한다.
+사람의 능력, 습관, 직관, 사고방식들은 복잡하고, 엉성하게 얽혀서 다양한 변수들을 창출해낼 수 있기에, 어떤 수치화된 결과값에 의지하기 보다는, 자신에 대해 고찰하고, 자신을 더 알아가서, 자신에게 최적화된 방법으로 정진해가는 삶을 살아가는 것이 중요하다.
+Quantifying the invisible abilities, habits, intuitions, and ways of thinking of individuals can sometimes be a convenient tool for comparing one another. However, in most cases, these quantified data about individuals only represent a very small part of who they truly are. Going further, this quantification can lead to the catastrophe of limiting a person's potential to a single number and trapping them within a fixed framework.
+The abilities, habits, intuitions, and ways of thinking of a person are complex, intricately intertwined, and capable of generating a multitude of variables. Therefore, rather than relying on some quantified outcome, it is crucial to reflect on oneself, understand oneself better, and live a life of striving forward in ways that are optimized for oneself.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Dec.25]</div>
+            <div class="log-content">Writing down thoughts always helps you to organize yourself. It doesn't matter where you write down or how you write down, express how you feel, what you think, and what happened.
+This will also benefit you when you look back on what you wrote down in the past. This will help you to "connect dots" throughout your past-yourself, present-yourself, and even future-yourself.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Nov.22]</div>
+            <div class="log-content">Definition of Human’s Intuition
+In Pens´ees, Pascal writes, “Contraries. - Man is naturally credulous and incredulous, timid and rash.” This shows that humans exhibit contradictions depending on their situation. People naturally tend to make decisions that can benefit them regardless of whether they did it purposely or not. Those decisions are usually based on their prior experiences which help them to build up their unique intuitions throughout their life journey. Those are often subconscious. Interactions, cultural exposure, and everything that we face all shapes their unique intuitions, both directly and indirectly. Interestingly enough, people can decide what intuition they would like to build throughout their lives. Intuition subconsciously affects people’s decision-making, and this generally makes it difficult to predict one’s next movement in certain circumstances.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Nov.16]</div>
+            <div class="log-content">This is fascinating, but also scary that whoever we talk to, whoever we meet, whatever we do will shape us into who we are, and who we will be in the future.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Sep.18]</div>
+            <div class="log-content">Thoughts on 125, from pensees by Pascal
+125: "Contraries. -Man is naturally credulous and incredulous, timid and rash."
+I think this is because human beings tend to choose whatever that can benefit them based on each situation.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Sep.07]</div>
+            <div class="log-content">Li42 dynamically moves on regardless of personal will.
+And yes... I suppose that is how life works..
+And... where am i sailing to</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Aug.24]</div>
+            <div class="log-content">People build up their own unique intuition throughout their life journey.
+Added on 2024.Sep.18: And you can decide which intuition you would like to build through your life.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Apr.10]</div>
+            <div class="log-content">What is life?
+11 + 13 + 17 = 41
+19 + 23 = 42 = <span lang="ko">인생</span> = <span lang="zh">人生</span> = Life
+41 + <span lang="zh">人生</span> = 83</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2024.Mar.10]</div>
+            <div class="log-content">인연을 아름답게 떠나보낼 수 있는 사람이 되자.
+Let's be a person who can beautifully let go of the relationship.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2022.Mar.2]</div>
+            <div class="log-content">어릴 땐 아무 생각없이 어른들은 다 할줄 알아야지 했었는데 
+이제는 내가 그 어른이 되었고 
+모든 부분에서 완벽해질수는 없고 
+내가 모든 걸 다 혼자서는 할 수 없다는 걸 깨달았다.
+When I was young, I thought that adults should know how to do everything, but now I have become an adult and I realized that I cannot be perfect in every aspect and I cannot do everything alone.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2021.Dec.11]</div>
+            <div class="log-content">어쭙잖은 희생은 서로의 맘만 상하게 하는 거. 희생을 한 사람은 희생을 했음에도 알아주지 않음에 상처받고 반대 사람은 원치 않은 희생에 상처받은 사람을 보면서 힘들어진다.
+Sacrifing in a clumsy way can possibly hurt each other's hurt. The person who sacrificed can be hurt as other person didn't appreciate the sacrifice and the person who didn't appreciate the sacrifice can feel guilty as the person who sacrificed is hurt.
+서로의 의견의 다름을 조율하는 과정 속에서 한 사람이 다른 사람에게 원치 않음에도 맞춰주는 것은 배려이고, 나중의 어떤 일이 일어났음에 대해 배려해준 그 사람에게 너도 같이 한 거라고 책임을 묻는 거는 자신의 책임을 회피하는 것이다.
+그렇다고 그 배려를 해준 사람에게 책임이 없는 것은 아니고 그 사람에게도 책임이 있다. 서로의 의견이고 결과다.
+During the process of adjusting differences between individual opinions, adjusting to someone else's wishes, even if they are not desired, is consideration, and later blame about results on who has been considerate (if something bad happened) is avoiding one's own responsibility.
+However, that doesn't mean that the person who gave the consideration is not responsible, that person is also responsible on that results. It's about each other's opinions and results.
+어쭙잖게 다른 사람을 위로 해주는 것은 그 사람에게 상처가 될수 있지만 위로 받는 사람도 위로 해주는 사람이 자신의 처지를 다른 사람이 완벽하게 공감해줄 수 없다는 것을 인지하고 있어야 한다.
+Comforting someone in clumsy way can hurt that person, but the person who receives the comfort should also be aware that the person who comforts them cannot fully empathize with their situation.
+서로의 상관관계가 얽혀있는 한 절대적으로 잘못한 사람과 절대적으로 잘못이 없는 사람은 없다. 작은 것이라도 모든게 얽히고 영향을 미쳐서 그런 결과가 나온것이다.
+As long as the relationship between two people is intertwined, there is no absolutely wrong person and absolutely right person. Even small things are intertwined and have an impact, resulting in such results.
+두 사람이 있다고 할 때 한 사람이 다른 사람을 생각해서 해주는 것은 완벽하지 않더라도 그 사람의 성의를 봐줘야한다. 그 사람도 해주기 전에 최대한 완벽하게 다른 사람의 만족을 충족해줘야한다.
+When there are two people, if one person does something for the other person, even if it is not perfect, you should appreciate that person's sincerity. However, also, before that person does it, they also should try to satisfy the other person's satisfaction as perfectly as possible.</div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-date">[2021.Mar.7]</div>
+            <div class="log-content">How to Live
+1. Follow God’s Word—and share it.
+2. Don’t complain; look for another way.
+3. Don’t judge others.
+4. You may offer advice, but empathize with them first.
+5. Violence is unacceptable in any circumstance.
+6. Don’t shout at people.
+7. Don’t make fun of others.
+8. Don’t brag.
+9. Remember: words have the power to hurt—use them carefully.
+10. Don’t be easily upset.
+11. Think before you speak—taste your words before you spit them out.
+12. Don’t mock others.
+13. Avoid feelings of inferiority; they can be destructive.
+14. Forgive people when they make mistakes.
+15. Don’t compare yourself with others.
+16. Don’t be jealous of others.
+17. Be honest.
+18. Be humble.
+19. Don’t do things you’ll regret. If you do, learn the lesson, make amends if possible, and move on.
+20. Don’t share unnecessary family matters to others.
+21. Don’t talk about people behind their backs.</div>
+        </div>
+
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/links</span><span class="p-symbol">➜</span>
+        <span class="cmd">cd ..</span>
+    </div>
+    <div class="output">
+        <a href="index.html">>> Return to Main System (Home)</a>
+    </div>
+
+    <div id="dynamic-terminal"></div>
+    
+    <div class="prompt-line">
+        <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path" id="current-path-display">~/links</span><span class="p-symbol">➜</span>
+        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type help...">
+    </div>
+
+    <footer>
+        &copy; 2025 jaehah shin's system
+    </footer>
+
+</div>
+
+<script>
+    // Interactive Terminal Logic
+    const input = document.getElementById('terminal-input');
+    const terminalDiv = document.getElementById('dynamic-terminal');
+    const pathDisplay = document.getElementById('current-path-display');
+    let currentPath = "~/links";
+
+    function sanitize(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    input.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            const rawInput = input.value;
+            const safeInput = sanitize(rawInput);
+            const cmd = safeInput.trim().toLowerCase().split(" ")[0];
+            
+            const promptHTML = `<div class="prompt-line">
+                <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">${currentPath}</span><span class="p-symbol">➜</span>
+                <span class="cmd">${safeInput}</span>
+            </div>`;
+            
+            terminalDiv.insertAdjacentHTML('beforeend', promptHTML);
+
+            let outputText = "";
+            
+            if (cmd === 'ls') {
+                outputText = "thought_dumps.log  intro.txt";
+            } else if (cmd === 'cd') {
+                const arg = safeInput.trim().split(" ")[1];
+                if (arg === '..' || arg === '~') {
+                    window.location.href = "index.html";
+                    outputText = "Navigating...";
+                } else {
+                    outputText = "cd: permission denied (limited shell)";
+                }
+            } else if (cmd === 'help') {
+                outputText = "Available commands: ls, cd .., clear";
+            } else if (cmd === 'clear') {
+                terminalDiv.innerHTML = "";
+            } else if (cmd !== "") {
+                outputText = `command not found: ${cmd}`;
+            }
+
+            if (cmd !== 'clear' && outputText) {
+                terminalDiv.insertAdjacentHTML('beforeend', `<div class="output">${outputText}</div>`);
+            }
+            
+            input.value = "";
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    });
+</script>
+
+</body>
+</html>
