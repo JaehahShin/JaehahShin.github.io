@@ -1,133 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHFWCNC90P"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-CHFWCNC90P');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHFWCNC90P"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CHFWCNC90P');
+    </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jahah Shin</title>
+    <title>Jaehah Shin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
+
+        :root {
+            /* Everforest Theme - Soft, Low Contrast, Nature-inspired */
+            --bg-color: #2b3339;       /* Soft Charcoal Green */
+            --text-color: #d3c6aa;     /* Warm Beige (Much softer than white) */
+            --comment-color: #859289;  /* Muted Moss Grey */
+            
+            /* Soft Accents */
+            --user-color: #a7c080;     /* Sage Green */
+            --host-color: #7fbbb3;     /* Soft Teal */
+            --path-color: #d699b6;     /* Muted Mauve */
+            --cmd-color: #dbbc7f;      /* Warm Yellow */
+            
+            --link-color: #a7c080;     /* Sage Green for links */
+            --link-hover: #e67e80;     /* Soft Salmon for hover */
+            
+            --block-bg: #323c41;       /* Slightly lighter panel background */
+            
+            --font-stack: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+            --font-header: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            margin: 0;
+            padding: 50px 20px;
+            line-height: 1.6;
+            font-size: 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+
+        /* Header Styling */
+        .main-header {
+            font-family: var(--font-header);
+            font-size: 46px;
+            font-weight: 700;
+            color: #e69875; /* Soft Terracotta Orange */
+            margin: 0 0 5px 0;
+            letter-spacing: -1px;
+        }
+        .sub-header {
+            font-family: var(--font-header);
+            color: var(--comment-color);
+            font-size: 18px;
+            margin: 0 0 50px 0;
+            font-weight: 600;
+        }
+
+        /* Typography & Links */
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--comment-color);
+            transition: all 0.2s ease-in-out;
+        }
+        a:hover {
+            color: var(--bg-color);
+            background-color: var(--link-hover);
+            border-bottom: 1px solid var(--link-hover);
+            border-radius: 2px;
+        }
+        strong { color: var(--cmd-color); font-weight: bold; }
+
+        /* The Prompt Line */
+        .prompt-line {
+            margin-top: 40px; 
+            margin-bottom: 8px; 
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .p-user { color: var(--user-color); font-weight: bold; }
+        .p-at { color: var(--comment-color); margin: 0 2px; }
+        .p-host { color: var(--host-color); font-weight: bold; }
+        .p-path { color: var(--path-color); margin-left: 5px; }
+        .p-symbol { color: var(--comment-color); margin: 0 10px; }
+        .cmd { color: var(--cmd-color); font-weight: bold; }
+
+        /* The Output Block */
+        .output {
+            color: var(--text-color);
+            margin-left: 0;
+            white-space: normal;
+            padding-left: 2px;
+        }
+
+        /* Specific Layouts */
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .file-item::before { content: "-> "; color: var(--comment-color); font-size: 0.8em;}
+
+        /* Code/Logic Block */
+        .code-block {
+            background: var(--block-bg);
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--user-color);
+            margin-top: 15px;
+            color: var(--text-color);
+            font-size: 0.95em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Input Area */
+        #terminal-input {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            font-size: 16px;
+            outline: none;
+            flex-grow: 1;
+            min-width: 50px;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 60px; 
+            border-top: 1px dashed var(--comment-color); 
+            padding-top: 20px; 
+            font-size: 13px; 
+            color: var(--comment-color);
+            font-family: var(--font-header);
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .main-header { font-size: 36px; }
+            .prompt-line { margin-top: 30px; }
+            body { padding: 20px 15px; }
+        }
+    </style>
 </head>
 <body>
-<h1>Jaehah Shin</h1>
-<p>
-  I'm Jaehah Shin <span lang="ko">(신재하)</span>
-  <span lang="zh">(辛在河)</span>
-</p>
 
-<p>
-  I have finished 3rd Year in
-  <a href="https://engsci.utoronto.ca/program/what-is-engsci/" target="_blank" rel="noopener noreferrer">
-    Engineering Science (robotics major)
-  </a>
-  @
-  <a href="https://www.utoronto.ca/" target="_blank" rel="noopener noreferrer">
-    University of Toronto
-  </a>.
-  And now I am on my
-  <a href="https://discover.engineering.utoronto.ca/experiential-learning/professional-experience-year-pey/" target="_blank" rel="noopener noreferrer">
-    Professional Experience Year (PEY)
-  </a>
-</p>
-    <h4>About Myself...</h4>
-    Of course, these can't describe myself entirely, but here are some of the things about me. <br>
-    <p>
-  Fun fact: the screenwriter (<em>각본가</em>) of <em>Little Forest</em> asked to use my name, <strong>재하</strong> (jaeha or jaehah based on how you translate into English), in the movie because he knew me from church. 
-  <a href="https://en.wikipedia.org/wiki/Little_Forest_(film)" target="_blank" rel="noopener noreferrer">
-    Little Forest on Wikipedia
-  </a>.
-</p>
+<div class="container">
 
-    Take this as a grain of salt. (i love number theory and prime number :) )<br>
-    <ul>
-        <li><a href="about.html">About Me</a></li>
-        <li><a href="baseball.html">Baseball Stats in 2025 Season</a></li>
-        <li><a href="thought.html">Thought Dumps</a></li>
-        <li><a href="courses.html">Courses that I am taking in UofT</a></li>
-        <li><a href="learning.html">My Learning Strat</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
+    <h1 class="main-header">Jaehah Shin</h1>
+    <div class="sub-header">Engineering Science (Robotics) @ UofT</div>
 
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
+        <span class="cmd">whoami</span>
+    </div>
+    <div class="output">
+        I'm <strong>Jaehah Shin</strong> (신재하 / 辛在河).<br>
+        I have finished 3rd Year in <a href="https://engsci.utoronto.ca/program/what-is-engsci/" target="_blank">Engineering Science</a> (Robotics Major) at UofT.<br>
+        Currently on my <a href="https://discover.engineering.utoronto.ca/experiential-learning/professional-experience-year-pey/" target="_blank">Professional Experience Year (PEY)</a>.
+        <br><br>
+        <span style="color: var(--comment-color);">// Life Goals:</span><br>
+        1. Publish a book that contains all my thoughts.<br>
+        2. Write a movie script based on my experiences.
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat fun_fact.txt</span>
+    </div>
+    <div class="output">
+        Fun fact: the screenwriter (각본가) of <em>Little Forest</em> asked to use my name, <strong>재하</strong> (jaeha or jaehah), in the movie because he knew me from church. 
+        <a href="https://en.wikipedia.org/wiki/Little_Forest_(film)" target="_blank">Wikipedia Link</a>.
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/links</span><span class="p-symbol">➜</span>
+        <span class="cmd">ls -F</span>
+    </div>
+    <div class="output">
+        <div class="file-grid">
+            <div class="file-item"><a href="about.html">About_Me/</a></div>
+            <div class="file-item"><a href="courses.html">Courses_Taken.csv</a></div>
+            <div class="file-item"><a href="learning.html">Learning_Strategy.md</a></div>
+            <div class="file-item"><a href="thought.html">Thought_Dumps.txt</a></div>
+            <div class="file-item"><a href="baseball.html">Baseball_Stats_2025.py</a></div>
+            <div class="file-item"><a href="jaehah_shin-resume.pdf" target="_blank">Resume.pdf</a>*</div>
+            <div class="file-item"><a href="Jaehah_Shin_CV.pdf" target="_blank">CV.pdf</a>*</div>
+        </div>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/work/current</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat status.md</span>
+    </div>
+    <div class="output">
+        <strong>[FOCUS]</strong> Embedded Systems, RTOS, and Sensors.<br>
+        <strong>[LAB]</strong> Working at <a href="https://franklinresearch.ca" target="_blank">FRL Lab</a> (University of Toronto).
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat education_history.txt</span>
+    </div>
+    <div class="output">
+        <div>Kindergarten: <a href="https://www.yookyoung.org/site/main/main.jsp" target="_blank">육영재단 어린이회관</a></div>
+        <div>Kindergarten: <a href="https://yjs.sen.es.kr" target="_blank">서울양진초등학교 병설 유치원</a></div>
+        <div>Elementary School: <a href="https://ymc.sen.es.kr" target="_blank">서울용마초등학교</a></div>
+        <div>Middle School: <a href="https://gwangnam.sen.ms.kr" target="_blank">서울광남중학교</a></div>
+        <div>Middle School: <a href="https://www.cornerstoneschool.ca" target="_blank">Cornerstone Christian School</a></div>
+        <div>High School: <a href="https://yale.abbyschools.ca" target="_blank">Yale Secondary School</a></div>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/work/previous</span><span class="p-symbol">➜</span>
+        <span class="cmd">ls -1</span>
+    </div>
+    <div class="output">
+        <div class="file-grid">
+            <div class="file-item">Co-founder: <a href="https://uoft-wearable.github.io/" target="_blank">UofT Wearable</a></div>
+            <div class="file-item">Project: Wearable ECG Sensor</div>
+            <div class="file-item">Doc: <a href="https://docs.google.com/spreadsheets/d/1vWvYRwWPGiC7rGlBTJhrCUMRYlu4yh-qTEteQ--eZvo/edit?usp=sharing">MCU Database List</a></div>
+            <div class="file-item">Doc: <a href="QC.html">Self-Learning Quantum</a></div>
+        </div>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/life</span><span class="p-symbol">➜</span>
+        <span class="cmd">python3 logic_puzzle.py</span>
+    </div>
+    <div class="code-block">
+11 + 13 + 17 = 41
+19 + 23 = 42 = <span lang="ko">인생</span> = <span lang="zh">人生</span> = Li42
+41 + <span lang="zh">人生</span> = 83
+
+<span style="color: var(--comment-color);"># If you can guess my logic correctly, 
+# contact me, and I'll buy you a cup of coffee.</span>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
+        <span class="cmd">./contact_me.sh</span>
+    </div>
+    <div class="output">
+        <a href="contact.html">>> CLICK HERE TO OPEN CONTACT FORM</a>
+    </div>
+
+    <div id="dynamic-terminal"></div>
     
-    <h4>Resume & CV</h4>
-    <ul>
-        <li><a href="jaehah_shin-resume.pdf" target="_blank">My Resume</a></li>
-        <li><a href="Jaehah_Shin_CV.pdf" target="_blank">My CV</a></li>
-    </ul>
+    <div class="prompt-line">
+        <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~</span><span class="p-symbol">➜</span>
+        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type help for commands...">
+    </div>
 
+    <footer>
+        &copy; 2025 jaehah shin's system
+    </footer>
 
-            <h4>Life Goal </h4>
-            I would like to do certain things which are not related my major.. <br>
-            <ul>
-                <li>I would like to publish a book that contains all my thoughts.</li>
-                <li>I would like to write a movie script based on my experiences and life. (I would like to record my life journey in somewhat way.)</li>
-                
-                
-            </ul>
+</div>
 
+<script>
+    const input = document.getElementById('terminal-input');
+    const terminalDiv = document.getElementById('dynamic-terminal');
+    let currentPath = "~";
 
-<p><strong>Education History:</strong><br>
-  <a href="https://www.yookyoung.org/site/main/main.jsp" target="_blank" rel="noopener noreferrer">
-    Kindergarten: 육영재단 어린이회관
-  </a><br>
-  <a href="https://yjs.sen.es.kr" target="_blank" rel="noopener noreferrer">
-    Kindergarten: 서울양진초등학교 병설 유치원
-  </a><br>
-  <a href="https://ymc.sen.es.kr" target="_blank" rel="noopener noreferrer">
-    Elementary School: 서울용마초등학교
-  </a><br>
-     <a href="https://gwangnam.sen.ms.kr" target="_blank" rel="noopener noreferrer">
-    Middle School: 서울광남중학교
-  </a><br>
-  <a href="https://www.cornerstoneschool.ca" target="_blank" rel="noopener noreferrer">
-    Middle School: Cornerstone Christian School 
-  </a><br>
-    <a href="https://yale.abbyschools.ca" target="_blank" rel="noopener noreferrer">
-    High School: Yale Secondary School
-  </a>
-</p>
+    input.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            const rawCommand = input.value;
+            const command = rawCommand.trim();
+            const args = command.split(' ');
+            const cmd = args[0].toLowerCase();
+            
+            const promptHTML = `<div class="prompt-line">
+                <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">${currentPath}</span><span class="p-symbol">➜</span>
+                <span class="cmd">${rawCommand}</span>
+            </div>`;
+            
+            terminalDiv.insertAdjacentHTML('beforeend', promptHTML);
 
+            let outputText = "";
+            
+            switch(cmd) {
+                case 'help':
+                    outputText = "Available commands: ls, cat, pwd, whoami, date, cd, clear, echo, touch, mkdir, sudo, rm, exit";
+                    break;
+                case 'ls':
+                case 'll':
+                    outputText = "about.html  resume.pdf  cv.pdf  contact.html  projects/  secrets.txt";
+                    break;
+                case 'cat':
+                    if (args[1] === "secrets.txt") outputText = "Permission denied. Ask Jaehah first.";
+                    else if (args[1]) outputText = `cat: ${args[1]}: No such file or directory`;
+                    else outputText = "usage: cat [file]";
+                    break;
+                case 'pwd':
+                    outputText = `/home/guest${currentPath === "~" ? "" : currentPath.replace("~", "")}`;
+                    break;
+                case 'whoami':
+                    outputText = "guest (visiting jaehah's portfolio)";
+                    break;
+                case 'date':
+                    outputText = new Date().toString();
+                    break;
+                case 'echo':
+                    outputText = args.slice(1).join(" ");
+                    break;
+                case 'cd':
+                    if (!args[1] || args[1] === "~") {
+                        currentPath = "~";
+                    } else if (args[1] === "..") {
+                        currentPath = "~"; 
+                    } else {
+                        currentPath = `~/${args[1].replace(/\/$/, "")}`;
+                    }
+                    outputText = ""; 
+                    break;
+                case 'clear':
+                    terminalDiv.innerHTML = "";
+                    outputText = "";
+                    break;
+                case 'touch':
+                case 'mkdir':
+                    if(args[1]) outputText = `Created '${args[1]}' (virtual only)`;
+                    else outputText = "usage: " + cmd + " [name]";
+                    break;
+                case 'sudo':
+                    outputText = "guest is not in the sudoers file. This incident will be reported.";
+                    break;
+                case 'rm':
+                    outputText = "Permission denied.";
+                    break;
+                case 'exit':
+                    outputText = "Bye!";
+                    break;
+                case '':
+                    break;
+                default:
+                    outputText = `command not found: ${cmd}`;
+            }
 
-    <h4>Enjoying Embedded...</h4>
-    I am currently working on embedded system and RTOS at the lab of <a href="https://franklinresearch.ca" target="_blank">FRL</a> in UofT. <br>
-    Also, I co-founded a design team called <a href= "https://uoft-wearable.github.io/" target="_blank">UofT Wearable</a> in UofT.<br>
-    Our first project is a Wearable ECG (electrocardiagram ~ the electrical signal of the heart) sensor.<br>
-    There are three sub-teams in UofT Wearable: <br>
-    <ul>
-        <li>Embedded Electronics</li>
-        <li>Companion Software</li>
-        <li>Form and Function</li>
+            if (cmd !== 'clear' && outputText) {
+                terminalDiv.insertAdjacentHTML('beforeend', `<div class="output">${outputText}</div>`);
+            }
+            
+            input.value = "";
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    });
+</script>
 
-    </ul>
-    <ul>
-        <li><a href="https://docs.google.com/spreadsheets/d/1vWvYRwWPGiC7rGlBTJhrCUMRYlu4yh-qTEteQ--eZvo/edit?usp=sharing" target="_blank">MCU list (Microcontroller) (please comment if you found out I did something wrong)</a></li>
-        <li><a href="https://docs.google.com/document/d/1WEPigkWAcjWcZi076PIMSI9aL8JM8M9peR2Uy0JLvfU/edit?usp=sharing" target = "_blank">Background of MCU (please comment if you found out I did something wrong)</a></li>
-        <li><a href="Summer Research.pdf" target="_blank">Summer Research (to be updated)</a></li>
-    </ul>
-    <h4>Quantum Computing</h4>
-
-    <ul>    
-        <li><a href="QC.html" target="_blank">Self-Learning Quantum Computing</a></li>
-        <li><a href="q_news-2.pdf" target="_blank">Q-News (Quantum Computing News)</a></li>
-    </ul>
-    
-   <h4>What is life?</h4>
-    <p>11 + 13 + 17 = 41</p>
-    <p>19 + 23 = 42 = <span lang="ko">인생</span> = <span lang="zh">人生</span> = Li42</p>
-    <p>41 + <span lang="zh">人生</span> = 83</p>
-    If you can guess my logic correctly, contact me, and I'll buy you a cup of coffee. (if you got that right)
-
-
-        <footer>
-            <p>&copy; 2025 jaehah shin's website</p>
-        </footer>
 </body>
 </html>
