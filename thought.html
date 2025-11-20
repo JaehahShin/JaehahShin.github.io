@@ -103,7 +103,7 @@
         }
 
         .log-entry {
-            margin-bottom: 50px; /* More space between distinct thoughts */
+            margin-bottom: 50px;
             position: relative;
         }
 
@@ -135,20 +135,8 @@
 
         .log-content {
             color: var(--text-color);
-            white-space: pre-wrap; /* Preserves your line breaks correctly */
+            white-space: pre-wrap; /* CRITICAL: Preserves line breaks */
         }
-
-        /* Quote Block */
-        blockquote {
-            border-left: 3px solid var(--user-color);
-            padding-left: 15px;
-            margin: 15px 0;
-            color: var(--comment-color);
-        }
-
-        /* Handling Lists inside logs */
-        ul, ol { margin-top: 5px; margin-bottom: 15px; padding-left: 25px; }
-        li { margin-bottom: 5px; }
 
         /* Interactive Input */
         #terminal-input {
