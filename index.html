@@ -26,6 +26,8 @@
             --host-color: #7fbbb3;     /* Teal */
             --path-color: #d699b6;     /* Mauve */
             --cmd-color: #dbbc7f;      /* Yellow */
+            --error-color: #e67e80;    /* Red */
+            
             --link-color: #a7c080;
             --link-hover: #e67e80;
             --block-bg: #323c41;
@@ -48,7 +50,7 @@
         .container {
             max-width: 850px;
             margin: 0 auto;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
         }
 
         /* Header */
@@ -102,6 +104,8 @@
             white-space: normal;
             padding-left: 2px;
         }
+
+        .error-msg { color: var(--error-color); }
 
         .file-grid {
             display: grid;
@@ -164,7 +168,7 @@
     </div>
     <div class="output">
         I'm <strong>Jaehah Shin</strong> <span lang="ko">(신재하)</span> <span lang="zh">(辛在河)</span>.<br>
-        I have finished 3rd Year in <a href="https://engsci.utoronto.ca/program/what-is-engsci/" target="_blank">Engineering Science</a> (Robotics Major) at <a href="https://www.utoronto.ca/" target="_blank">University of Toronto</a>.<br>
+        I have finished 3rd Year in <a href="https://engsci.utoronto.ca/program/what-is-engsci/" target="_blank">Engineering Science</a> (robotics major) at <a href="https://www.utoronto.ca/" target="_blank">University of Toronto</a>.<br>
         And now I am on my <a href="https://discover.engineering.utoronto.ca/experiential-learning/professional-experience-year-pey/" target="_blank">Professional Experience Year (PEY)</a>.
     </div>
 
@@ -173,6 +177,7 @@
         <span class="cmd">cat about_myself.txt</span>
     </div>
     <div class="output">
+        <h4>About Myself...</h4>
         Of course, these can't describe myself entirely, but here are some of the things about me.<br><br>
         <strong>Fun fact:</strong> the screenwriter (<em>각본가</em>) of <em>Little Forest</em> asked to use my name, <strong>재하</strong> (jaeha or jaehah based on how you translate into English), in the movie because he knew me from church. 
         <a href="https://en.wikipedia.org/wiki/Little_Forest_(film)" target="_blank">Little Forest on Wikipedia</a>.
@@ -202,6 +207,7 @@
         <span class="cmd">cat life_goals.md</span>
     </div>
     <div class="output">
+        <h4>Life Goal</h4>
         I would like to do certain things which are not related my major...<br>
         <ul>
             <li>I would like to publish a book that contains all my thoughts.</li>
@@ -224,14 +230,13 @@
 
     <div class="prompt-line">
         <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/work</span><span class="p-symbol">➜</span>
-        <span class="cmd">cat embedded_projects.md</span>
+        <span class="cmd">cat embedded.txt</span>
     </div>
     <div class="output">
         <h4>Enjoying Embedded...</h4>
-        I am currently working on embedded system, sensors and RTOS at the lab of <a href="https://franklinresearch.ca" target="_blank">FRL</a> in UofT.<br>
+        I am currently working on embedded system and RTOS at the lab of <a href="https://franklinresearch.ca" target="_blank">FRL</a> in UofT.<br>
         Also, I co-founded a design team called <a href="https://uoft-wearable.github.io/" target="_blank">UofT Wearable</a> in UofT.<br>
-        Our first project is a Wearable ECG (electrocardiagram ~ the electrical signal of the heart) sensor.<br>
-        <br>
+        Our first project is a Wearable ECG (electrocardiagram) sensor.<br>
         There are three sub-teams in UofT Wearable:
         <ul>
             <li>Embedded Electronics</li>
@@ -290,49 +295,65 @@
 </div>
 
 <script>
-    // --- 1. Virtual File System (Restored to match displayed content) ---
+    // --- 1. Virtual File System (POPULATED WITH REAL CONTENT) ---
     const fileSystem = {
         "~": {
             type: "dir",
             children: {
-                "about.html": { type: "file" },
-                "baseball.html": { type: "file" },
-                "thought.html": { type: "file" },
-                "courses.html": { type: "file" },
-                "learning.html": { type: "file" },
-                "contact.html": { type: "file" },
-                "resume.pdf": { type: "file" },
-                "cv.pdf": { type: "file" },
-                "about_myself.txt": { type: "file", content: "Little Forest fun fact..." },
-                "life_goals.md": { type: "file", content: "Publish a book, Write a movie script..." },
-                "education_history.txt": { type: "file" },
+                "about_myself.txt": { 
+                    type: "file", 
+                    content: `<h4>About Myself...</h4>Of course, these can't describe myself entirely, but here are some of the things about me.<br><br><strong>Fun fact:</strong> the screenwriter (<em>각본가</em>) of <em>Little Forest</em> asked to use my name, <strong>재하</strong>, in the movie because he knew me from church. <a href="https://en.wikipedia.org/wiki/Little_Forest_(film)" target="_blank">Little Forest on Wikipedia</a>.<br>Take this as a grain of salt. (i love number theory and prime number :) )` 
+                },
+                "life_goals.md": { 
+                    type: "file", 
+                    content: `<h4>Life Goal</h4>I would like to do certain things which are not related my major...<br><ul><li>I would like to publish a book that contains all my thoughts.</li><li>I would like to write a movie script based on my experiences and life. (I would like to record my life journey in somewhat way.)</li></ul>` 
+                },
+                "education_history.txt": { 
+                    type: "file", 
+                    content: `<div>Kindergarten: <a href="https://www.yookyoung.org/site/main/main.jsp" target="_blank">육영재단 어린이회관</a></div><div>Kindergarten: <a href="https://yjs.sen.es.kr" target="_blank">서울양진초등학교 병설 유치원</a></div><div>Elementary School: <a href="https://ymc.sen.es.kr" target="_blank">서울용마초등학교</a></div><div>Middle School: <a href="https://gwangnam.sen.ms.kr" target="_blank">서울광남중학교</a></div><div>Middle School: <a href="https://www.cornerstoneschool.ca" target="_blank">Cornerstone Christian School</a></div><div>High School: <a href="https://yale.abbyschools.ca" target="_blank">Yale Secondary School</a></div>` 
+                },
+                "contact_me.sh": { type: "file", content: `<a href="contact.html">>> CLICK HERE TO OPEN CONTACT FORM</a>` },
+                
+                // FOLDERS
                 "links": {
                     type: "dir",
                     children: {
-                        "resume.pdf": { type: "file" },
-                        "cv.pdf": { type: "file" }
+                        "about.html": { type: "file", content: "Link to About Me page" },
+                        "baseball.html": { type: "file", content: "Baseball Stats in 2025 Season" },
+                        "thought.html": { type: "file", content: "Thought Dumps" },
+                        "courses.html": { type: "file", content: "Courses that I am taking in UofT" },
+                        "learning.html": { type: "file", content: "My Learning Strat" },
+                        "contact.html": { type: "file", content: "Contact" },
+                        "resume.pdf": { type: "file", content: "My Resume" },
+                        "cv.pdf": { type: "file", content: "My CV" }
                     }
                 },
                 "work": {
                     type: "dir",
                     children: {
-                        "embedded_projects.md": { type: "file", content: "FRL Lab, UofT Wearable, ECG Sensor, Sub-teams..." }
+                        "embedded.txt": { 
+                            type: "file", 
+                            content: `<h4>Enjoying Embedded...</h4>I am currently working on embedded system and RTOS at the lab of <a href="https://franklinresearch.ca" target="_blank">FRL</a> in UofT.<br>Also, I co-founded a design team called <a href="https://uoft-wearable.github.io/" target="_blank">UofT Wearable</a> in UofT.<br>Our first project is a Wearable ECG (electrocardiagram) sensor.<br>There are three sub-teams in UofT Wearable:<ul><li>Embedded Electronics</li><li>Companion Software</li><li>Form and Function</li></ul>` 
+                        }
                     }
                 },
                 "resources": {
                     type: "dir",
                     children: {
-                        "mcu_list.csv": { type: "file" },
-                        "background_mcu.doc": { type: "file" },
-                        "summer_research.pdf": { type: "file" },
-                        "qc.html": { type: "file" },
-                        "q_news.pdf": { type: "file" }
+                        "mcu_list.csv": { type: "file", content: "Link to MCU List" },
+                        "background_mcu.doc": { type: "file", content: "Link to Background Doc" },
+                        "summer_research.pdf": { type: "file", content: "Link to PDF" },
+                        "qc.html": { type: "file", content: "Link to Self-Learning QC" },
+                        "q_news.pdf": { type: "file", content: "Link to Q-News" }
                     }
                 },
                 "life": {
                     type: "dir",
                     children: {
-                        "logic_puzzle.py": { type: "file" }
+                        "logic_puzzle.py": { 
+                            type: "file", 
+                            content: `<h4>What is life?</h4>11 + 13 + 17 = 41<br>19 + 23 = 42 = <span lang="ko">인생</span> = <span lang="zh">人生</span> = Li42<br>41 + <span lang="zh">人生</span> = 83<br><span style="color: var(--comment-color);"># If you can guess my logic correctly, contact me, and I'll buy you a cup of coffee.</span>` 
+                        }
                     }
                 }
             }
@@ -354,17 +375,42 @@
         return div.innerHTML;
     }
 
-    function getCurrentDirObj() {
-        let current = fileSystem["~"];
-        for (let i = 1; i < currentPathArr.length; i++) {
-            const folderName = currentPathArr[i];
-            if (current.children && current.children[folderName]) {
-                current = current.children[folderName];
+    // Path Resolution
+    function resolvePath(pathStr) {
+        if (!pathStr) return { pathArr: [...currentPathArr], obj: getCurrentDirObj() };
+        let tempPath = [...currentPathArr];
+        if (pathStr.startsWith("~")) {
+            tempPath = ["~"];
+            pathStr = pathStr.substring(2); 
+            if (pathStr.startsWith("/")) pathStr = pathStr.substring(1); 
+        }
+        const parts = pathStr.split("/");
+        for (let part of parts) {
+            if (part === "" || part === ".") continue;
+            if (part === "..") {
+                if (tempPath.length > 1) tempPath.pop();
             } else {
-                return null; 
+                let currentObj = getObjFromPath(tempPath);
+                if (currentObj && currentObj.children && currentObj.children[part]) {
+                    tempPath.push(part);
+                } else {
+                    return null; 
+                }
             }
         }
+        return { pathArr: tempPath, obj: getObjFromPath(tempPath) };
+    }
+
+    function getObjFromPath(pathArr) {
+        let current = fileSystem["~"];
+        for (let i = 1; i < pathArr.length; i++) {
+            current = current.children[pathArr[i]];
+        }
         return current;
+    }
+
+    function getCurrentDirObj() {
+        return getObjFromPath(currentPathArr);
     }
 
     function updatePathDisplay() {
@@ -375,19 +421,16 @@
         pathDisplay.innerText = pathStr;
     }
 
-    // --- 4. TAB Completion Logic ---
+    // --- 4. Tab Completion ---
     input.addEventListener('keydown', function(e) {
         if (e.key === 'Tab') {
             e.preventDefault(); 
             const rawVal = input.value;
             const args = rawVal.split(" ");
             const lastWord = args[args.length - 1];
-
             if (args.length === 1) {
                 const matches = commandsList.filter(cmd => cmd.startsWith(lastWord));
-                if (matches.length === 1) {
-                    input.value = matches[0] + " ";
-                }
+                if (matches.length === 1) input.value = matches[0] + " ";
             } else {
                 const currentDirObj = getCurrentDirObj();
                 if (currentDirObj && currentDirObj.children) {
@@ -402,7 +445,7 @@
         }
     });
 
-    // --- 5. Command Execution Logic ---
+    // --- 5. Execution ---
     input.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             const rawInput = input.value;
@@ -419,8 +462,7 @@
             terminalDiv.insertAdjacentHTML('beforeend', promptHTML);
 
             let outputText = "";
-            const currentDirObj = getCurrentDirObj();
-
+            
             switch(cmd) {
                 case 'help':
                     outputText = "Available commands: " + commandsList.join(", ");
@@ -428,53 +470,44 @@
 
                 case 'ls':
                 case 'll':
-                    if (currentDirObj && currentDirObj.children) {
-                        const items = Object.keys(currentDirObj.children);
+                    let targetObj = getCurrentDirObj();
+                    if (args[1]) {
+                        const resolved = resolvePath(args[1]);
+                        if (!resolved) {
+                            outputText = `<span class="error-msg">ls: cannot access '${args[1]}': No such file or directory</span>`;
+                            break;
+                        }
+                        targetObj = resolved.obj;
+                    }
+                    if (targetObj.type === 'file') {
+                        outputText = args[1];
+                    } else if (targetObj.children) {
+                        const items = Object.keys(targetObj.children);
                         if (items.length === 0) {
                             outputText = "(empty directory)";
                         } else {
                             const formatted = items.map(item => {
-                                const isDir = currentDirObj.children[item].type === 'dir';
+                                const isDir = targetObj.children[item].type === 'dir';
                                 return isDir ? `<span style="color:#7fbbb3">${item}/</span>` : item;
                             });
                             outputText = formatted.join("  ");
                         }
-                    } else {
-                        outputText = "Error: Cannot list files here.";
                     }
                     break;
 
                 case 'cd':
-                    const target = args[1];
-                    if (!target || target === "~") {
+                    const targetPath = args[1];
+                    if (!targetPath || targetPath === "~") {
                         currentPathArr = ["~"];
-                    } else if (target === "..") {
-                        if (currentPathArr.length > 1) currentPathArr.pop();
                     } else {
-                        const parts = target.split("/");
-                        let tempPath = [...currentPathArr];
-                        let valid = true;
-                        let tempObj = getCurrentDirObj();
-
-                        for (let part of parts) {
-                            if (part === "." || part === "") continue;
-                            if (part === "..") {
-                                if (tempPath.length > 1) tempPath.pop();
-                                let rebuildObj = fileSystem["~"];
-                                for(let i=1; i<tempPath.length; i++) rebuildObj = rebuildObj.children[tempPath[i]];
-                                tempObj = rebuildObj;
-                            } else {
-                                if (tempObj.children && tempObj.children[part] && tempObj.children[part].type === 'dir') {
-                                    tempPath.push(part);
-                                    tempObj = tempObj.children[part];
-                                } else {
-                                    valid = false;
-                                    outputText = `cd: no such file or directory: ${target}`;
-                                    break;
-                                }
-                            }
+                        const resolved = resolvePath(targetPath);
+                        if (resolved && resolved.obj.type === 'dir') {
+                            currentPathArr = resolved.pathArr;
+                        } else if (resolved && resolved.obj.type === 'file') {
+                             outputText = `<span class="error-msg">cd: ${targetPath}: Not a directory</span>`;
+                        } else {
+                             outputText = `<span class="error-msg">cd: ${targetPath}: No such file or directory</span>`;
                         }
-                        if (valid) currentPathArr = tempPath;
                     }
                     updatePathDisplay();
                     break;
@@ -483,13 +516,13 @@
                     if (!args[1]) {
                         outputText = "usage: cat [filename]";
                     } else {
-                        const filename = args[1];
-                        if (currentDirObj.children && currentDirObj.children[filename]) {
-                            const file = currentDirObj.children[filename];
-                            if (file.type === 'dir') outputText = `cat: ${filename}: Is a directory`;
-                            else outputText = file.content ? file.content : "[Binary or System File - Content cannot be displayed in terminal]";
+                        const resolved = resolvePath(args[1]);
+                        if (!resolved) {
+                             outputText = `<span class="error-msg">cat: ${args[1]}: No such file or directory</span>`;
+                        } else if (resolved.obj.type === 'dir') {
+                             outputText = `<span class="error-msg">cat: ${args[1]}: Is a directory</span>`;
                         } else {
-                            outputText = `cat: ${filename}: No such file or directory`;
+                             outputText = resolved.obj.content ? resolved.obj.content : "[Binary/Link File]";
                         }
                     }
                     break;
@@ -497,36 +530,36 @@
                 case 'pwd':
                     outputText = "/home/guest/" + currentPathArr.slice(1).join("/");
                     break;
-                
                 case 'whoami':
                     outputText = "guest";
                     break;
-
                 case 'clear':
                     terminalDiv.innerHTML = "";
                     outputText = "";
                     break;
-
+                case 'exit':
+                    input.disabled = true;
+                    outputText = "Logging out...";
+                    setTimeout(() => { location.reload(); }, 1000);
+                    break;
                 case 'echo':
                     outputText = args.slice(1).join(" ");
                     break;
-                
                 case '':
                     break;
-
                 default:
-                    outputText = `command not found: ${safeInput}`;
+                    outputText = `<span class="error-msg">command not found: ${safeInput}</span>`;
             }
 
             if (cmd !== 'clear' && outputText) {
                 terminalDiv.insertAdjacentHTML('beforeend', `<div class="output">${outputText}</div>`);
             }
-            
-            input.value = "";
-            window.scrollTo(0, document.body.scrollHeight);
+            if (cmd !== 'exit') {
+                input.value = "";
+                window.scrollTo(0, document.body.scrollHeight);
+            }
         }
     });
 </script>
-
 </body>
 </html>
