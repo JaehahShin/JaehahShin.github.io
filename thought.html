@@ -103,7 +103,7 @@
         }
 
         .log-entry {
-            margin-bottom: 40px;
+            margin-bottom: 50px; /* More space between distinct thoughts */
             position: relative;
         }
 
@@ -111,34 +111,43 @@
         .log-entry::before {
             content: "";
             position: absolute;
-            left: -26px;
+            left: -27px;
             top: 5px;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background-color: var(--block-bg);
-            border: 2px solid #4b565c;
+            border: 2px solid var(--timestamp-color);
         }
 
         .log-date {
             font-family: var(--font-stack);
             color: var(--timestamp-color);
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: inline-block;
             background: var(--block-bg);
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 14px;
+            border: 1px solid #4b565c;
         }
 
         .log-content {
             color: var(--text-color);
-            white-space: pre-line; /* Preserves line breaks from your text */
+            white-space: pre-wrap; /* Preserves your line breaks correctly */
+        }
+
+        /* Quote Block */
+        blockquote {
+            border-left: 3px solid var(--user-color);
+            padding-left: 15px;
+            margin: 15px 0;
+            color: var(--comment-color);
         }
 
         /* Handling Lists inside logs */
-        ul, ol { margin-top: 5px; margin-bottom: 15px; padding-left: 20px; }
+        ul, ol { margin-top: 5px; margin-bottom: 15px; padding-left: 25px; }
         li { margin-bottom: 5px; }
 
         /* Interactive Input */
@@ -167,7 +176,7 @@
             .prompt-line { margin-top: 30px; }
             body { padding: 20px 15px; }
             .log-container { padding-left: 15px; border-left: 1px solid #4b565c; }
-            .log-entry::before { left: -20px; width: 8px; height: 8px; }
+            .log-entry::before { left: -21px; width: 10px; height: 10px; }
         }
     </style>
 </head>
@@ -282,9 +291,9 @@ When I’m tired—especially when I’m short on sleep—I avoid deep conversat
 Above is all prime numbers.
 Then... would 2^(2^127 - 1) - 1 be prime number as well?
 Unfortunately...
-Update: These relationships were already recorded by Eugène Catalan (1876/1891), now called the Catalan–Mersenne numbers — see <a href="https://mathworld.wolfram.com/Catalan-MersenneNumber.html" target="_blank">MathWorld</a> and <a href="https://oeis.org/A007013" target="_blank">OEIS A007013</a>.
+<em>Update:</em> These relationships were already recorded by Eugène Catalan (1876/1891), now called the <strong>Catalan–Mersenne numbers</strong> — see <a href="https://mathworld.wolfram.com/Catalan-MersenneNumber.html" target="_blank">MathWorld</a> and <a href="https://oeis.org/A007013" target="_blank">OEIS A007013</a>.
 The primality of 2^(2^127 − 1) − 1 remains unknown (see <a href="https://en.wikipedia.org/wiki/Double_Mersenne_number" target="_blank">Double Mersenne numbers</a>).
-Update: The coincidence “3 + 7 + 127 = 137” has been observed before — for example in a 2022 discussion on <a href="https://scanalyst.fourmilab.ch/t/diracs-way-to-quantum-gravity-via-numerology/2524" target="_blank">Scanalyst</a>.</div>
+<em>Update:</em> The coincidence “3 + 7 + 127 = 137” has been observed before — for example in a 2022 discussion on <a href="https://scanalyst.fourmilab.ch/t/diracs-way-to-quantum-gravity-via-numerology/2524" target="_blank">Scanalyst</a>.</div>
         </div>
 
         <div class="log-entry">
