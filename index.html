@@ -181,7 +181,6 @@
         Of course, these can't describe myself entirely, but here are some of the things about me.<br><br>
         <strong>Fun fact:</strong> the screenwriter (<em>각본가</em>) of <em>Little Forest</em> asked to use my name, <strong>재하</strong> (jaeha or jaehah based on how you translate into English), in the movie because he knew me from church. 
         <a href="https://en.wikipedia.org/wiki/Little_Forest_(film)" target="_blank">Little Forest on Wikipedia</a>.
-        
     </div>
 
     <div class="prompt-line">
@@ -191,6 +190,7 @@
     <div class="output">
         <div class="file-grid">
             <div class="file-item"><a href="about.html">About Me</a></div>
+            <div class="file-item"><a href="book_reviews.html">Book Reviews</a></div>
             <div class="file-item"><a href="baseball.html">Baseball Stats in 2025 Season</a></div>
             <div class="file-item"><a href="thought.html">Thought Dumps</a></div>
             <div class="file-item"><a href="courses.html">Courses that I am taking in UofT</a></div>
@@ -294,7 +294,7 @@
 </div>
 
 <script>
-    // --- 1. Virtual File System (POPULATED WITH REAL CONTENT) ---
+    // --- 1. Virtual File System ---
     const fileSystem = {
         "~": {
             type: "dir",
@@ -313,11 +313,12 @@
                 },
                 "contact_me.sh": { type: "file", content: `<a href="contact.html">>> CLICK HERE TO OPEN CONTACT FORM</a>` },
                 
-                // FOLDERS
+                // LINKS FOLDER
                 "links": {
                     type: "dir",
                     children: {
                         "about.html": { type: "file", content: "Link to About Me page" },
+                        "book_reviews.html": { type: "file", content: "My Reading Log & Reviews" },
                         "baseball.html": { type: "file", content: "Baseball Stats in 2025 Season" },
                         "thought.html": { type: "file", content: "Thought Dumps" },
                         "courses.html": { type: "file", content: "Courses that I am taking in UofT" },
