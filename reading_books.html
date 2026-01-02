@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHFWCNC90P"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CHFWCNC90P');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Reviews | Jaehah Shin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
+
+        :root {
+            /* Everforest Theme */
+            --bg-color: #2b3339;       
+            --text-color: #d3c6aa;     
+            --comment-color: #859289;  
+            
+            /* Accents */
+            --user-color: #a7c080;     /* Sage Green */
+            --host-color: #7fbbb3;     /* Teal */
+            --path-color: #d699b6;     /* Mauve */
+            --cmd-color: #dbbc7f;      /* Yellow */
+            --tag-color: #7fbbb3;      /* Blue/Teal for tags */
+            --title-color: #e69875;    /* Orange for book titles */
+            
+            --link-color: #a7c080;
+            --link-hover: #e67e80;
+            --block-bg: #323c41;
+            
+            --font-stack: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+            --font-header: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            margin: 0;
+            padding: 50px 20px;
+            line-height: 1.6;
+            font-size: 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 120px;
+        }
+
+        /* Header */
+        .main-header {
+            font-family: var(--font-header);
+            font-size: 46px;
+            font-weight: 700;
+            color: var(--title-color);
+            margin: 0 0 5px 0;
+            letter-spacing: -1px;
+        }
+        .sub-header {
+            font-family: var(--font-header);
+            color: var(--comment-color);
+            font-size: 18px;
+            margin: 0 0 50px 0;
+            font-weight: 600;
+        }
+
+        a { color: var(--link-color); text-decoration: none; border-bottom: 1px dashed var(--comment-color); transition: all 0.2s; }
+        a:hover { color: var(--bg-color); background-color: var(--link-hover); border-bottom: 1px solid var(--link-hover); border-radius: 2px; }
+        strong { color: var(--cmd-color); font-weight: bold; }
+
+        /* Prompt Logic */
+        .prompt-line {
+            margin-top: 40px; 
+            margin-bottom: 15px; 
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .p-user { color: var(--user-color); font-weight: bold; }
+        .p-host { color: var(--host-color); font-weight: bold; }
+        .p-path { color: var(--path-color); margin-left: 5px; }
+        .p-symbol { color: var(--comment-color); margin: 0 10px; }
+        .cmd { color: var(--cmd-color); font-weight: bold; }
+
+        .output {
+            color: var(--text-color);
+            margin-left: 0;
+            white-space: normal;
+            padding-left: 2px;
+        }
+
+        /* Book Entry Styling */
+        .book-entry {
+            background: var(--block-bg);
+            border-left: 4px solid var(--user-color);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .book-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--comment-color);
+            border-bottom: 1px dashed #4b565c;
+            padding-bottom: 10px;
+        }
+
+        .book-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .book-author { color: var(--host-color); }
+        
+        .tag {
+            background-color: rgba(127, 187, 179, 0.2);
+            color: var(--tag-color);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .review-content {
+            margin-top: 15px;
+            color: var(--text-color);
+            white-space: pre-wrap;
+        }
+
+        /* Interactive Input */
+        #terminal-input {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-family: var(--font-stack);
+            font-size: 16px;
+            outline: none;
+            flex-grow: 1;
+            min-width: 50px;
+        }
+        
+        footer {
+            margin-top: 60px; 
+            border-top: 1px dashed var(--comment-color); 
+            padding-top: 20px; 
+            font-size: 13px; 
+            color: var(--comment-color);
+            font-family: var(--font-header);
+        }
+
+        @media (max-width: 600px) {
+            .main-header { font-size: 36px; }
+            .prompt-line { margin-top: 30px; }
+            body { padding: 20px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1 class="main-header">Book Reviews</h1>
+    <div class="sub-header">독후감 (Reading Log)</div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/library</span><span class="p-symbol">➜</span>
+        <span class="cmd">cat reading_philosophy.txt</span>
+    </div>
+    <div class="output">
+        Reading is a conversation with the author. It is not just about consuming information, but about thinking, questioning, and expanding my own perspective.<br>
+        Here, I record the books I've read and the thoughts they sparked.
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/library</span><span class="p-symbol">➜</span>
+        <span class="cmd">./fetch_reviews.py --sort=recent</span>
+    </div>
+
+    <div class="book-entry">
+        <span class="book-title">호밀밭의 파수꾼 (The Catcher in the Rye)</span>
+        <div class="book-meta">
+            <span class="book-author">Author: J. D. Salinger</span>
+            <span class="tag">[Classic]</span>
+            <span class="tag">[Fiction]</span>
+            <span>Date: 2025.01.02</span>
+        </div>
+        <div class="review-content">
+            [Review content to be updated]
+        </div>
+    </div>
+
+    <div class="prompt-line">
+        <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/library</span><span class="p-symbol">➜</span>
+        <span class="cmd">cd ..</span>
+    </div>
+    <div class="output">
+        <a href="index.html">>> Return to Main System (Home)</a>
+    </div>
+
+    <div id="dynamic-terminal"></div>
+    
+    <div class="prompt-line">
+        <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path" id="current-path-display">~/library</span><span class="p-symbol">➜</span>
+        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type help...">
+    </div>
+
+    <footer>
+        &copy; 2025 jaehah shin's system
+    </footer>
+
+</div>
+
+<script>
+    // Interactive Terminal Logic
+    const input = document.getElementById('terminal-input');
+    const terminalDiv = document.getElementById('dynamic-terminal');
+    const pathDisplay = document.getElementById('current-path-display');
+    let currentPath = "~/library";
+
+    function sanitize(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    input.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            const rawInput = input.value;
+            const safeInput = sanitize(rawInput);
+            const cmd = safeInput.trim().toLowerCase().split(" ")[0];
+            
+            const promptHTML = `<div class="prompt-line">
+                <span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">${currentPath}</span><span class="p-symbol">➜</span>
+                <span class="cmd">${safeInput}</span>
+            </div>`;
+            
+            terminalDiv.insertAdjacentHTML('beforeend', promptHTML);
+
+            let outputText = "";
+            
+            if (cmd === 'ls') {
+                outputText = "reading_philosophy.txt  fetch_reviews.py  book_list.db";
+            } else if (cmd === 'cd') {
+                const arg = safeInput.trim().split(" ")[1];
+                if (arg === '..' || arg === '~') {
+                    window.location.href = "index.html";
+                    outputText = "Navigating...";
+                } else {
+                    outputText = "cd: permission denied (limited shell)";
+                }
+            } else if (cmd === 'help') {
+                outputText = "Available commands: ls, cd .., clear";
+            } else if (cmd === 'clear') {
+                terminalDiv.innerHTML = "";
+            } else if (cmd !== "") {
+                outputText = `command not found: ${cmd}`;
+            }
+
+            if (cmd !== 'clear' && outputText) {
+                terminalDiv.insertAdjacentHTML('beforeend', `<div class="output">${outputText}</div>`);
+            }
+            
+            input.value = "";
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    });
+</script>
+
+</body>
+</html>
