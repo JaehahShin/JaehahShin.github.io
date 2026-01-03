@@ -17,9 +17,9 @@
 
         :root {
             /* Everforest Theme */
-            --bg-color: #2b3339;       
-            --text-color: #d3c6aa;     
-            --comment-color: #859289;  
+            --bg-color: #2b3339;        
+            --text-color: #d3c6aa;      
+            --comment-color: #859289;   
             
             /* Accents */
             --user-color: #a7c080;     /* Sage Green */
@@ -138,7 +138,39 @@
         .review-content {
             margin-top: 15px;
             color: var(--text-color);
-            white-space: pre-wrap;
+            white-space: normal;
+        }
+        
+        .review-content p {
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        .review-content hr {
+            border: 0;
+            border-top: 1px dashed var(--comment-color);
+            margin: 40px 0;
+            opacity: 0.5;
+        }
+
+        .lang-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--cmd-color);
+            margin-bottom: 10px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        /* Blockquote Styling */
+        blockquote {
+            border-left: 3px solid var(--cmd-color);
+            margin: 20px 0;
+            padding: 5px 15px;
+            color: var(--comment-color);
+            font-style: italic;
+            background: rgba(0,0,0,0.1);
+            border-radius: 0 4px 4px 0;
         }
 
         /* Interactive Input */
@@ -187,7 +219,7 @@
 
     <div class="prompt-line">
         <span class="p-user">jaehah</span><span class="p-at">@</span><span class="p-host">uoft</span><span class="p-path">~/library</span><span class="p-symbol">➜</span>
-        <span class="cmd">./fetch_reviews.py --sort=recent</span>
+        <span class="cmd">./fetch_reviews.py --sort=recent --lang=all</span>
     </div>
 
     <div class="book-entry">
@@ -198,8 +230,79 @@
             <span class="tag">[Fiction]</span>
             <span>Date: 2025.01.02</span>
         </div>
+        
         <div class="review-content">
-            [Review content to be updated]
+            <span class="lang-label">:: Korean ::</span>
+            <p>
+                자신만의 프레임에 갇혀 타인을 재단하고 폐쇄적인 사고를 하는 주인공, 홀든 콜필드. 과연 그가 진정한 '호밀밭의 파수꾼'이 될 수 있을까?
+            </p>
+            <p>
+                그는 일관된 태도로 자신의 잣대와 기준을 들이대며 사람들을 예단하고 평가한다. 하지만 이는 역설적으로 그가 그만큼 높은 기준의 순수함을 갈망하고, 아이들의 동심만은 지켜내고 싶어 한다는 반증이기도 하다. 동생들을 끔찍이 아끼면서도, 돈과 명예를 좇아 할리우드로 떠난 형에 대해 깊은 슬픔을 느끼는 모습에서 이러한 면모가 엿보인다.
+            </p>
+            <p>
+                끊임없이 타인을 평가하는 그가 과연 누군가를 지키는 파수꾼 자격이 있는지 의문이 들 수 있다. 하지만 그는 무서울 만큼 자신에게 솔직하다. 흔히 말하는 '메타인지'가 잘 되어 있는 것처럼 보이다가도, 때로는 자기기만에 빠지기도 한다. 드문드문 드러나는 자기 자신을 향한 거짓말들은 이 입체적인 주인공의 내면을 적나라하게 보여준다.
+            </p>
+            <p>
+                세상의 눈으로 볼 때 홀든의 시각은 비뚤어져 보일지 모른다. 그러나 홀든의 기준에서 그의 시각은 오히려 '올곧은(straight)' 것이다.
+            </p>
+            <blockquote>
+                “그렇지만 이 박물관에서 가장 좋은 건 아무것도 움직이지 않고 가만히 제자리에 있다는 것이다... 변하는 건 아무것도 없다. 유일하게 달라지는 게 있다면 우리들일 것이다... 이렇게 늘 뭔가가 달라지고 있다는 것이다.”
+            </blockquote>
+            <p>
+                주인공은 변하고 싶어 하지 않는다. 모든 것이 변한다는 사실을 알고 있기에 더욱 그렇다. 정확히 말하면 그는 세상에 맞춰지는 것을 두려워한다. 하나의 도구처럼 정해진 역할을 수행하고, 유행을 좇으며, 다수의 의견이 기준이 되는 사회의 부속품이 되고 싶어 하지 않는 것이다. 그가 고등학교에서 낙제점을 받고 학교를 떠난 이유 역시, 세상이 정해놓은 길에서 벗어나 자신을 규격화하려는 압력에 저항하기 위함이었을 것이다.
+            </p>
+            <blockquote>
+                “어린애들만 수천 명이 있을 뿐 주위 어른이라고는 나밖에 없는 거야. 그리고 난 아득한 절벽 옆에 서 있어. 내가 할 일은 아이들이 절벽으로 떨어질 것 같으면, 재빨리 붙잡아주는 거야. 애들이란 앞뒤 생각 없이 마구 달리는 법이니까 말이야. 그럴 때 어딘가에서 내가 나타나서는 꼬마가 떨어지지 않도록 붙잡아주는 거지. 온종일 그 일만 하는 거야. 말하자면 호밀밭의 파수꾼이 되고 싶다고나 할까.”
+            </blockquote>
+            <p>
+                이 구절에서 아이들을 향한 그의 진심이 드러난다. 그는 거칠고 모진 세상으로부터 아이들을 보호하기 위해 끊임없이 개입하고 싶어 했다. 학교에서 퇴학당한 후 며칠간 그가 목격한 세상은 너무나 위태로웠기 때문이다.
+            </p>
+            <p>
+                그러나 이러한 방황의 여정 끝에 주인공은 한 단계 성장한다. 동생 피비와 함께 간 놀이공원의 회전목마 앞에서 그는 중요한 깨달음을 얻는다.
+            </p>
+            <blockquote>
+                “아이들은 모두 다 공짜로 한 번 더 타기 위해 황금의 링을 잡으려 하고 있었다. 피비도 다른 아이들과 똑같이 하고 있었는데, 목마에서 떨어질까 봐 걱정되었다. 하지만 아무 말도 하지 않았다. 아이들이 황금의 링을 잡으려고 할 때는 아무 말도 하면 안 된다. 그러다가 떨어져도 할 수 없다. 그렇더라도 아무 말도 해서는 안 되는 것이다.”
+            </blockquote>
+            <p>
+                아이들이 떨어질 위험을 감수하고서라도 황금 링을 잡으려 할 때, 그것을 막아서는 안 된다는 것. 아이들은 실패를 경험하고 그것을 토대로 스스로 일어설 때 비로소 자립심을 가진 존재로 성장한다는 사실을 깨달은 것이다. 그리고 그 순간, 아이들을 무작정 붙잡으려 했던 홀든 또한 자신의 껍질을 깨고 성장했다.
+            </p>
+
+            <hr>
+
+            <span class="lang-label">:: English Translation ::</span>
+            <p>
+                Holden Caulfield, a protagonist confined within his own mental frame, judging others with a closed mind. Can such a person truly become the "Catcher in the Rye"?
+            </p>
+            <p>
+                He consistently applies his own strict standards and yardsticks to evaluate and prejudge people. Paradoxically, this reflects his desperate desire to protect a high standard of innocence and the wonder of childhood. (This is evident in his deep love for his siblings and his sorrow over his brother, D.B., leaving for Hollywood in pursuit of money and fame.)
+            </p>
+            <p>
+                One might question if such a judgmental person is qualified to be a guardian. Yet, he is terrifyingly honest. He seems to possess high self-awareness (metacognition), yet at times completely lacks it. His occasional lies—even to himself—reveal the complexity of his three-dimensional character.
+            </p>
+            <p>
+                To the world, his view might seem twisted; but from Holden’s perspective, it is "straight."
+            </p>
+            <blockquote>
+                "The best thing, though, in that museum was that everything always stayed right where it was... Nobody’d be different. The only thing that would be different would be you."
+            </blockquote>
+            <p>
+                Holden resists change. He fears it, even though he knows everything eventually changes. More precisely, he fears conforming to the world. He refuses to become a tool performing a set role, or a mere component of a society driven by trends and the majority's opinion. His academic failure and departure from school were likely attempts to escape this standardized path.
+            </p>
+            <blockquote>
+                "Thousands of little kids, and nobody's around—nobody big, I mean—except me. And I'm standing on the edge of some crazy cliff. What I have to do, I have to catch everybody if they start to go over the cliff... I mean if they're running and they don't look where they're going I have to come out from somewhere and catch them. That's all I'd do all day. I'd just be the catcher in the rye and all."
+            </blockquote>
+            <p>
+                In this passage, his heart for children is revealed. He wants to intervene and protect them from the harsh, callous world he witnessed in the few days after his expulsion.
+            </p>
+            <p>
+                However, through this journey of wandering, the protagonist grows. Watching his sister Phoebe at the carousel in the park, he comes to a profound realization.
+            </p>
+            <blockquote>
+                "The thing with kids is, if they want to grab for the gold ring, you have to let them do it, and not say anything. If they fall off, they fall off, but it’s bad if you say anything to them."
+            </blockquote>
+            <p>
+                He realizes that if children want to reach for the gold ring, even at the risk of falling, you must let them. It is through experiencing failure that they build the foundation to stand on their own and grow. And in that moment of letting go, Holden, who once only tried to catch them, breaks out of his shell and grows as well.
+            </p>
         </div>
     </div>
 
